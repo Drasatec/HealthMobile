@@ -4,11 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DrasatHealthMobile"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:view="clr-namespace:DrasatHealthMobile.Views"
+    FlowDirection="RightToLeft"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="NotAnimated"
+    >
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate view:HomeView}"
         Route="MainPage" />
 
 </Shell>

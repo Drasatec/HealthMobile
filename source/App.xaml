@@ -5,6 +5,10 @@
              x:Class="DrasatHealthMobile.App">
     <Application.Resources>
         <ResourceDictionary>
+            <x:String x:Key="IconFont">IconFontMaterial</x:String>
+            <x:String x:Key="CairoBold">CairoBold</x:String>
+            <x:String x:Key="CairoRegular">CairoRegular</x:String>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

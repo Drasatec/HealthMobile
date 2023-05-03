@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DrasatHealthMobile.Views.SearchView"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    FlowDirection="RightToLeft"
+    Shell.FlyoutItemIsVisible="False"
+    Shell.PresentationMode="NotAnimated"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="True"
+    Title="Search">
+    
+    <!-- BindingContext -->
+    <ContentPage.BindingContext>
+        <vm:SearchViewModel />
+    </ContentPage.BindingContext>
+    
+    <!-- Resources -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <kit:EnumToIntConverter
+                x:Key="EnumToIntConverter" />
+
+            <Style
+                TargetType="Label"
+                x:Key="Icon">
+                <Setter
+                    Property="FontFamily"
+                    Value="{StaticResource IconFont}" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <StackLayout
+            Padding="0,0,0,10"
+            BackgroundColor="{StaticResource Primary}">
+            <!-- Navigation -->
+            <template:BackButtonTemplate
+                Title="صفحة البحث الجديدة"
+                x:Name="navigation" />
+
+            <!-- Search Box -->
+            <Frame
+                Margin="10,5"
+                Background="White"
+                Padding="10,0">
+                <StackLayout
+                    Spacing="7"
+                    Orientation="Horizontal"
+                    IgnoreSafeArea="True"
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        FontSize="25"
+                        FontFamily="{StaticResource IconFont}"
+                        Text="{x:Static f:IconFontMaterial.Magnify}"
+                        TextColor="{StaticResource Gray400}"
+                        VerticalOptions="Center" />
+                    <Entry
+                        Placeholder="بحث"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        VerticalOptions="CenterAndExpand">
+                        <Entry.Behaviors>
+                            <kit:UserStoppedTypingBehavior
+                                Command="{Binding UserStoppedTypingCommand}"  StoppedTypingTimeThreshold="1000"/>
+                        </Entry.Behaviors>
+
+                    </Entry>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand"
+            Margin="7">
+            <Button
+                Text="البحث بالتخصص"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding SelectSearchTypeCommand}"
+                CommandParameter="{Binding Source={x:Static help:SearchBy.specialist} ,Converter={StaticResource EnumToIntConverter}}"
+                />
+
+            <Button
+                HorizontalOptions="FillAndExpand"
+                Text="البحث بالطبيب" />
+        </StackLayout>
+
+    </VerticalStackLayout>
+        
+    <ContentPage.Behaviors>
+        <kit:StatusBarBehavior
+            StatusBarColor="Green"
+            StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+</ContentPage>

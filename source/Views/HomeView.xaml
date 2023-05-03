@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DrasatHealthMobile.Views.HomeView"
+    xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
+    Title="HomeView"
+    FlowDirection="RightToLeft"
+    Shell.PresentationMode="NotAnimated">
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem
+            Text="file">
+            <MenuFlyoutSubItem
+                Text="save">
+                <MenuFlyoutItem
+                    Text="all" />
+            </MenuFlyoutSubItem>
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <HorizontalStackLayout
+                HeightRequest="50"
+                FlowDirection="RightToLeft"
+                VerticalOptions="Center"
+                BackgroundColor="{StaticResource Primary}">
+                <Label
+                    Text="الصفحة الرئيسية"
+                    FontFamily="{StaticResource CairoRegular}"
+                    FontSize="Title"
+                    TextColor="{StaticResource White}"
+                    VerticalOptions="Center" />
+
+            </HorizontalStackLayout>
+            <VerticalStackLayout
+                HeightRequest="100"
+                BackgroundColor="White">
+
+                <ImageButton
+                    HeightRequest="25"
+                    VerticalOptions="CenterAndExpand">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource IconFont}"
+                            Glyph="{x:Static f:IconFontMaterial.ChevronRight}"
+                            Size="25"
+                            Color="{StaticResource White}" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+            </VerticalStackLayout>
+            <Button
+                Text="searsh"
+                Clicked="Button_Clicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
