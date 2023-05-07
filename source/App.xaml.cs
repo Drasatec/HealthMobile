@@ -1,5 +1,7 @@
 ﻿//using DrasatHealthMobile.Controls;
 
+using DrasatHealthMobile.Views;
+
 namespace DrasatHealthMobile;
 
 public partial class App : Application
@@ -7,8 +9,8 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-        MainPage = new AppShell();
-        
+        MainPage = new AppShell();//  NavigationPage(new HomeView());
+
         MainPage.FlowDirection = FlowDirection.RightToLeft;
         //ModifyEntry();
     }
@@ -19,7 +21,7 @@ public partial class App : Application
         {
 
 #if ANDROID
-        handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
 #elif IOS || MACCATALYST
             handler.PlatformView.EditingDidBegin += (s, e) =>
             {

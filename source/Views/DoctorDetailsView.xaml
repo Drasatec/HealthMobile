@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DrasatHealthMobile.Views.DoctorDetailsView"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    FlowDirection="RightToLeft"
+    Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="ModalAnimated"
+    Title="DoctorDetailsView">
+    <Grid
+        RowDefinitions="100,*"
+        BackgroundColor="{StaticResource Primary}">
+        <template:BackButtonTemplate
+            Title="تفاصيل الطبيب" />
+
+        <StackLayout
+            Grid.Row="1">
+            <Border
+                StrokeThickness="0"
+                Background="{StaticResource White}"
+                Padding="16,45,16,16"
+                HorizontalOptions="Fill"
+                VerticalOptions="FillAndExpand">
+                <Border.StrokeShape>
+                    <RoundRectangle
+                        CornerRadius="20,20,0,0" />
+                </Border.StrokeShape>
+                <StackLayout
+                    Spacing="20">
+                    <!-- Section 1-->
+                    <StackLayout>
+                        <!-- Title-->
+                        <Label
+                            Style="{StaticResource Title}"
+                            HorizontalOptions="Center"
+                            Text="د. محمد علاء الدين" />
+                        <Label
+                            Style="{StaticResource Body}"
+                            HorizontalOptions="Center"
+                            Text="أخصائي النساء والتوليد" />
+
+                        <!-- STARS -->
+                        <CollectionView
+                            HorizontalOptions="Center">
+                            <CollectionView.ItemsSource>
+                                <x:Array
+                                    Type="{x:Type x:String}">
+                                    <x:String>mono</x:String>
+                                    <x:String>monodroid</x:String>
+                                    <x:String>monotouch</x:String>
+                                    <x:String>monorail</x:String>
+                                    <x:String>monodevelop</x:String>
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout
+                                    Orientation="Horizontal" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label
+                                            FontSize="18"
+                                            FontFamily="{StaticResource IconFont}"
+                                            Text="{x:Static font:IconFontMaterial.Star}"
+                                            TextColor="{StaticResource Yellow100Accent}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+
+                    <!-- Section 2 -->
+                    <StackLayout>
+                        <!-- Hos Name -->
+                        <Label
+                            Style="{StaticResource SubTitle}"
+                            Text="عيادة الرحمة الغربية" />
+                        <StackLayout
+                            Spacing="5"
+                            Orientation="Horizontal">
+                            <Label
+                                Text="{x:Static font:IconFontMaterial.MapMarker}"
+                                Style="{StaticResource Body}"
+                                TextColor="{StaticResource Primary}"
+                                FontFamily="{StaticResource IconFont}" />
+                            <Label
+                                Text="طنطا شارع الجيش"
+                                Style="{StaticResource Body}" />
+                        </StackLayout>
+
+                        <!-- Visit Price-->
+                        <HorizontalStackLayout
+                            Spacing="5">
+                            <Label
+                                Text="{x:Static font:IconFontMaterial.CurrencyUsd}"
+                                Style="{StaticResource Body}"
+                                TextColor="{StaticResource Primary}"
+                                FontFamily="{StaticResource IconFont}" />
+                            <Label
+                                Text="رسوم الكشف:"
+                                Style="{StaticResource Body}" />
+                            <Label
+                                Text="300"
+                                TextColor="{StaticResource Primary}"
+                                Style="{StaticResource Body}" />
+                            <Label
+                                Text="فرنك"
+                                TextColor="{StaticResource Primary}"
+                                Style="{StaticResource Body}" />
+                        </HorizontalStackLayout>
+                    </StackLayout>
+
+                    <!-- Section 3  about doctor-->
+                    <StackLayout>
+                        <Label
+                            Text="السيرة الذاتية"
+                            Style="{StaticResource SubTitle}" />
+                        <Label
+                            Text="أخصائي في الأمراض الصدرية والقلب والرئلة وجماعة الملك استاشر ياماضر الصدر والحاسيسة وف اييكالبر والاطافال ماجستير وكدا في الصدقة ووعضو الالكالمادية الخاصئ في الامضرا الصدرية جامعة القاهرة عام 323 في التخصص العام"
+                            Style="{StaticResource Body}"
+                            MaxLines="3"
+                            LineBreakMode="WordWrap" />
+                        <Label
+                            Text="قراءة المزيد"
+                            Style="{StaticResource Body}"
+                            TextColor="{StaticResource Primary}"
+                            MaxLines="3"
+                            LineBreakMode="WordWrap" />
+                    </StackLayout>
+
+                    <!-- Section 4  Schedule -->
+                    <StackLayout
+                        Spacing="10">
+                        <Label
+                            Text="جدول المواعيد"
+                            Style="{StaticResource SubTitle}" />
+                        <Grid ColumnDefinitions="30,*,30">
+                            <Button
+                                Grid.Column="0"
+                                BackgroundColor="{StaticResource Gray50}"
+                                TextColor="{StaticResource Primary}"
+                                FontSize="30"
+                                Padding="0"
+                                Text="{x:Static font:IconFontMaterial.ChevronRight}"
+                                FontFamily="{StaticResource IconFont}"/>
+                            <Button
+                                Grid.Column="2"
+                                BackgroundColor="{StaticResource Gray50}"
+                                TextColor="{StaticResource Primary}"
+                                FontSize="30"
+                                Padding="0"
+                                Text="{x:Static font:IconFontMaterial.ChevronLeft}"
+                                FontFamily="{StaticResource IconFont}" />
+                            <!-- Colection of Timetable -->
+                            <CollectionView
+                                Grid.Column="1"
+                                HorizontalOptions="Center">
+                                <CollectionView.ItemsSource>
+                                    <x:Array
+                                        Type="{x:Type x:String}">
+                                        <x:String>اليوم</x:String>
+                                        <x:String>غدا</x:String>
+                                        <x:String>الاثنين</x:String>
+                                        <x:String>الثلاثاء</x:String>
+                                    </x:Array>
+                                </CollectionView.ItemsSource>
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout
+                                        Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame
+                                            Padding="0"
+                                            Margin="5,0"
+                                            WidthRequest="90">
+                                            <StackLayout>
+                                                <!-- section 1-->
+                                                <StackLayout
+                                                    HorizontalOptions="Fill"
+                                                    BackgroundColor="{StaticResource Secondary}">
+                                                    <Label
+                                                        Text="{Binding .}"
+                                                        HorizontalOptions="Center"
+                                                        Style="{StaticResource Body}" />
+                                                </StackLayout>
+                                                <!-- section 2-->
+                                                <StackLayout>
+                                                    <Label
+                                                        Text="8:00 ص"
+                                                        HorizontalOptions="Center"
+                                                        Style="{StaticResource Caption}" />
+                                                    <Label
+                                                        Text="إلى"
+                                                        HorizontalOptions="Center"
+                                                        Style="{StaticResource Caption}" />
+                                                    <Label
+                                                        Text="2:00 م"
+                                                        HorizontalOptions="Center"
+                                                        Style="{StaticResource Caption}" />
+
+                                                </StackLayout>
+                                                <!-- section 3-->
+                                                <Button
+                                                    Text="احجز"
+                                                    HeightRequest="35"
+                                                    Padding="0"
+                                                    CornerRadius="0" />
+
+                                            </StackLayout>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            
+                        </Grid>
+
+                    </StackLayout>
+                </StackLayout>
+            </Border>
+        </StackLayout>
+
+        <kit:AvatarView
+            Grid.Row="1"
+            VerticalOptions="Start"
+            HeightRequest="70"
+            WidthRequest="70"
+            Margin="0,-35,10,10"
+            ImageSource="doctor1"
+            Style="{StaticResource Avatar}" />
+        <Button
+            Margin="20"
+            Grid.Row="1"
+            VerticalOptions="End"
+            BorderColor="{StaticResource White}"
+            BorderWidth="2"
+            Text="حجز"
+            Clicked="Button_Clicked" />
+    </Grid>
+    <ContentPage.Behaviors>
+        <kit:StatusBarBehavior
+            StatusBarColor="Green"
+            StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+</ContentPage>

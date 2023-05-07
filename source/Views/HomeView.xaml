@@ -6,7 +6,8 @@
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
     Title="HomeView"
     FlowDirection="RightToLeft"
-    Shell.PresentationMode="NotAnimated">
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="{StaticResource Background}">
 
     <ContentPage.MenuBarItems>
         <MenuBarItem
@@ -32,29 +33,26 @@
                     FontSize="Title"
                     TextColor="{StaticResource White}"
                     VerticalOptions="Center" />
-
             </HorizontalStackLayout>
+
             <VerticalStackLayout
-                HeightRequest="100"
-                BackgroundColor="White">
-
-                <ImageButton
-                    HeightRequest="25"
-                    VerticalOptions="CenterAndExpand">
-                    <ImageButton.Source>
-                        <FontImageSource
-                            FontFamily="{StaticResource IconFont}"
-                            Glyph="{x:Static f:IconFontMaterial.ChevronRight}"
-                            Size="25"
-                            Color="{StaticResource White}" />
-                    </ImageButton.Source>
-                </ImageButton>
-
+                HeightRequest="100">
             </VerticalStackLayout>
-            <Button
-                Text="searsh"
-                Clicked="Button_Clicked" />
 
+            <StackLayout
+                Spacing="10"
+                Padding="10,0">
+                <Button
+                    Text="البحث"
+                    Clicked="Button_Clicked" />
+                <Button
+                    Text="التخصصات"
+                    Clicked="Button_Clicked_1" />
+                <Button
+                    Text="تفاصيل الطبيب"
+                    Clicked="Button_Clicked_2" />
+
+            </StackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

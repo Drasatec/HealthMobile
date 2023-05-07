@@ -16,10 +16,10 @@ public class MainActivity : MauiAppCompatActivity
             handler.PlatformView.HorizontalScrollBarEnabled = true;
         });
 
-        Microsoft.Maui.Handlers.ImageHandler.Mapper.AppendToMapping("MyImageButton", (handler, view) =>
-        {
-            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Red);
-        });
+        //Microsoft.Maui.Handlers.ImageHandler.Mapper.AppendToMapping("MyImageButton", (handler, view) =>
+        //{
+        //    handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Red);
+        //});
 
     }
 }

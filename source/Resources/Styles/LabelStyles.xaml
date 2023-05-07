@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style
+        TargetType="Label"
+        x:Key="base">
+        <Setter
+            Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray900}}" />
+        <Setter
+            Property="BackgroundColor"
+            Value="Transparent" />
+        <Setter
+            Property="FontFamily"
+            Value="CairoRegular" />
+        <Setter
+            Property="FontSize"
+            Value="Small" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style
+        TargetType="Label" x:Key="Title" BasedOn="{StaticResource base}">
+        <Setter Property="FontFamily" Value="CairoBold" />
+        <Setter Property="FontSize" Value="Medium" />
+    </Style>
+    
+    <Style
+        TargetType="Label" x:Key="SubTitle" BasedOn="{StaticResource base}">
+        <Setter Property="FontFamily" Value="CairoBold" />
+        <Setter Property="FontSize" Value="Body" />
+    </Style>
+    
+    <Style
+        TargetType="Label" x:Key="Body" BasedOn="{StaticResource base}">
+        <Setter Property="FontFamily" Value="CairoRegular" />
+        <Setter Property="FontSize" Value="Small" />
+    </Style>
+    
+    <Style TargetType="Label" x:Key="Caption" BasedOn="{StaticResource base}">
+        <Setter Property="FontFamily" Value="CairoRegular" />
+        <Setter Property="FontSize" Value="Caption" />
+    </Style>
+    
+</ResourceDictionary>

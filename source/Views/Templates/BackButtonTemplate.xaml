@@ -29,6 +29,7 @@
                 Text="{x:Static f:IconFontMaterial.ChevronRight}"
                 FontFamily="{StaticResource IconFont}"
                 TextColor="{StaticResource White}"
+                BackgroundColor="Transparent"
                 Clicked="BackButton">
             </Button>
 
@@ -37,7 +38,12 @@
                 Text="{Binding Title, Source={x:Reference this}}"
                 FontFamily="{StaticResource CairoBold}"
                 TextColor="{StaticResource White}"
-                VerticalOptions="Center" />
+                VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="BackButton" />
+                </Label.GestureRecognizers>
+            </Label>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentView>

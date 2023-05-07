@@ -29,7 +29,8 @@ public partial class BackButtonTemplate : ContentView
 
     private void BackButton(object sender, EventArgs e)
     {
+        Shell.Current.GoToAsync("..");
         Navigation.PopAsync(false);
-        App.Current.MainPage.DisplayAlert("title", "message", "cancel");
+        //App.Current.MainPage.DisplayAlert("title", "message", "cancel");
     }
 }

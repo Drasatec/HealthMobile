@@ -9,6 +9,19 @@ public partial class HomeView : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-		Navigation.PushAsync(new SearchView(),false);
+        //Navigation.PushAsync(new SearchView(),true);
+        Shell.Current.GoToAsync("SearchView");
+    }
+
+    private void Button_Clicked_1(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("SpecialtiesView");
+        //Navigation.PushAsync(new SpecialtiesView());
+    }
+
+    private void Button_Clicked_2(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("DoctorDetailsView");
+
     }
 }
