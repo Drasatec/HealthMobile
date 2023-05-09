@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DrasatHealthMobile.Views.BookingByPatientView"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    NavigationPage.HasNavigationBar="False"
+    Shell.PresentationMode="ModalAnimated"
+    FlowDirection="RightToLeft"
+    BackgroundColor="{StaticResource White}"
+    x:Name="this"
+    Title="BookingByPatientView">
+    <ContentPage.BindingContext>
+        <vm:BookingByPatientViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ControlTemplate
+                x:Key="RadioButtonTemplate">
+                <Border
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="WhiteSmoke"
+                    WidthRequest="70">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup
+                                x:Name="CheckedStates">
+                                <VisualState
+                                    x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="Stroke" Value="White" />
+                                        <Setter TargetName="check" Property="Opacity" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState
+                                    x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter
+                                            Property="BackgroundColor"
+                                            Value="White" />
+                                        <Setter
+                                            Property="Stroke"
+                                            Value="White" />
+                                        <Setter
+                                            TargetName="check"
+                                            Property="Opacity"
+                                            Value="0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    <Grid
+                        Margin="4"
+                        WidthRequest="60"
+                        FlowDirection="RightToLeft">
+                        <Grid
+                            HorizontalOptions="End"
+                            Margin="0,0,0,0"
+                            WidthRequest="18"
+                            HeightRequest="18"
+                            VerticalOptions="Center">
+                            <Ellipse
+                                Stroke="Blue"
+                                Fill="White"
+                                WidthRequest="16"
+                                HeightRequest="16"/>
+                            <Ellipse
+                                x:Name="check"
+                                Fill="Blue"
+                                WidthRequest="8"
+                                HeightRequest="8" />
+                        </Grid>
+                        <ContentPresenter HorizontalOptions="Start" VerticalOptions="Center" />
+
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+
+            <Style
+                TargetType="RadioButton">
+                <Setter
+                    Property="ControlTemplate"
+                    Value="{StaticResource RadioButtonTemplate}" />
+            </Style>
+            
+            
+            <Style
+                TargetType="RadioButton" x:Key="myRadioButtonKey">
+                <Setter
+                    Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup
+                            x:Name="CheckedStates">
+                            <VisualState
+                                x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter
+                                        Property="TextColor"
+                                        Value="{StaticResource Primary}" />
+                                    <Setter
+                                        Property="Opacity"
+                                        Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState
+                                x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter
+                                        Property="TextColor"
+                                        Value="{StaticResource Gray400}" />
+                                    <Setter
+                                        Property="Opacity"
+                                        Value="0.5" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*">
+            <template:BackButtonTemplate
+                Title="الحجز بواسطة المريض" />
+            <StackLayout
+                Grid.Row="1"
+                Spacing="10"
+                Padding="10">
+
+                <!-- Section 1 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <StackLayout>
+                    <!-- Avatar -->
+                    <kit:AvatarView
+                        Grid.Row="1"
+                        VerticalOptions="Start"
+                        HeightRequest="70"
+                        WidthRequest="70"
+                        ImageSource="doctor1"
+                        BorderColor="{StaticResource Gray100}"
+                        Style="{StaticResource Avatar}" />
+                    <!-- Doctor Name-->
+                    <Label
+                        Style="{StaticResource Title}"
+                        HorizontalOptions="Center"
+                        Text="د. محمد علاء الدين" />
+                    <Label
+                        Style="{StaticResource Body}"
+                        HorizontalOptions="Center"
+                        Text="أخصائي النساء والتوليد" />
+                </StackLayout>
+
+                <!-- Section 2 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <StackLayout>
+                    <!-- Hos Name -->
+                    <Label
+                        Style="{StaticResource SubTitle}"
+                        Text="عيادة الرحمة الغربية" />
+                    <StackLayout
+                        Spacing="5"
+                        Orientation="Horizontal">
+                        <Label
+                            Text="{x:Static font:IconFontMaterial.MapMarker}"
+                            Style="{StaticResource Body}"
+                            TextColor="{StaticResource Primary}"
+                            FontFamily="{StaticResource IconFont}" />
+                        <Label
+                            Text="طنطا شارع الجيش"
+                            Style="{StaticResource Body}" />
+                    </StackLayout>
+                    <!-- Visit Price-->
+                    <HorizontalStackLayout
+                        Spacing="5">
+                        <Label
+                            Text="{x:Static font:IconFontMaterial.CurrencyUsd}"
+                            Style="{StaticResource Body}"
+                            TextColor="{StaticResource Primary}"
+                            FontFamily="{StaticResource IconFont}" />
+                        <Label
+                            Text="رسوم الكشف:"
+                            Style="{StaticResource Body}" />
+                        <Label
+                            Text="300"
+                            TextColor="{StaticResource Primary}"
+                            Style="{StaticResource Body}" />
+                        <Label
+                            Text="فرنك"
+                            TextColor="{StaticResource Primary}"
+                            Style="{StaticResource Body}" />
+                    </HorizontalStackLayout>
+                </StackLayout>
+
+                <!-- Section 3 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <StackLayout
+                    Spacing="5">
+                    <Label
+                        Text="اسم المريض"
+                        Style="{StaticResource SubTitle}" />
+                    <Frame
+                        Background="White"
+                        Padding="10,0"
+                        VerticalOptions="CenterAndExpand">
+                        <StackLayout
+                            Orientation="Horizontal"
+                            HorizontalOptions="FillAndExpand">
+                            <Entry
+                                Placeholder="اسم المريض"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="CenterAndExpand">
+                            </Entry>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                <!-- phone section 4-->
+                <StackLayout
+                    Spacing="5">
+                    <Label
+                        Text="الهاتف"
+                        Style="{StaticResource SubTitle}" />
+                    <Frame
+                        Background="White"
+                        Padding="10,0"
+                        VerticalOptions="CenterAndExpand">
+                        <StackLayout
+                            Orientation="Horizontal"
+                            HorizontalOptions="FillAndExpand">
+                            <Entry
+                                Placeholder="الهاتف"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="CenterAndExpand">
+                            </Entry>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <!-- Visit type section 4-->
+                <StackLayout
+                    Spacing="5">
+                    <Label
+                        Text="اسم المريض"
+                        Style="{StaticResource SubTitle}" />
+                    <StackLayout
+                        RadioButtonGroup.GroupName="222222222222"
+                        RadioButtonGroup.SelectedValue="{Binding RadioButtonGroupSelectedValue}"
+                        Orientation="Horizontal">
+                        <RadioButton
+                            IsChecked="True"
+                            Value="Visit"
+                            FontFamily="{StaticResource CairoRegular}">
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label
+                                        Text="كشف"
+                                        Style="{StaticResource Body}" 
+                                        VerticalOptions="Center"/>
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton
+                            Value="follow"
+                            FontFamily="{StaticResource CairoRegular}">
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label
+                                        Text="متابعة"
+                                        Style="{StaticResource Body}"
+                                        VerticalOptions="Center"/>
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <Label
+                            Text="{Binding RadioButtonGroupSelectedValue}" />
+                    </StackLayout>
+                </StackLayout>
+                
+                <!-- Date Visit-->
+                <StackLayout
+                    Spacing="10">
+                    <Label
+                        Text="تاريخ الحجز"
+                        Style="{StaticResource SubTitle}" />
+                    <Label
+                        Text="الاثنين 6 مارس"
+                        Style="{StaticResource Body}" />
+                    <HorizontalStackLayout
+                        Spacing="5">
+                        <Label
+                            Text="8:00 ص"
+                            Style="{StaticResource Body}" />
+                        <Label
+                            Text="إلى"
+                            Style="{StaticResource Body}" />
+                        <Label
+                            Text="2:00 م"
+                            Style="{StaticResource Body}" />
+                    </HorizontalStackLayout>
+                </StackLayout>
+                <Button
+                    Text="تأكيد" />
+
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -4,6 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    
+
 
     <Style TargetType="kit:AvatarView" x:Key="Avatar">
         <Setter Property="ImageSource" Value="dotnet_bot.svg" />
@@ -218,7 +220,7 @@
 
     <Style TargetType="RadioButton">
         <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -229,7 +231,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

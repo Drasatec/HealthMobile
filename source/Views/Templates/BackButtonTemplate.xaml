@@ -6,7 +6,6 @@
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
     x:Class="DrasatHealthMobile.Views.Templates.BackButtonTemplate"
     x:Name="this">
-
     <VerticalStackLayout>
         <HorizontalStackLayout
             Spacing="10"
@@ -26,7 +25,7 @@
                 Padding="0"
                 Margin="0"
                 VerticalOptions="CenterAndExpand"
-                Text="{x:Static f:IconFontMaterial.ChevronRight}"
+                Text="{x:Static f:IconFontMaterial.ArrowRight}"
                 FontFamily="{StaticResource IconFont}"
                 TextColor="{StaticResource White}"
                 BackgroundColor="Transparent"

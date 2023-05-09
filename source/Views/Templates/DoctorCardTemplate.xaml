@@ -36,30 +36,25 @@
                     HorizontalOptions="FillAndExpand">
                     <Label
                         Text="الدكتور محمد علاء الدين"
-                        FontFamily="{StaticResource CairoBold}"
-                        FontSize="Medium" />
-                    <Label
+                        Style="{StaticResource SubTitle}" />
+                    <Label 
                         Text="أخصائي النساء والتوليد"
-                        FontFamily="{StaticResource CairoRegular}"
-                        FontSize="Small" />
+                        Style="{StaticResource Body}"/>
 
                     <!-- Visit Price-->
                     <HorizontalStackLayout
                         Spacing="5">
                         <Label
                             Text="رسوم الكشف:"
-                            FontFamily="{StaticResource CairoRegular}"
-                            FontSize="Small" />
+                            Style="{StaticResource Body}" />
                         <Label
                             Text="300"
                             TextColor="{StaticResource Primary}"
-                            FontFamily="{StaticResource CairoBold}"
-                            FontSize="Small" />
+                            Style="{StaticResource Body}" />
                         <Label
                             Text="فرنك"
-                            TextColor="{StaticResource Primary}"
-                            FontFamily="{StaticResource CairoBold}"
-                            FontSize="Small" />
+                            Style="{StaticResource Body}" 
+                        TextColor="{StaticResource Primary}" />
                     </HorizontalStackLayout>
 
                     <!-- STARS -->

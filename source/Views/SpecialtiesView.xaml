@@ -8,15 +8,16 @@
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
-    Title="SpecialtiesView"
     NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated"
     FlowDirection="RightToLeft"
     BackgroundColor="{StaticResource Background}"
-    x:Name="this">
+    x:Name="this"
+    Title="SpecialtiesView">
     <ContentPage.BindingContext>
         <vm:SpecialtiesViewModel />
     </ContentPage.BindingContext>
+    
     <VerticalStackLayout>
 
         <!-- Navigation -->
@@ -60,8 +61,7 @@
                                         MaxLines="2"
                                         HorizontalTextAlignment="Center"
                                         Text="{Binding .}"
-                                        FontSize="Small"
-                                        FontFamily="{StaticResource CairoRegular}"
+                                        Style="{StaticResource Body}"
                                         VerticalOptions="CenterAndExpand" />
                                 </StackLayout>
                             </StackLayout>

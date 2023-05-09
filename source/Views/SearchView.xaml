@@ -24,13 +24,6 @@
         <ResourceDictionary>
             <kit:EnumToIntConverter
                 x:Key="EnumToIntConverter" />
-            <Style
-                TargetType="Label"
-                x:Key="Icon">
-                <Setter
-                    Property="FontFamily"
-                    Value="{StaticResource IconFont}" />
-            </Style>
 
             <Style
                 TargetType="Button"
@@ -81,120 +74,118 @@
                 <Setter
                     Property="TextColor"
                     Value="{StaticResource Gray300}" />
-
             </Style>
 
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <!-- Navigation -->
+            <template:BackButtonTemplate
+                Title="صفحة البحث الجديدة"
+                x:Name="navigation" />
 
-        <!-- Navigation -->
-        <template:BackButtonTemplate
-            Title="صفحة البحث الجديدة"
-            x:Name="navigation" />
+            <!-- SEARCH BOX -->
+            <template:SearchBoxTemplate
+                Command="{Binding SearchBoxTypingCommand}" />
 
-        <!-- SEARCH BOX -->
-        <template:SearchBoxTemplate
-            Command="{Binding SearchBoxTypingCommand}" />
+            <!-- TWO TABS -->
+            <StackLayout
+                x:Name="tabs"
+                Orientation="Horizontal"
+                Spacing="10"
+                HorizontalOptions="FillAndExpand"
+                Margin="10,15">
 
-        <!-- TWO TABS -->
-        <StackLayout
-            x:Name="tabs"
-            Orientation="Horizontal"
-            Spacing="10"
-            HorizontalOptions="FillAndExpand"
-            Margin="10,15">
+                <!-- BUTTON SPECIALIST  -->
+                <Button
+                    x:Name="buttonSpecialist"
+                    Text="البحث بالتخصص"
+                    Style="{StaticResource Checked}"
+                    Clicked="ButtonSpecialist_Clicked"
+                    Command="{Binding SelectSearchTypeCommand}"
+                    CommandParameter="{Binding Source={x:Static help:SearchBy.specialist} ,Converter={StaticResource EnumToIntConverter}}">
+                </Button>
 
-            <!-- BUTTON SPECIALIST  -->
-            <Button
-                x:Name="buttonSpecialist"
-                Text="البحث بالتخصص"
-                Style="{StaticResource Checked}"
-                Clicked="ButtonSpecialist_Clicked"
-                Command="{Binding SelectSearchTypeCommand}"
-                CommandParameter="{Binding Source={x:Static help:SearchBy.specialist} ,Converter={StaticResource EnumToIntConverter}}">
-            </Button>
+                <!-- BUTTON DOCTOR -->
+                <Button
+                    x:Name="buttonDoctor"
+                    Text="البحث بالطبيب"
+                    Style="{StaticResource Unchecked}"
+                    Clicked="ButtonDoctor_Clicked"
+                    Command="{Binding SelectSearchTypeCommand}"
+                    CommandParameter="{Binding Source={x:Static help:SearchBy.doctor} ,Converter={StaticResource EnumToIntConverter}}" />
+            </StackLayout>
 
-            <!-- BUTTON DOCTOR -->
-            <Button
-                x:Name="buttonDoctor"
-                Text="البحث بالطبيب"
-                Style="{StaticResource Unchecked}"
-                Clicked="ButtonDoctor_Clicked"
-                Command="{Binding SelectSearchTypeCommand}"
-                CommandParameter="{Binding Source={x:Static help:SearchBy.doctor} ,Converter={StaticResource EnumToIntConverter}}" />
-        </StackLayout>
-
-        <!-- Content of Tabs -->
-        <VerticalStackLayout
-            x:Name="StackResultFromSearch"
-            IsVisible="true">
-
-            <!-- SPECIALISTs  -->
-            <VerticalStackLayout>
-                <VerticalStackLayout.Triggers>
-                    <DataTrigger
-                        TargetType="VerticalStackLayout"
-                        Binding="{Binding Source={x:Reference stackOfDoctors}, Path=IsVisible}"
-                        Value="true">
-                        <Setter
-                            Property="IsVisible"
-                            Value="False" />
-                    </DataTrigger>
-                    <DataTrigger
-                        TargetType="VerticalStackLayout"
-                        Binding="{Binding Source={x:Reference stackOfDoctors}, Path=IsVisible}"
-                        Value="false">
-                        <Setter
-                            Property="IsVisible"
-                            Value="True" />
-                    </DataTrigger>
-                </VerticalStackLayout.Triggers>
-
-                <CollectionView
-                    x:Name="collectionOfSpecialists"
-                    IsVisible="false"
-                    ItemsSource="{Binding SpecialistsList}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout
-                            Orientation="Vertical"
-                            ItemSpacing="15" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout
-                                Orientation="Horizontal"
-                                VerticalOptions="Center"
-                                Spacing="12"
-                                Padding="15,0">
-                                <kit:AvatarView
-                                    ImageSource="dotnet_bot.svg"
-                                    BackgroundColor="{StaticResource Gray100}"
-                                    CornerRadius="10"
-                                    HeightRequest="60"
-                                    WidthRequest="60"
-                                    VerticalOptions="Center">
-                                </kit:AvatarView>
-                                <Label
-                                    Text="{Binding .}"
-                                    FontSize="Medium"
-                                    FontFamily="{StaticResource CairoRegular}"
-                                    VerticalOptions="Center" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-
-            <!-- DOCTORs -->
+            <!-- Content of Tabs -->
             <VerticalStackLayout
-                IsVisible="false"
-                x:Name="stackOfDoctors">
-                <template:DoctorCardTemplate />
+                x:Name="StackResultFromSearch"
+                IsVisible="true">
+
+                <!-- SPECIALISTs  -->
+                <VerticalStackLayout>
+                    <VerticalStackLayout.Triggers>
+                        <DataTrigger
+                            TargetType="VerticalStackLayout"
+                            Binding="{Binding Source={x:Reference stackOfDoctors}, Path=IsVisible}"
+                            Value="true">
+                            <Setter
+                                Property="IsVisible"
+                                Value="False" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="VerticalStackLayout"
+                            Binding="{Binding Source={x:Reference stackOfDoctors}, Path=IsVisible}"
+                            Value="false">
+                            <Setter
+                                Property="IsVisible"
+                                Value="True" />
+                        </DataTrigger>
+                    </VerticalStackLayout.Triggers>
+                    <CollectionView
+                        x:Name="collectionOfSpecialists"
+                        IsVisible="true"
+                        ItemsSource="{Binding SpecialistsList}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout
+                                Orientation="Vertical"
+                                ItemSpacing="15" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center"
+                                    Spacing="12"
+                                    Padding="15,0">
+                                    <kit:AvatarView
+                                        ImageSource="dotnet_bot.svg"
+                                        BackgroundColor="{StaticResource Gray100}"
+                                        CornerRadius="10"
+                                        HeightRequest="60"
+                                        WidthRequest="60"
+                                        VerticalOptions="Center">
+                                    </kit:AvatarView>
+                                    <Label
+                                        Text="{Binding .}"
+                                        Style="{StaticResource SubTitle}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <!-- DOCTORs -->
+                <VerticalStackLayout
+                    IsVisible="false"
+                    x:Name="stackOfDoctors">
+                    <template:DoctorCardTemplate />
+                </VerticalStackLayout>
             </VerticalStackLayout>
         </VerticalStackLayout>
-    </VerticalStackLayout>
+    </ScrollView>
 
     <!--<ContentPage.Behaviors>
         <kit:StatusBarBehavior

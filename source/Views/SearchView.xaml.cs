@@ -9,8 +9,8 @@ public partial class SearchView : ContentPage
     protected async override void OnAppearing()
     {
         base.OnAppearing();
-        await Task.Delay(500);
-        collectionOfSpecialists.IsVisible = true;
+        //await Task.Delay(500);
+        //collectionOfSpecialists.IsVisible = true;
     }
     private void ButtonSpecialist_Clicked(object sender, EventArgs e)
     {

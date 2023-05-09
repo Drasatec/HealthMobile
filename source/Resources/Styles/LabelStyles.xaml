@@ -56,5 +56,9 @@
         <Setter Property="FontFamily" Value="CairoRegular" />
         <Setter Property="FontSize" Value="Caption" />
     </Style>
+    <Style TargetType="Label" x:Key="Small" BasedOn="{StaticResource base}">
+        <Setter Property="FontFamily" Value="CairoRegular" />
+        <Setter Property="FontSize" Value="Micro" />
+    </Style>
     
 </ResourceDictionary>
