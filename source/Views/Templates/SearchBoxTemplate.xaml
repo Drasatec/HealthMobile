@@ -1,50 +1,47 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView
+    x:Class="DrasatHealthMobile.Views.Templates.SearchBoxTemplate"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DrasatHealthMobile.Views.Templates.SearchBoxTemplate"
-    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
-    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     x:Name="this">
 
-    <StackLayout
-        Padding="0,0,0,10"
-        BackgroundColor="{StaticResource Primary}">
+    <StackLayout Padding="0,0,0,10" BackgroundColor="{StaticResource Primary}">
         <Frame
             Margin="10,5"
-            Background="White"
             Padding="10,0"
+            Background="White"
             VerticalOptions="CenterAndExpand">
             <StackLayout
-                Spacing="7"
+                HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal"
-                HorizontalOptions="FillAndExpand">
+                Spacing="7">
                 <Label
-                    FontSize="25"
                     FontFamily="{StaticResource IconFont}"
+                    FontSize="25"
                     Text="{x:Static f:IconFontMaterial.Magnify}"
                     TextColor="{StaticResource Gray400}"
                     VerticalOptions="Center" />
                 <Entry
-                    Placeholder="بحث"
+                    x:Name="entry"
                     BackgroundColor="Transparent"
-                    TextColor="Black"
                     HorizontalOptions="FillAndExpand"
+                    Placeholder="بحث"
+                    TextColor="Black"
                     VerticalOptions="CenterAndExpand">
                     <Entry.Behaviors>
                         <kit:UserStoppedTypingBehavior
                             x:Name="userStoppedTypingBehavior"
                             Command="{Binding Command, Source={x:Reference this}}"
-                            CommandParameter="{Binding Source={x:Reference Self},Path=Text}"
+                            CommandParameter="{Binding Source={x:Reference entry}, Path=Text}"
                             StoppedTypingTimeThreshold="200" />
                     </Entry.Behaviors>
                 </Entry>
             </StackLayout>
         </Frame>
     </StackLayout>
-
-
 </ContentView>

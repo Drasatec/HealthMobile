@@ -1,23 +1,30 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using DrasatHealthMobile.Helpers;
+using DrasatHealthMobile.Models;
+using DrasatHealthMobile.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 namespace DrasatHealthMobile.ViewModels;
 
 public class SearchViewModel : ObservableObject
 {
-    public ObservableCollection<string> SpecialistsList { get; set; }
-
+    private MockService mock = new();
+    public ObservableCollection<string> SpecialistsList { get; set; } = new();
+    public ObservableCollection<Doctor> Doctors { get; set; }=new();
     int selectedSearshType = (int)SearchBy.specialist;
 
     public SearchViewModel()
     {
-        SpecialistsList = new ObservableCollection<string>
+        Task.Run(() => GetDoctors());
+    }
+
+    private void GetDoctors()
+    {
+        foreach (var item in mock.ListDoctors)
         {
-            "القلب",
-            "الأطفال",
-            "علاج طبيعي",
-        };
+            Doctors.Add(item);
+        }
+        // OnPropertyChanged("Doctors");
     }
 
     public ICommand SearchBoxTypingCommand => new Command<string>(SearchBoxTyping);
@@ -30,9 +37,14 @@ public class SearchViewModel : ObservableObject
         set => SetProperty(ref searchText, value);
     }
 
+
     private void SearchBoxTyping(string text)
     {
-        var t = text;
+        Doctors.Clear();
+        foreach (var item in mock.LocalDoctors(text))
+        {
+            Doctors.Add(item);
+        }
     }
 
     private void SelectSearchType(int type)

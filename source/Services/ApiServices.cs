@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DrasatHealthMobile.Services
+namespace DrasatHealthMobile.Services;
+
+public class ApiServices
 {
-    class ApiServices
+    public ApiServices()
     {
+        
     }
 }
+

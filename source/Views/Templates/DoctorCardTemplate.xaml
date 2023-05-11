@@ -7,82 +7,89 @@
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     BackgroundColor="{StaticResource Background}">
     <VerticalStackLayout>
-        <Frame
-            Margin="20,10"
-            BackgroundColor="{StaticResource White}"
-            BorderColor="Transparent"
-            HasShadow="True">
-            <Frame.Shadow>
-                <Shadow Brush="{StaticResource Gray100}" Offset="10,10" />
-            </Frame.Shadow>
+        <CollectionView ItemsSource="{Binding Doctors}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Margin="20,10"
+                        BackgroundColor="{StaticResource White}"
+                        BorderColor="Transparent"
+                        HasShadow="True">
+                        <Frame.Shadow>
+                            <Shadow Brush="{StaticResource Gray100}" Offset="10,10" />
+                        </Frame.Shadow>
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <!--  AVATAR  -->
-                <kit:AvatarView
-                    BorderColor="{StaticResource Gray50}"
-                    CornerRadius="40"
-                    HeightRequest="80"
-                    ImageSource="doctor1"
-                    Style="{StaticResource Avatar}"
-                    VerticalOptions="Start"
-                    WidthRequest="80" />
-                <!--  CONTENT  -->
-                <StackLayout HorizontalOptions="FillAndExpand" Spacing="2">
-                    <Label Style="{StaticResource SubTitle}" Text="الدكتور محمد علاء الدين" />
-                    <Label Style="{StaticResource Body}" Text="أخصائي النساء والتوليد" />
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <!--  AVATAR  -->
+                            <kit:AvatarView
+                                BorderColor="{StaticResource Gray50}"
+                                CornerRadius="40"
+                                HeightRequest="80"
+                                ImageSource="{Binding Photo}"
+                                Style="{StaticResource Avatar}"
+                                VerticalOptions="Start"
+                                WidthRequest="80" />
+                            <!--  CONTENT  -->
+                            <StackLayout HorizontalOptions="FillAndExpand" Spacing="2">
+                                <Label Style="{StaticResource SubTitle}" Text="{Binding FullName}" />
+                                <Label Style="{StaticResource Body}" Text="{Binding Headline}" />
 
-                    <!--  Visit Price  -->
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
-                        <Label
-                            Style="{StaticResource Body}"
-                            Text="300"
-                            TextColor="{StaticResource Primary}" />
-                        <Label
-                            Style="{StaticResource Body}"
-                            Text="فرنك"
-                            TextColor="{StaticResource Primary}" />
-                    </HorizontalStackLayout>
-
-                    <!--  STARS  -->
-                    <CollectionView>
-                        <CollectionView.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>mono</x:String>
-                                <x:String>monodroid</x:String>
-                                <x:String>monotouch</x:String>
-                                <x:String>monorail</x:String>
-                                <x:String>monodevelop</x:String>
-                            </x:Array>
-                        </CollectionView.ItemsSource>
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout>
+                                <!--  Visit Price  -->
+                                <HorizontalStackLayout Spacing="5">
+                                    <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
                                     <Label
-                                        FontFamily="{StaticResource IconFont}"
-                                        FontSize="18"
-                                        Text="{x:Static font:IconFontMaterial.Star}"
-                                        TextColor="{StaticResource Yellow100Accent}"
-                                        VerticalOptions="Center" />
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    <!--  Button  -->
-                    <Button
-                        Margin="0"
-                        Padding="30,0"
-                        HeightRequest="40"
-                        HorizontalOptions="EndAndExpand"
-                        Text="حجز"
-                        VerticalOptions="Center" />
-                </StackLayout>
+                                        Style="{StaticResource Body}"
+                                        Text="{Binding Price}"
+                                        TextColor="{StaticResource Primary}" />
+                                    <Label
+                                        Style="{StaticResource Body}"
+                                        Text="{Binding Currency}"
+                                        TextColor="{StaticResource Primary}" />
+                                </HorizontalStackLayout>
 
-            </StackLayout>
-        </Frame>
+                                <!--  STARS  -->
+                                <CollectionView>
+                                    <CollectionView.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>mono</x:String>
+                                            <x:String>monodroid</x:String>
+                                            <x:String>monotouch</x:String>
+                                            <x:String>monorail</x:String>
+                                            <x:String>monodevelop</x:String>
+                                        </x:Array>
+                                    </CollectionView.ItemsSource>
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout>
+                                                <Label
+                                                    FontFamily="{StaticResource IconFont}"
+                                                    FontSize="18"
+                                                    Text="{x:Static font:IconFontMaterial.Star}"
+                                                    TextColor="{StaticResource Yellow100Accent}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                <!--  Button  -->
+                                <Button
+                                    Margin="0"
+                                    Padding="30,0"
+                                    HeightRequest="40"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="حجز"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+
+                        </StackLayout>
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
     </VerticalStackLayout>
 </ContentView>
