@@ -1,67 +1,53 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView
+    x:Class="DrasatHealthMobile.Views.Templates.DoctorCardTemplate"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
-    x:Class="DrasatHealthMobile.Views.Templates.DoctorCardTemplate"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     BackgroundColor="{StaticResource Background}">
     <VerticalStackLayout>
         <Frame
-            HasShadow="True"
-            BorderColor="Transparent"
             Margin="20,10"
-            BackgroundColor="{StaticResource White}">
+            BackgroundColor="{StaticResource White}"
+            BorderColor="Transparent"
+            HasShadow="True">
             <Frame.Shadow>
-                <Shadow
-                    Brush="{StaticResource Gray100}"
-                    Offset="10,10" />
+                <Shadow Brush="{StaticResource Gray100}" Offset="10,10" />
             </Frame.Shadow>
 
-            <StackLayout
-                Spacing="10"
-                Orientation="Horizontal">
-                <!-- AVATAR -->
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <!--  AVATAR  -->
                 <kit:AvatarView
                     BorderColor="{StaticResource Gray50}"
                     CornerRadius="40"
-                    WidthRequest="80"
                     HeightRequest="80"
                     ImageSource="doctor1"
                     Style="{StaticResource Avatar}"
-                    VerticalOptions="Start" />
-                <!-- CONTENT -->
-                <StackLayout
-                    Spacing="2"
-                    HorizontalOptions="FillAndExpand">
-                    <Label
-                        Text="الدكتور محمد علاء الدين"
-                        Style="{StaticResource SubTitle}" />
-                    <Label 
-                        Text="أخصائي النساء والتوليد"
-                        Style="{StaticResource Body}"/>
+                    VerticalOptions="Start"
+                    WidthRequest="80" />
+                <!--  CONTENT  -->
+                <StackLayout HorizontalOptions="FillAndExpand" Spacing="2">
+                    <Label Style="{StaticResource SubTitle}" Text="الدكتور محمد علاء الدين" />
+                    <Label Style="{StaticResource Body}" Text="أخصائي النساء والتوليد" />
 
-                    <!-- Visit Price-->
-                    <HorizontalStackLayout
-                        Spacing="5">
+                    <!--  Visit Price  -->
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
                         <Label
-                            Text="رسوم الكشف:"
-                            Style="{StaticResource Body}" />
-                        <Label
+                            Style="{StaticResource Body}"
                             Text="300"
-                            TextColor="{StaticResource Primary}"
-                            Style="{StaticResource Body}" />
+                            TextColor="{StaticResource Primary}" />
                         <Label
+                            Style="{StaticResource Body}"
                             Text="فرنك"
-                            Style="{StaticResource Body}" 
-                        TextColor="{StaticResource Primary}" />
+                            TextColor="{StaticResource Primary}" />
                     </HorizontalStackLayout>
 
-                    <!-- STARS -->
+                    <!--  STARS  -->
                     <CollectionView>
                         <CollectionView.ItemsSource>
-                            <x:Array
-                                Type="{x:Type x:String}">
+                            <x:Array Type="{x:Type x:String}">
                                 <x:String>mono</x:String>
                                 <x:String>monodroid</x:String>
                                 <x:String>monotouch</x:String>
@@ -70,15 +56,14 @@
                             </x:Array>
                         </CollectionView.ItemsSource>
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout
-                                Orientation="Horizontal" />
+                            <LinearItemsLayout Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout>
                                     <Label
-                                        FontSize="18"
                                         FontFamily="{StaticResource IconFont}"
+                                        FontSize="18"
                                         Text="{x:Static font:IconFontMaterial.Star}"
                                         TextColor="{StaticResource Yellow100Accent}"
                                         VerticalOptions="Center" />
@@ -86,14 +71,14 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                    <!-- Button -->
+                    <!--  Button  -->
                     <Button
-                        HorizontalOptions="EndAndExpand"
-                        VerticalOptions="Center"
-                        HeightRequest="40"
-                        Padding="30,0"
                         Margin="0"
-                        Text="حجز" />
+                        Padding="30,0"
+                        HeightRequest="40"
+                        HorizontalOptions="EndAndExpand"
+                        Text="حجز"
+                        VerticalOptions="Center" />
                 </StackLayout>
 
             </StackLayout>

@@ -14,9 +14,11 @@
     BackgroundColor="{StaticResource White}"
     x:Name="this"
     Title="BookingByPatientView">
+    
     <ContentPage.BindingContext>
         <vm:BookingByPatientViewModel />
     </ContentPage.BindingContext>
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <ControlTemplate
@@ -32,8 +34,13 @@
                                 <VisualState
                                     x:Name="Checked">
                                     <VisualState.Setters>
-                                        <Setter Property="Stroke" Value="White" />
-                                        <Setter TargetName="check" Property="Opacity" Value="1" />
+                                        <Setter
+                                            Property="Stroke"
+                                            Value="White" />
+                                        <Setter
+                                            TargetName="check"
+                                            Property="Opacity"
+                                            Value="1" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState
@@ -68,14 +75,16 @@
                                 Stroke="Blue"
                                 Fill="White"
                                 WidthRequest="16"
-                                HeightRequest="16"/>
+                                HeightRequest="16" />
                             <Ellipse
                                 x:Name="check"
                                 Fill="Blue"
                                 WidthRequest="8"
                                 HeightRequest="8" />
                         </Grid>
-                        <ContentPresenter HorizontalOptions="Start" VerticalOptions="Center" />
+                        <ContentPresenter
+                            HorizontalOptions="Start"
+                            VerticalOptions="Center" />
 
                     </Grid>
                 </Border>
@@ -87,10 +96,10 @@
                     Property="ControlTemplate"
                     Value="{StaticResource RadioButtonTemplate}" />
             </Style>
-            
-            
+
             <Style
-                TargetType="RadioButton" x:Key="myRadioButtonKey">
+                TargetType="RadioButton"
+                x:Key="myRadioButtonKey">
                 <Setter
                     Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -124,6 +133,7 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
             <template:BackButtonTemplate
@@ -133,7 +143,7 @@
                 Spacing="10"
                 Padding="10">
 
-                <!-- Section 1 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <!-- ##1##  Doctor-->
                 <StackLayout>
                     <!-- Avatar -->
                     <kit:AvatarView
@@ -155,7 +165,7 @@
                         Text="أخصائي النساء والتوليد" />
                 </StackLayout>
 
-                <!-- Section 2 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <!-- ##2## Hospital -->
                 <StackLayout>
                     <!-- Hos Name -->
                     <Label
@@ -195,7 +205,7 @@
                     </HorizontalStackLayout>
                 </StackLayout>
 
-                <!-- Section 3 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <!-- ##3## Name -->
                 <StackLayout
                     Spacing="5">
                     <Label
@@ -218,7 +228,8 @@
                         </StackLayout>
                     </Frame>
                 </StackLayout>
-                <!-- phone section 4-->
+
+                <!-- ##4## Phone  -->
                 <StackLayout
                     Spacing="5">
                     <Label
@@ -242,11 +253,11 @@
                     </Frame>
                 </StackLayout>
 
-                <!-- Visit type section 4-->
+                <!-- ##5## Visit Type -->
                 <StackLayout
                     Spacing="5">
                     <Label
-                        Text="اسم المريض"
+                        Text="نوع الكشف"
                         Style="{StaticResource SubTitle}" />
                     <StackLayout
                         RadioButtonGroup.GroupName="222222222222"
@@ -281,8 +292,8 @@
                             Text="{Binding RadioButtonGroupSelectedValue}" />
                     </StackLayout>
                 </StackLayout>
-                
-                <!-- Date Visit-->
+
+                <!-- ##6## Date Visit -->
                 <StackLayout
                     Spacing="10">
                     <Label

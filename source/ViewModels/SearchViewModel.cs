@@ -1,13 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using DrasatHealthMobile.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-
 namespace DrasatHealthMobile.ViewModels;
 
 public class SearchViewModel : ObservableObject
@@ -30,7 +24,6 @@ public class SearchViewModel : ObservableObject
     public ICommand SelectSearchTypeCommand => new Command<int>(SelectSearchType);
 
     private string searchText;
-
     public string SearchText
     {
         get => searchText;

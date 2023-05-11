@@ -1,146 +1,83 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    x:Class="DrasatHealthMobile.Views.SearchView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DrasatHealthMobile.Views.SearchView"
-    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
-    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    Title="Search"
+    BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
     Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="ModalAnimated"
-    BackgroundColor="{StaticResource Background}"
-    Title="Search">
+    Shell.PresentationMode="ModalAnimated">
 
-    <!-- BindingContext -->
+    <!--  BindingContext  -->
     <ContentPage.BindingContext>
         <vm:SearchViewModel />
     </ContentPage.BindingContext>
 
-    <!-- Resources -->
+    <!--  Resources  -->
     <ContentPage.Resources>
         <ResourceDictionary>
-            <kit:EnumToIntConverter
-                x:Key="EnumToIntConverter" />
-
-            <Style
-                TargetType="Button"
-                x:Key="Checked">
-                <Setter
-                    Property="BackgroundColor"
-                    Value="{StaticResource Primary}" />
-                <Setter
-                    Property="Padding"
-                    Value="0" />
-                <Setter
-                    Property="HeightRequest"
-                    Value="40" />
-                <Setter
-                    Property="HorizontalOptions"
-                    Value="FillAndExpand" />
-                <Setter
-                    Property="TextColor"
-                    Value="{StaticResource White}" />
-                <!--<Setter
-                    Property="Shadow">
-                    <Shadow
-                        Brush="{StaticResource Gray300}"
-                        Offset="5,5" />
-                </Setter>-->
-            </Style>
-            <Style
-                TargetType="Button"
-                x:Key="Unchecked">
-                <Setter
-                    Property="BackgroundColor"
-                    Value="{StaticResource White}" />
-                <Setter
-                    Property="BorderColor"
-                    Value="{StaticResource Gray100}" />
-                <Setter
-                    Property="BorderWidth"
-                    Value="1.2" />
-                <Setter
-                    Property="Padding"
-                    Value="0" />
-                <Setter
-                    Property="HeightRequest"
-                    Value="40" />
-                <Setter
-                    Property="HorizontalOptions"
-                    Value="FillAndExpand" />
-                <Setter
-                    Property="TextColor"
-                    Value="{StaticResource Gray300}" />
-            </Style>
-
+            <kit:EnumToIntConverter x:Key="EnumToIntConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout>
-            <!-- Navigation -->
-            <template:BackButtonTemplate
-                Title="صفحة البحث الجديدة"
-                x:Name="navigation" />
+            <!--  Navigation  -->
+            <template:BackButtonTemplate x:Name="navigation" Title="صفحة البحث الجديدة" />
 
-            <!-- SEARCH BOX -->
-            <template:SearchBoxTemplate
-                Command="{Binding SearchBoxTypingCommand}" />
+            <!--  SEARCH BOX  -->
+            <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" />
 
-            <!-- TWO TABS -->
+            <!--  TWO TABS  -->
             <StackLayout
                 x:Name="tabs"
-                Orientation="Horizontal"
-                Spacing="10"
+                Margin="10,15"
                 HorizontalOptions="FillAndExpand"
-                Margin="10,15">
+                Orientation="Horizontal"
+                Spacing="10">
 
-                <!-- BUTTON SPECIALIST  -->
+                <!--  BUTTON SPECIALIST  -->
                 <Button
                     x:Name="buttonSpecialist"
-                    Text="البحث بالتخصص"
-                    Style="{StaticResource Checked}"
                     Clicked="ButtonSpecialist_Clicked"
                     Command="{Binding SelectSearchTypeCommand}"
-                    CommandParameter="{Binding Source={x:Static help:SearchBy.specialist} ,Converter={StaticResource EnumToIntConverter}}">
-                </Button>
+                    CommandParameter="{Binding Source={x:Static help:SearchBy.specialist}, Converter={StaticResource EnumToIntConverter}}"
+                    Style="{StaticResource Checked}"
+                    Text="البحث بالتخصص" />
 
-                <!-- BUTTON DOCTOR -->
+                <!--  BUTTON DOCTOR  -->
                 <Button
                     x:Name="buttonDoctor"
-                    Text="البحث بالطبيب"
-                    Style="{StaticResource Unchecked}"
                     Clicked="ButtonDoctor_Clicked"
                     Command="{Binding SelectSearchTypeCommand}"
-                    CommandParameter="{Binding Source={x:Static help:SearchBy.doctor} ,Converter={StaticResource EnumToIntConverter}}" />
+                    CommandParameter="{Binding Source={x:Static help:SearchBy.doctor}, Converter={StaticResource EnumToIntConverter}}"
+                    Style="{StaticResource Unchecked}"
+                    Text="البحث بالطبيب" />
             </StackLayout>
 
-            <!-- Content of Tabs -->
-            <VerticalStackLayout
-                x:Name="StackResultFromSearch"
-                IsVisible="true">
+            <!--  Content of Tabs  -->
+            <VerticalStackLayout x:Name="StackResultFromSearch" IsVisible="true">
 
-                <!-- SPECIALISTs  -->
+                <!--  SPECIALISTs  -->
                 <VerticalStackLayout>
                     <VerticalStackLayout.Triggers>
                         <DataTrigger
-                            TargetType="VerticalStackLayout"
                             Binding="{Binding Source={x:Reference stackOfDoctors}, Path=IsVisible}"
+                            TargetType="VerticalStackLayout"
                             Value="true">
-                            <Setter
-                                Property="IsVisible"
-                                Value="False" />
+                            <Setter Property="IsVisible" Value="False" />
                         </DataTrigger>
                         <DataTrigger
-                            TargetType="VerticalStackLayout"
                             Binding="{Binding Source={x:Reference stackOfDoctors}, Path=IsVisible}"
+                            TargetType="VerticalStackLayout"
                             Value="false">
-                            <Setter
-                                Property="IsVisible"
-                                Value="True" />
+                            <Setter Property="IsVisible" Value="True" />
                         </DataTrigger>
                     </VerticalStackLayout.Triggers>
                     <CollectionView
@@ -148,28 +85,25 @@
                         IsVisible="true"
                         ItemsSource="{Binding SpecialistsList}">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout
-                                Orientation="Vertical"
-                                ItemSpacing="15" />
+                            <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout
+                                    Padding="15,0"
                                     Orientation="Horizontal"
-                                    VerticalOptions="Center"
                                     Spacing="12"
-                                    Padding="15,0">
+                                    VerticalOptions="Center">
                                     <kit:AvatarView
-                                        ImageSource="dotnet_bot.svg"
                                         BackgroundColor="{StaticResource Gray100}"
                                         CornerRadius="10"
                                         HeightRequest="60"
-                                        WidthRequest="60"
-                                        VerticalOptions="Center">
-                                    </kit:AvatarView>
+                                        ImageSource="dotnet_bot.svg"
+                                        VerticalOptions="Center"
+                                        WidthRequest="60" />
                                     <Label
-                                        Text="{Binding .}"
                                         Style="{StaticResource SubTitle}"
+                                        Text="{Binding .}"
                                         VerticalOptions="Center" />
                                 </StackLayout>
                             </DataTemplate>
@@ -177,10 +111,8 @@
                     </CollectionView>
                 </VerticalStackLayout>
 
-                <!-- DOCTORs -->
-                <VerticalStackLayout
-                    IsVisible="false"
-                    x:Name="stackOfDoctors">
+                <!--  DOCTORs  -->
+                <VerticalStackLayout x:Name="stackOfDoctors" IsVisible="false">
                     <template:DoctorCardTemplate />
                 </VerticalStackLayout>
             </VerticalStackLayout>

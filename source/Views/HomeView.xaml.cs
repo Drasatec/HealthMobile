@@ -29,4 +29,12 @@ public partial class HomeView : ContentPage
     {
         Shell.Current.GoToAsync("BookingByPatient");
     }
+    private void Button_Clicked_4(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("BookingDetailsView");
+    }
+    private void Button_Clicked_5(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("BookingsView");
+    }
 }

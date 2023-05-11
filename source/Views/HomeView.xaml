@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    x:Class="DrasatHealthMobile.Views.HomeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DrasatHealthMobile.Views.HomeView"
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
     Title="HomeView"
+    BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
-    NavigationPage.HasNavigationBar="False"
-    BackgroundColor="{StaticResource Background}">
+    NavigationPage.HasNavigationBar="False">
 
     <ContentPage.MenuBarItems>
-        <MenuBarItem
-            Text="file">
-            <MenuFlyoutSubItem
-                Text="save">
-                <MenuFlyoutItem
-                    Text="all" />
+        <MenuBarItem Text="file">
+            <MenuFlyoutSubItem Text="save">
+                <MenuFlyoutItem Text="all" />
             </MenuFlyoutSubItem>
         </MenuBarItem>
     </ContentPage.MenuBarItems>
@@ -23,37 +20,27 @@
     <ScrollView>
         <VerticalStackLayout>
             <HorizontalStackLayout
-                HeightRequest="50"
+                BackgroundColor="{StaticResource Primary}"
                 FlowDirection="RightToLeft"
-                VerticalOptions="Center"
-                BackgroundColor="{StaticResource Primary}">
+                HeightRequest="50"
+                VerticalOptions="Center">
                 <Label
-                    Text="الصفحة الرئيسية"
                     FontFamily="{StaticResource CairoRegular}"
                     FontSize="Title"
+                    Text="الصفحة الرئيسية"
                     TextColor="{StaticResource White}"
                     VerticalOptions="Center" />
             </HorizontalStackLayout>
 
-            <VerticalStackLayout
-                HeightRequest="100">
-            </VerticalStackLayout>
+            <VerticalStackLayout HeightRequest="100" />
 
-            <StackLayout
-                Spacing="10"
-                Padding="10,0">
-                <Button
-                    Text="البحث"
-                    Clicked="Button_Clicked" />
-                <Button
-                    Text="التخصصات"
-                    Clicked="Button_Clicked_1" />
-                <Button
-                    Text="تفاصيل الطبيب"
-                    Clicked="Button_Clicked_2" />
-                <Button
-                    Text="الحجز بواسطة المريض"
-                    Clicked="Button_Clicked_3" />
+            <StackLayout Padding="10,0" Spacing="10">
+                <Button Clicked="Button_Clicked" Text="البحث" />
+                <Button Clicked="Button_Clicked_1" Text="التخصصات" />
+                <Button Clicked="Button_Clicked_2" Text="تفاصيل الطبيب" />
+                <Button Clicked="Button_Clicked_3" Text="الحجز بواسطة المريض" />
+                <Button Clicked="Button_Clicked_4" Text="تفاصيل الحجز" />
+                <Button Clicked="Button_Clicked_5" Text="الحجوزات" />
 
             </StackLayout>
         </VerticalStackLayout>

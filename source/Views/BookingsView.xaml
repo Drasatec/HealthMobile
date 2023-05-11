@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrasatHealthMobile.Views.BookingsView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Title="BookingsView"
+    BackgroundColor="{StaticResource Background}"
+    FlowDirection="RightToLeft"
+    NavigationPage.HasNavigationBar="False"
+    Shell.PresentationMode="ModalAnimated">
+    <Grid>
+        <VerticalStackLayout>
+            <!--  Navigation  -->
+            <template:BackButtonTemplate x:Name="navigation" Title="الحجوزات" />
+
+            <!--  Three TABS  -->
+            <StackLayout
+                x:Name="tabs"
+                Margin="10,15"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="10">
+
+                <!--  BUTTON Coming  -->
+                <Button
+                    x:Name="buttonComing"
+                    Clicked="OnTabClicked"
+                    Command="{Binding SelectSearchTypeCommand}"
+                    CommandParameter="0"
+                    Style="{StaticResource Checked}"
+                    Text="القادمة" />
+
+                <!--  BUTTON Past  -->
+                <Button
+                    x:Name="buttonPast"
+                    Clicked="OnTabClicked"
+                    Command="{Binding SelectSearchTypeCommand}"
+                    CommandParameter="1"
+                    Style="{StaticResource Unchecked}"
+                    Text="الماضية" />
+
+                <!--  BUTTON Rejected  -->
+                <Button
+                    x:Name="buttonRejected"
+                    Clicked="OnTabClicked"
+                    Command="{Binding SelectSearchTypeCommand}"
+                    CommandParameter="2"
+                    Style="{StaticResource Unchecked}"
+                    Text="المرفوضة" />
+            </StackLayout>
+
+            <!--  Content of Tabs  -->
+            <VerticalStackLayout x:Name="contentOfTabs">
+
+                <!--  Comings_____##1##  -->
+                <template:BookingCardTemplate IsVisible="true" />
+
+                <!--  Pasts_______##2##  -->
+                <template:BookingCardTemplate />
+
+                <!--  Rejectings__##3##  -->
+                <template:BookingCardTemplate />
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

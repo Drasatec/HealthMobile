@@ -1,56 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    x:Class="DrasatHealthMobile.Views.DoctorDetailsView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DrasatHealthMobile.Views.DoctorDetailsView"
-    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
-    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    Title="DoctorDetailsView"
     FlowDirection="RightToLeft"
     Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="ModalAnimated"
-    Title="DoctorDetailsView">
+    Shell.PresentationMode="ModalAnimated">
     <ScrollView>
-        <Grid
-            RowDefinitions="100,*"
-            BackgroundColor="{StaticResource Primary}">
-            <template:BackButtonTemplate
-                Title="تفاصيل الطبيب" />
+        <Grid BackgroundColor="{StaticResource Primary}" RowDefinitions="100,*">
+            <template:BackButtonTemplate Title="تفاصيل الطبيب" />
 
-            <StackLayout
-                Grid.Row="1">
+            <StackLayout Grid.Row="1">
                 <Border
-                    StrokeThickness="0"
-                    Background="{StaticResource White}"
                     Padding="16,45,16,30"
+                    Background="{StaticResource White}"
                     HorizontalOptions="Fill"
+                    StrokeThickness="0"
                     VerticalOptions="FillAndExpand">
                     <Border.StrokeShape>
-                        <RoundRectangle
-                            CornerRadius="20,20,0,0" />
+                        <RoundRectangle CornerRadius="20,20,0,0" />
                     </Border.StrokeShape>
-                    <StackLayout
-                        Spacing="20">
-                        <!-- Section 1-->
+                    <StackLayout Spacing="20">
+                        <!--  Section 1  -->
                         <StackLayout>
-                            <!-- Title-->
+                            <!--  Title  -->
                             <Label
-                                Style="{StaticResource Title}"
                                 HorizontalOptions="Center"
+                                Style="{StaticResource Title}"
                                 Text="د. محمد علاء الدين" />
                             <Label
-                                Style="{StaticResource Body}"
                                 HorizontalOptions="Center"
+                                Style="{StaticResource Body}"
                                 Text="أخصائي النساء والتوليد" />
 
-                            <!-- STARS -->
-                            <CollectionView
-                                HorizontalOptions="Center">
+                            <!--  STARS  -->
+                            <CollectionView HorizontalOptions="Center">
                                 <CollectionView.ItemsSource>
-                                    <x:Array
-                                        Type="{x:Type x:String}">
+                                    <x:Array Type="{x:Type x:String}">
                                         <x:String>mono</x:String>
                                         <x:String>monodroid</x:String>
                                         <x:String>monotouch</x:String>
@@ -59,15 +51,14 @@
                                     </x:Array>
                                 </CollectionView.ItemsSource>
                                 <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout
-                                        Orientation="Horizontal" />
+                                    <LinearItemsLayout Orientation="Horizontal" />
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <StackLayout>
                                             <Label
-                                                FontSize="18"
                                                 FontFamily="{StaticResource IconFont}"
+                                                FontSize="18"
                                                 Text="{x:Static font:IconFontMaterial.Star}"
                                                 TextColor="{StaticResource Yellow100Accent}"
                                                 VerticalOptions="Center" />
@@ -77,102 +68,83 @@
                             </CollectionView>
                         </StackLayout>
 
-                        <!-- Section 2 -->
+                        <!--  Section 2  -->
                         <StackLayout>
-                            <!-- Hos Name -->
-                            <Label
-                                Style="{StaticResource SubTitle}"
-                                Text="عيادة الرحمة الغربية" />
-                            <StackLayout
-                                Spacing="5"
-                                Orientation="Horizontal">
+                            <!--  Hos Name  -->
+                            <Label Style="{StaticResource SubTitle}" Text="عيادة الرحمة الغربية" />
+                            <StackLayout Orientation="Horizontal" Spacing="5">
                                 <Label
-                                    Text="{x:Static font:IconFontMaterial.MapMarker}"
+                                    FontFamily="{StaticResource IconFont}"
                                     Style="{StaticResource Body}"
-                                    TextColor="{StaticResource Primary}"
-                                    FontFamily="{StaticResource IconFont}" />
-                                <Label
-                                    Text="طنطا شارع الجيش"
-                                    Style="{StaticResource Body}" />
+                                    Text="{x:Static font:IconFontMaterial.MapMarker}"
+                                    TextColor="{StaticResource Primary}" />
+                                <Label Style="{StaticResource Body}" Text="طنطا شارع الجيش" />
                             </StackLayout>
 
-                            <!-- Visit Price-->
-                            <HorizontalStackLayout
-                                Spacing="5">
+                            <!--  Visit Price  -->
+                            <HorizontalStackLayout Spacing="5">
                                 <Label
-                                    Text="{x:Static font:IconFontMaterial.CurrencyUsd}"
+                                    FontFamily="{StaticResource IconFont}"
                                     Style="{StaticResource Body}"
-                                    TextColor="{StaticResource Primary}"
-                                    FontFamily="{StaticResource IconFont}" />
+                                    Text="{x:Static font:IconFontMaterial.CurrencyUsd}"
+                                    TextColor="{StaticResource Primary}" />
+                                <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
                                 <Label
-                                    Text="رسوم الكشف:"
-                                    Style="{StaticResource Body}" />
-                                <Label
+                                    Style="{StaticResource Body}"
                                     Text="300"
-                                    TextColor="{StaticResource Primary}"
-                                    Style="{StaticResource Body}" />
+                                    TextColor="{StaticResource Primary}" />
                                 <Label
+                                    Style="{StaticResource Body}"
                                     Text="فرنك"
-                                    TextColor="{StaticResource Primary}"
-                                    Style="{StaticResource Body}" />
+                                    TextColor="{StaticResource Primary}" />
                             </HorizontalStackLayout>
                         </StackLayout>
 
-                        <!-- Section 3  about doctor-->
+                        <!--  Section 3  about doctor  -->
                         <StackLayout>
-                            <Label
-                                Text="السيرة الذاتية"
-                                Style="{StaticResource SubTitle}" />
+                            <Label Style="{StaticResource SubTitle}" Text="السيرة الذاتية" />
                             <Label
                                 x:Name="label"
-                                Text="أخصائي في الأمراض الصدرية والقلب والرئلة وجماعة الملك استاشر ياماضر الصدر والحاسيسة وف اييكالبر والاطافال ماجستير وكدا في الصدقة ووعضو الالكالمادية الخاصئ في الامضرا الصدرية جامعة القاهرة عام 323 في التخصص العام"
-                                Style="{StaticResource Body}"
+                                LineBreakMode="TailTruncation"
                                 MaxLines="3"
-                                LineBreakMode="TailTruncation" />
+                                Style="{StaticResource Body}"
+                                Text="أخصائي في الأمراض الصدرية والقلب والرئلة وجماعة الملك استاشر ياماضر الصدر والحاسيسة وف اييكالبر والاطافال ماجستير وكدا في الصدقة ووعضو الالكالمادية الخاصئ في الامضرا الصدرية جامعة القاهرة عام 323 في التخصص العام" />
                             <Label
-                                Text="قراءة المزيد"
-                                Style="{StaticResource Body}"
-                                TextColor="{StaticResource Primary}"
+                                LineBreakMode="WordWrap"
                                 MaxLines="3"
-                                LineBreakMode="WordWrap">
+                                Style="{StaticResource Body}"
+                                Text="قراءة المزيد"
+                                TextColor="{StaticResource Primary}">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Tapped="TapGestureRecognizer_Tapped" />
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                                 </Label.GestureRecognizers>
                             </Label>
                         </StackLayout>
 
-                        <!-- Section 4  Schedule -->
-                        <StackLayout
-                            Spacing="10">
-                            <Label
-                                Text="جدول المواعيد"
-                                Style="{StaticResource SubTitle}" />
-                            <Grid
-                                ColumnDefinitions="30,*,30">
+                        <!--  Section 4  Schedule  -->
+                        <StackLayout Spacing="10">
+                            <Label Style="{StaticResource SubTitle}" Text="جدول المواعيد" />
+                            <Grid ColumnDefinitions="30,*,30">
                                 <Button
                                     Grid.Column="0"
-                                    BackgroundColor="{StaticResource Gray50}"
-                                    TextColor="{StaticResource Primary}"
-                                    FontSize="30"
                                     Padding="0"
+                                    BackgroundColor="{StaticResource Gray50}"
+                                    FontFamily="{StaticResource IconFont}"
+                                    FontSize="30"
                                     Text="{x:Static font:IconFontMaterial.ChevronRight}"
-                                    FontFamily="{StaticResource IconFont}" />
+                                    TextColor="{StaticResource Primary}" />
                                 <Button
                                     Grid.Column="2"
-                                    BackgroundColor="{StaticResource Gray50}"
-                                    TextColor="{StaticResource Primary}"
-                                    FontSize="30"
                                     Padding="0"
+                                    BackgroundColor="{StaticResource Gray50}"
+                                    FontFamily="{StaticResource IconFont}"
+                                    FontSize="30"
                                     Text="{x:Static font:IconFontMaterial.ChevronLeft}"
-                                    FontFamily="{StaticResource IconFont}" />
-                                <!-- Colection of Timetable -->
-                                <CollectionView
-                                    Grid.Column="1"
-                                    HorizontalOptions="Center">
+                                    TextColor="{StaticResource Primary}" />
+                                <!--  Colection of Timetable  -->
+                                <CollectionView Grid.Column="1" HorizontalOptions="Center">
                                     <CollectionView.ItemsSource>
-                                        <x:Array
-                                            Type="{x:Type x:String}">
+                                        <x:Array Type="{x:Type x:String}">
                                             <x:String>اليوم</x:String>
                                             <x:String>غدا</x:String>
                                             <x:String>الاثنين 5/19</x:String>
@@ -180,50 +152,44 @@
                                         </x:Array>
                                     </CollectionView.ItemsSource>
                                     <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout
-                                            Orientation="Horizontal" />
+                                        <LinearItemsLayout Orientation="Horizontal" />
                                     </CollectionView.ItemsLayout>
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
                                             <Frame
-                                                Padding="0"
                                                 Margin="5,0"
+                                                Padding="0"
                                                 WidthRequest="90">
-                                                <StackLayout
-                                                    HeightRequest="140"
-                                                    VerticalOptions="FillAndExpand">
-                                                    <!-- section 1-->
-                                                    <StackLayout
-                                                        HorizontalOptions="Fill"
-                                                        BackgroundColor="{StaticResource Secondary}">
+                                                <StackLayout HeightRequest="140" VerticalOptions="FillAndExpand">
+                                                    <!--  section 1  -->
+                                                    <StackLayout BackgroundColor="{StaticResource Secondary}" HorizontalOptions="Fill">
                                                         <Label
-                                                            Text="{Binding .}"
                                                             HorizontalOptions="Center"
-                                                            Style="{StaticResource Caption}" />
+                                                            Style="{StaticResource Caption}"
+                                                            Text="{Binding .}" />
                                                     </StackLayout>
-                                                    <!-- section 2-->
-                                                    <StackLayout
-                                                        VerticalOptions="CenterAndExpand">
+                                                    <!--  section 2  -->
+                                                    <StackLayout VerticalOptions="CenterAndExpand">
                                                         <Label
-                                                            Text="8:00 ص"
                                                             HorizontalOptions="Center"
-                                                            Style="{StaticResource Small}" />
+                                                            Style="{StaticResource Small}"
+                                                            Text="8:00 ص" />
                                                         <Label
-                                                            Text="إلى"
                                                             HorizontalOptions="Center"
-                                                            Style="{StaticResource Small}" />
+                                                            Style="{StaticResource Small}"
+                                                            Text="إلى" />
                                                         <Label
-                                                            Text="2:00 م"
                                                             HorizontalOptions="Center"
-                                                            Style="{StaticResource Small}" />
+                                                            Style="{StaticResource Small}"
+                                                            Text="2:00 م" />
 
                                                     </StackLayout>
-                                                    <!-- section 3-->
+                                                    <!--  section 3  -->
                                                     <Button
-                                                        Text="احجز"
-                                                        HeightRequest="35"
                                                         Padding="0"
-                                                        CornerRadius="0" />
+                                                        CornerRadius="0"
+                                                        HeightRequest="35"
+                                                        Text="احجز" />
                                                 </StackLayout>
                                             </Frame>
                                         </DataTemplate>
@@ -234,43 +200,39 @@
 
                         </StackLayout>
 
-                        <!-- Section 5 Specialties-->
-                        <kit:Expander
-                            Direction="Down">
+                        <!--  Section 5 Specialties  -->
+                        <kit:Expander Direction="Down">
                             <kit:Expander.Header>
                                 <Label
-                                    Text="التخصصات الفرعية"
                                     FontAttributes="Bold"
-                                    FontSize="Medium" />
+                                    FontSize="Medium"
+                                    Text="التخصصات الفرعية" />
                             </kit:Expander.Header>
-                            <VerticalStackLayout
-                                Padding="10">
+                            <VerticalStackLayout Padding="10">
                                 <Label
-                                    Text="أخصائي في الأمراض الصدرية والقلب والرئلة وجماعة الملك استاشر ياماضر الصدر والحاسيسة وف اييكالبر والاطافال ماجستير وكدا في الصدقة ووعضو الالكالمادية الخاصئ في الامضرا الصدرية جامعة القاهرة عام 323 في التخصص العام"
+                                    LineBreakMode="WordWrap"
                                     MaxLines="3"
                                     Style="{StaticResource Body}"
-                                    LineBreakMode="WordWrap" />
+                                    Text="أخصائي في الأمراض الصدرية والقلب والرئلة وجماعة الملك استاشر ياماضر الصدر والحاسيسة وف اييكالبر والاطافال ماجستير وكدا في الصدقة ووعضو الالكالمادية الخاصئ في الامضرا الصدرية جامعة القاهرة عام 323 في التخصص العام" />
                             </VerticalStackLayout>
                         </kit:Expander>
                     </StackLayout>
                 </Border>
             </StackLayout>
-            
-            <!-- Section of Floating -->
+
+            <!--  Section of Floating  -->
             <kit:AvatarView
                 Grid.Row="1"
-                VerticalOptions="Start"
-                HeightRequest="70"
-                WidthRequest="70"
                 Margin="0,-35,10,10"
+                HeightRequest="70"
                 ImageSource="doctor1"
-                Style="{StaticResource Avatar}" />
+                Style="{StaticResource Avatar}"
+                VerticalOptions="Start"
+                WidthRequest="70" />
 
         </Grid>
     </ScrollView>
     <ContentPage.Behaviors>
-        <kit:StatusBarBehavior
-            StatusBarColor="Green"
-            StatusBarStyle="LightContent" />
+        <kit:StatusBarBehavior StatusBarColor="Green" StatusBarStyle="LightContent" />
     </ContentPage.Behaviors>
 </ContentPage>
