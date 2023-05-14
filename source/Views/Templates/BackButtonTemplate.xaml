@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView
+    x:Class="DrasatHealthMobile.Views.Templates.BackButtonTemplate"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
-    x:Class="DrasatHealthMobile.Views.Templates.BackButtonTemplate"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="this">
     <VerticalStackLayout>
         <HorizontalStackLayout
-            Spacing="10"
             Padding="10,0"
-            HeightRequest="70"
+            BackgroundColor="{StaticResource Primary}"
             FlowDirection="RightToLeft"
-            VerticalOptions="CenterAndExpand"
-            BackgroundColor="{StaticResource Primary}">
+            HeightRequest="70"
+            Spacing="10"
+            VerticalOptions="CenterAndExpand">
 
-            <!-- BackButton -->
+            <!--  BackButton  -->
             <Button
-                BorderColor="Transparent"
-                HeightRequest="30"
-                WidthRequest="30"
-                CornerRadius="15"
-                FontSize="Title"
-                Padding="0"
                 Margin="0"
-                VerticalOptions="CenterAndExpand"
-                Text="{x:Static f:IconFontMaterial.ArrowRight}"
-                FontFamily="{StaticResource IconFont}"
-                TextColor="{StaticResource White}"
+                Padding="0"
                 BackgroundColor="Transparent"
-                Clicked="BackButton">
-            </Button>
+                BorderColor="Transparent"
+                Clicked="BackButton"
+                CornerRadius="15"
+                FontFamily="{StaticResource IconFont}"
+                FontSize="Title"
+                HeightRequest="30"
+                Text="{x:Static f:IconFontMaterial.ArrowRight}"
+                TextColor="{StaticResource White}"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="30" />
 
-            <!-- Titel -->
+            <!--  Titel  -->
             <Label
-                Text="{Binding Title, Source={x:Reference this}}"
                 FontFamily="{StaticResource CairoBold}"
+                Text="{Binding Title, Source={x:Reference this}}"
                 TextColor="{StaticResource White}"
                 VerticalOptions="Center">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Tapped="BackButton" />
+                    <TapGestureRecognizer Tapped="BackButton" />
                 </Label.GestureRecognizers>
             </Label>
         </HorizontalStackLayout>

@@ -37,4 +37,9 @@ public partial class HomeView : ContentPage
     {
         Shell.Current.GoToAsync("BookingsView");
     }
+    
+    private void Button_Clicked_6(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("DoctorsView");
+    }
 }

@@ -6,17 +6,19 @@ public partial class SearchView : ContentPage
     {
         InitializeComponent();
     }
-    //protected async override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-    //    //await Task.Delay(500);
-    //    //collectionOfSpecialists.IsVisible = true;
-    //}
+    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var collection = (CollectionView)sender;
+        if (collection != null) return;
+
+
+        collection.SelectedItem = null;
+    }
     private void ButtonSpecialist_Clicked(object sender, EventArgs e)
     {
         buttonSpecialist.Style = (Style)App.Current.Resources["Checked"];
         buttonDoctor.Style = (Style)App.Current.Resources["Unchecked"];
-        stackOfDoctors.IsVisible = false;
+        listOfDoctors.IsVisible = false;
         //StackResultFromSearch.Add(new Templates.BackButtonTemplate());
     }
     private void ButtonDoctor_Clicked(object sender, EventArgs e)
@@ -26,7 +28,7 @@ public partial class SearchView : ContentPage
 
 
         buttonSpecialist.Style = (Style)App.Current.Resources["Unchecked"];
-        stackOfDoctors.IsVisible = true;
+        listOfDoctors.IsVisible = true;
         //StackResultFromSearch.Add(new Templates.BackButtonTemplate());
     }
 }

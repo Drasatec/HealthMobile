@@ -9,13 +9,14 @@ namespace DrasatHealthMobile.ViewModels;
 public class SearchViewModel : ObservableObject
 {
     private MockService mock = new();
-    public ObservableCollection<string> SpecialistsList { get; set; } = new();
-    public ObservableCollection<Doctor> Doctors { get; set; }=new();
+    public ObservableCollection<Specialist> SpecialistsList { get; set; } = new();
+    public ObservableCollection<Doctor> Doctors { get; set; } = new();
     int selectedSearshType = (int)SearchBy.specialist;
 
     public SearchViewModel()
     {
         Task.Run(() => GetDoctors());
+        Task.Run(() => GetSpecialists());
     }
 
     private void GetDoctors()
@@ -24,7 +25,13 @@ public class SearchViewModel : ObservableObject
         {
             Doctors.Add(item);
         }
-        // OnPropertyChanged("Doctors");
+    }
+    private void GetSpecialists()
+    {
+        foreach (var item in mock.ListSpecialists)
+        {
+           SpecialistsList.Add(item);
+        }
     }
 
     public ICommand SearchBoxTypingCommand => new Command<string>(SearchBoxTyping);
@@ -36,7 +43,6 @@ public class SearchViewModel : ObservableObject
         get => searchText;
         set => SetProperty(ref searchText, value);
     }
-
 
     private void SearchBoxTyping(string text)
     {

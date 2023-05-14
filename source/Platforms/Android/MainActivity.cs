@@ -1,7 +1,9 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.OS;
+using Android.Views.InputMethods;
 
 namespace DrasatHealthMobile;
 
@@ -17,15 +19,15 @@ public class MainActivity : MauiAppCompatActivity
            // handler.PlatformView.HorizontalScrollBarEnabled = true;
         });
 
-        Microsoft.Maui.Handlers.RadioButtonHandler.Mapper.AppendToMapping("MyRadioButton", (handler, view) =>
-        {
-            //handler.PlatformView.BackgroundTintList = ColorStateList.ValueOf(Android.Graphics.Color.Red);
-        });
-
-        //Microsoft.Maui.Handlers.ImageHandler.Mapper.AppendToMapping("MyImageButton", (handler, view) =>
+        //var context = Android.App.Application.Context;
+        //var inputMethodManager = context.GetSystemService(Context.InputMethodService) as InputMethodManager;
+        //if (inputMethodManager != null && context is Activity)
         //{
-        //    handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Red);
-        //});
+        //    var activity = context as Activity;
+        //    var token = activity.CurrentFocus?.WindowToken;
+        //    inputMethodManager.HideSoftInputFromWindow(token, HideSoftInputFlags.None);
+        //    activity.Window.DecorView.ClearFocus();
+        //}
 
     }
 }

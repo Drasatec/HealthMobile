@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrasatHealthMobile.Views.DoctorsView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Title="DoctorsView"
+    BackgroundColor="{StaticResource White}"
+    FlowDirection="RightToLeft"
+    NavigationPage.HasNavigationBar="False"
+    Shell.PresentationMode="ModalAnimated">
+
+    <ContentPage.Resources>
+        <Style x:Key="stackStat" TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="Black" />
+                                <Setter TargetName="labelNumberDay" Property="Label.TextColor" Value="Gray" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="Green" />
+                                <Setter TargetName="labelNumberDay" Property="Label.TextColor" Value="Green" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+            <Setter Property="BackgroundColor" Value="White" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:DoctorsViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        <!--  ROW ##1##  -->
+        <template:BackButtonTemplate Title="الأطباء" />
+
+        <!--  ROW ##2##  -->
+        <Grid
+            Grid.Row="1"
+            BackgroundColor="{StaticResource Primary}"
+            ColumnDefinitions="*,60"
+            ColumnSpacing="0">
+            <template:SearchBoxTemplate HorizontalOptions="FillAndExpand" />
+            <Frame
+                Grid.Column="1"
+                Margin="5,5,5,15"
+                Padding="0"
+                VerticalOptions="Center">
+                <Image
+                    HorizontalOptions="Center"
+                    Source="filter.svg"
+                    VerticalOptions="Center" />
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Frame.GestureRecognizers>
+            </Frame>
+        </Grid>
+
+        <!--  ROW ##3##  -->
+        <CollectionView
+            Grid.Row="2"
+            BackgroundColor="{StaticResource Background}"
+            ItemsSource="{Binding Doctors}"
+            SelectionChanged="CollectionView_SelectionChanged"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <template:DoctorCardTemplate />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--  ROW ##4##  -->
+        <Border
+            x:Name="borderFilter"
+            Grid.RowSpan="3"
+            Margin="0,10,0,0"
+            Padding="0"
+            BackgroundColor="{StaticResource White}"
+            Stroke="{StaticResource Primary}"
+            StrokeThickness="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10,10,0,0" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Padding="10,20" Spacing="10">
+                <!--  Title  -->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
+                    <Label Style="{StaticResource SubTitle}" Text="5/2023" />
+                    <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronLeft}" />
+                </HorizontalStackLayout>
+                <!--  Dayes  -->
+                <Grid ColumnDefinitions="Auto,*,Auto" HorizontalOptions="Center">
+                    <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
+                    <CollectionView
+                        x:Name="daysCollection"
+                        Grid.Column="1"
+                        SelectionChanged="CollectionView_SelectionChanged_1"
+                        SelectionMode="Single"
+                        VerticalOptions="Center">
+                        <CollectionView.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>السبت</x:String>
+                                <x:String>الأحد</x:String>
+                                <x:String>الإثنين</x:String>
+                                <x:String>الثلاثاء</x:String>
+                                <x:String>الاربعاء</x:String>
+                                <x:String>الخميس</x:String>
+                                <x:String>الجمعة</x:String>
+                            </x:Array>
+                        </CollectionView.ItemsSource>
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Style="{StaticResource stackStat}">
+                                    <StackLayout Margin="5,0">
+                                        <Label
+                                            x:Name="labelNameDay"
+                                            FontFamily="{StaticResource CairoBold}"
+                                            HorizontalOptions="Center"
+                                            Style="{StaticResource Body}"
+                                            Text="{Binding .}" />
+                                        <Label
+                                            x:Name="labelNumberDay"
+                                            FontFamily="{StaticResource CairoBold}"
+                                            HorizontalOptions="Center"
+                                            Style="{StaticResource Body}"
+                                            Text="1" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <Label
+                        Grid.Column="2"
+                        Style="{StaticResource LableIcon}"
+                        Text="{x:Static font:IconFontMaterial.ChevronLeft}" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+        <!--  ROW ##5##  -->
+    </Grid>
+</ContentPage>

@@ -61,4 +61,13 @@
         <Setter Property="FontSize" Value="Micro" />
     </Style>
 
+    <Style x:Key="LableIcon" TargetType="Label">
+        <Setter Property="FontFamily" Value="IconFontMaterial" />
+        <Setter Property="FontSize" Value="Title" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
 </ResourceDictionary>

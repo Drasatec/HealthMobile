@@ -41,6 +41,7 @@
                 <Button Clicked="Button_Clicked_3" Text="الحجز بواسطة المريض" />
                 <Button Clicked="Button_Clicked_4" Text="تفاصيل الحجز" />
                 <Button Clicked="Button_Clicked_5" Text="الحجوزات" />
+                <Button Clicked="Button_Clicked_6" Text="الأطباء" />
 
             </StackLayout>
         </VerticalStackLayout>

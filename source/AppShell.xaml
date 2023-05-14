@@ -8,8 +8,7 @@
     FlowDirection="RightToLeft"
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="NotAnimated"
-    >
+    Shell.PresentationMode="NotAnimated">
 
     <ShellContent
         Title="Home"
