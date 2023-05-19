@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrasatHealthMobile.Views.MembersView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Title="MembersView"
+    BackgroundColor="{StaticResource White}"
+    FlowDirection="RightToLeft"
+    NavigationPage.HasNavigationBar="False">
+
+
+    <ContentPage.Resources>
+        <Style x:Key="stackStat" TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter TargetName="labelGroupName" Property="Label.TextColor" Value="Black" />
+                                <Setter TargetName="labelGroupName" Property="Label.FontFamily" Value="CairoRegular" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter TargetName="labelGroupName" Property="Label.TextColor" Value="#0070CD" />
+                                <Setter TargetName="labelGroupName" Property="Label.FontFamily" Value="CairoBold" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+            <Setter Property="BackgroundColor" Value="Transparent" />
+        </Style>
+    </ContentPage.Resources>
+
+
+    <Grid RowDefinitions="Auto,*">
+        <StackLayout>
+            <template:BackButtonTemplate />
+            <template:SearchBoxTemplate />
+
+            <Border
+                Margin="10,5"
+                Padding="10"
+                BackgroundColor="{StaticResource Gray50}"
+                StrokeShape="RoundRectangle 5"
+                StrokeThickness="0">
+                <CollectionView
+                    x:Name="collectionGroup"
+                    BackgroundColor="Transparent"
+                    SelectionMode="Single">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>الكل</x:String>
+                            <x:String>المهندسين</x:String>
+                            <x:String>المحاسبين</x:String>
+                            <x:String>العمال</x:String>
+                            <x:String>2مجموعة</x:String>
+                            <x:String>3مجموعة</x:String>
+                            <x:String>4مجموعة</x:String>
+                            <x:String>5مجموعة</x:String>
+                            <x:String>6مجموعة</x:String>
+                            <x:String>7مجموعة</x:String>
+                        </x:Array>
+                    </CollectionView.ItemsSource>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout BackgroundColor="{StaticResource Gray50}" Style="{StaticResource stackStat}">
+                                <Label
+                                    x:Name="labelGroupName"
+                                    Style="{StaticResource Body}"
+                                    Text="{Binding .}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+        </StackLayout>
+
+        <CollectionView
+            Grid.Row="1"
+            Margin="5,0"
+            BackgroundColor="{StaticResource White}"
+            SelectionMode="Single">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>محمد عادل</x:String>
+                    <x:String>ابراهيم سعيد</x:String>
+                    <x:String>السيد صالخ</x:String>
+                    <x:String>فد العمري</x:String>
+                    <x:String>الخوارمزمي</x:String>
+                    <x:String>السيد ابراهيم عامر</x:String>
+                    <x:String>محمد ابراهيم السيد الفقي</x:String>
+                    <x:String>محمد فوزي</x:String>
+                    <x:String>مصطفي محمد هلال</x:String>
+                    <x:String>عمر اشرف البستاوي</x:String>
+                    <x:String>محمد محمد محمد حسب</x:String>
+                    <x:String>طه محمد طه السيد</x:String>
+                    <x:String>أحمد دريش</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid BackgroundColor="{StaticResource White}">
+                        <Border
+                            Margin="5"
+                            Padding="5"
+                            StrokeShape="RoundRectangle 10">
+                            <StackLayout Orientation="Horizontal">
+                                <kit:AvatarView
+                                    BackgroundColor="{StaticResource White}"
+                                    CornerRadius="10"
+                                    HeightRequest="50"
+                                    ImageSource="person.jpg"
+                                    VerticalOptions="Center"
+                                    WidthRequest="50" />
+                                <StackLayout>
+                                    <Label
+                                        Padding="10,0"
+                                        HeightRequest="55"
+                                        HorizontalTextAlignment="Center"
+                                        MaxLines="2"
+                                        Style="{StaticResource Body}"
+                                        Text="{Binding .}"
+                                        VerticalOptions="CenterAndExpand"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

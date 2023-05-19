@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.OS;
+using Android.Views;
 using Android.Views.InputMethods;
 
 namespace DrasatHealthMobile;
@@ -16,8 +17,24 @@ public class MainActivity : MauiAppCompatActivity
         Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("MyEntry", (handler, view) =>
         {
            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
-           // handler.PlatformView.HorizontalScrollBarEnabled = true;
         });
+        
+        Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("MyDatePicker", (handler, view) =>
+        {
+           handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+        });
+        
+        Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("MyPicker", (handler, view) =>
+        {
+           handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+        });
+    }
+    protected override void OnCreate(Bundle savedInstanceState)
+    {
+        base.OnCreate(savedInstanceState);
+
+        // Set the LayoutDirection to RTL (right-to-left)
+        Window.DecorView.LayoutDirection = Android.Views.LayoutDirection.Rtl;
 
         //var context = Android.App.Application.Context;
         //var inputMethodManager = context.GetSystemService(Context.InputMethodService) as InputMethodManager;
@@ -28,6 +45,33 @@ public class MainActivity : MauiAppCompatActivity
         //    inputMethodManager.HideSoftInputFromWindow(token, HideSoftInputFlags.None);
         //    activity.Window.DecorView.ClearFocus();
         //}
-
     }
+
+
+    //#region this code implement => How to keep soft keyboard always open in Xamarin Forms
+    //private bool _lieAboutCurrentFocus;
+
+    //public override bool DispatchTouchEvent(MotionEvent ev)
+    //{
+    //    var focused = CurrentFocus;
+    //    bool customEntryRendererFocused = focused != null && focused.Parent is Entry;
+
+    //    _lieAboutCurrentFocus = customEntryRendererFocused;
+    //    var result = base.DispatchTouchEvent(ev);
+    //    _lieAboutCurrentFocus = false;
+    //    return result;
+    //}
+    //public override Android.Views.View CurrentFocus
+    //{
+    //    get
+    //    {
+    //        if (_lieAboutCurrentFocus)
+    //        {
+    //            return null;
+    //        }
+
+    //        return base.CurrentFocus;
+    //    }
+    //}
+    //#endregion
 }

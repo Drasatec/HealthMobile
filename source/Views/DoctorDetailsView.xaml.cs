@@ -14,7 +14,7 @@ public partial class DoctorDetailsView : ContentPage
     int flag = 0;
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        var uuu= (sender) as Label;
+        var uuu = (sender) as Label;
         if (flag == 0)
         {
             uuu.Text = "أقل";
@@ -29,5 +29,12 @@ public partial class DoctorDetailsView : ContentPage
             label.LineBreakMode = LineBreakMode.TailTruncation;
             flag = 0;
         }
+    }
+
+    private async void BtnBookingClicked(object sender, EventArgs e)
+    {
+        var btn = sender as Button;
+        var param = btn.CommandParameter;
+        await Shell.Current.GoToAsync("BookingDetailsView");
     }
 }

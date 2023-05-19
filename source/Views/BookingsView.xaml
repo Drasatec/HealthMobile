@@ -12,8 +12,7 @@
     Title="BookingsView"
     BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
-    NavigationPage.HasNavigationBar="False"
-    Shell.PresentationMode="ModalAnimated">
+    NavigationPage.HasNavigationBar="False">
     <Grid>
         <VerticalStackLayout>
             <!--  Navigation  -->

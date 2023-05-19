@@ -65,7 +65,11 @@
         <!--  Content of Tabs  -->
         <Grid x:Name="StackResultFromSearch" Grid.Row="3">
             <!--  SPECIALISTs  -->
-            <CollectionView IsVisible="true" ItemsSource="{Binding SpecialistsList}">
+            <CollectionView
+                IsVisible="true"
+                ItemsSource="{Binding SpecialistsList}"
+                SelectionChanged="collectionOfSpecialists_SelectionChanged"
+                SelectionMode="Single">
                 <CollectionView.Triggers>
                     <DataTrigger
                         Binding="{Binding Source={x:Reference listOfDoctors}, Path=IsVisible}"
@@ -82,34 +86,36 @@
                 </CollectionView.Triggers>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border
-                            Margin="10,5"
-                            Padding="8"
-                            BackgroundColor="{StaticResource White}"
-                            Stroke="{StaticResource Primary}"
-                            StrokeThickness="0">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="6" />
-                            </Border.StrokeShape>
+                        <Grid BackgroundColor="{StaticResource Background}">
+                            <Border
+                                Margin="10,5"
+                                Padding="8"
+                                BackgroundColor="{StaticResource White}"
+                                Stroke="{StaticResource Primary}"
+                                StrokeThickness="0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="6" />
+                                </Border.StrokeShape>
 
-                            <Grid ColumnDefinitions="60,*" ColumnSpacing="10">
-                                <kit:AvatarView
-                                    BackgroundColor="{StaticResource Gray100}"
-                                    CornerRadius="10"
-                                    HeightRequest="60"
-                                    ImageSource="dotnet_bot.svg"
-                                    VerticalOptions="Center"
-                                    WidthRequest="60" />
-                                <Label
-                                    Grid.Column="1"
-                                    HorizontalOptions="Start"
-                                    LineHeight="0.7"
-                                    MaxLines="2"
-                                    Style="{StaticResource SubTitle}"
-                                    Text="{Binding Name}"
-                                    VerticalOptions="Center" />
-                            </Grid>
-                        </Border>
+                                <Grid ColumnDefinitions="60,*" ColumnSpacing="10">
+                                    <kit:AvatarView
+                                        BackgroundColor="{StaticResource Gray50}"
+                                        CornerRadius="10"
+                                        HeightRequest="60"
+                                        ImageSource="dotnet_bot.svg"
+                                        VerticalOptions="Center"
+                                        WidthRequest="60" />
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="Start"
+                                        LineHeight="0.8"
+                                        MaxLines="2"
+                                        Style="{StaticResource Body}"
+                                        Text="{Binding Name}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -120,7 +126,7 @@
                 BackgroundColor="{StaticResource Background}"
                 IsVisible="false"
                 ItemsSource="{Binding Doctors}"
-                SelectionChanged="CollectionView_SelectionChanged"
+                SelectionChanged="ClViewDoctors_SelectionChanged"
                 SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -132,11 +138,4 @@
 
         </Grid>
     </Grid>
-
-
-    <!--<ContentPage.Behaviors>
-        <kit:StatusBarBehavior
-            StatusBarColor="Green"
-            StatusBarStyle="LightContent" />
-    </ContentPage.Behaviors>-->
 </ContentPage>

@@ -12,57 +12,64 @@
     Title="SpecialtiesView"
     BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
-    NavigationPage.HasNavigationBar="False"
-    Shell.PresentationMode="ModalAnimated">
+    NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <vm:SpecialtiesViewModel />
     </ContentPage.BindingContext>
-
-    <VerticalStackLayout>
-
-        <!--  Navigation  -->
-        <template:BackButtonTemplate x:Name="navigation" Title="التخصصات" />
-
-        <!--  SEARCH BOX  -->
-        <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" />
-
+    <Grid RowDefinitions="Auto,*">
         <StackLayout>
-            <CollectionView
-                x:Name="collectionOfSpecialists"
-                IsVisible="true"
-                ItemsSource="{Binding SpecialistsList}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout
-                        HorizontalItemSpacing="0"
-                        Orientation="Vertical"
-                        Span="3" />
-                </CollectionView.ItemsLayout>
+            <!--  Navigation  -->
+            <template:BackButtonTemplate x:Name="navigation" Title="التخصصات" />
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Margin="10" Padding="5">
-                            <StackLayout Padding="0,5" Spacing="0">
+            <!--  SEARCH BOX  -->
+            <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" />
+
+        </StackLayout>
+        <CollectionView
+            x:Name="collectionOfSpecialists"
+            Grid.Row="1"
+            Margin="5,0"
+            BackgroundColor="{StaticResource White}"
+            ItemsSource="{Binding SpecialistsList}"
+            SelectionChanged="collectionOfSpecialists_SelectionChanged"
+            SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="0"
+                    Orientation="Vertical"
+                    Span="3" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid BackgroundColor="{StaticResource White}">
+                        <Border Margin="5" Padding="5">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
+                            <StackLayout VerticalOptions="CenterAndExpand">
                                 <kit:AvatarView
-                                    BackgroundColor="{StaticResource Gray100}"
+                                    BackgroundColor="{StaticResource White}"
                                     CornerRadius="10"
-                                    HeightRequest="70"
+                                    HeightRequest="50"
                                     ImageSource="dotnet_bot.svg"
                                     VerticalOptions="Center"
-                                    WidthRequest="70" />
-                                <StackLayout VerticalOptions="FillAndExpand">
+                                    WidthRequest="50" />
+                                <StackLayout>
                                     <Label
                                         Padding="10,0"
+                                        HeightRequest="55"
                                         HorizontalTextAlignment="Center"
                                         MaxLines="2"
                                         Style="{StaticResource Body}"
-                                        Text="{Binding .}"
-                                        VerticalOptions="CenterAndExpand" />
+                                        Text="{Binding Name}"
+                                        VerticalOptions="CenterAndExpand"
+                                        VerticalTextAlignment="Center" />
                                 </StackLayout>
                             </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
-    </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

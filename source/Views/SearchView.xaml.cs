@@ -6,14 +6,7 @@ public partial class SearchView : ContentPage
     {
         InitializeComponent();
     }
-    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var collection = (CollectionView)sender;
-        if (collection != null) return;
 
-
-        collection.SelectedItem = null;
-    }
     private void ButtonSpecialist_Clicked(object sender, EventArgs e)
     {
         buttonSpecialist.Style = (Style)App.Current.Resources["Checked"];
@@ -26,9 +19,25 @@ public partial class SearchView : ContentPage
 
         buttonDoctor.Style = (Style)App.Current.Resources["Checked"];
 
-
         buttonSpecialist.Style = (Style)App.Current.Resources["Unchecked"];
         listOfDoctors.IsVisible = true;
         //StackResultFromSearch.Add(new Templates.BackButtonTemplate());
     }
+
+    private async void ClViewDoctors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var collectionView = sender as CollectionView;
+        if (collectionView.SelectedItem == null) return;
+        await Shell.Current.GoToAsync("DoctorDetailsView");
+        collectionView.SelectedItem = null;
+    }
+
+    private async void collectionOfSpecialists_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var collectionView = sender as CollectionView;
+        if (collectionView.SelectedItem == null) return;
+        await Shell.Current.GoToAsync("DoctorsView");
+        collectionView.SelectedItem = null;
+    }
+
 }

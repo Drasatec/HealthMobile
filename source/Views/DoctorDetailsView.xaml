@@ -187,6 +187,8 @@
                                                     <!--  section 3  -->
                                                     <Button
                                                         Padding="0"
+                                                        Clicked="BtnBookingClicked"
+                                                        CommandParameter="{Binding .}"
                                                         CornerRadius="0"
                                                         HeightRequest="35"
                                                         Text="احجز" />
@@ -233,6 +235,6 @@
         </Grid>
     </ScrollView>
     <ContentPage.Behaviors>
-        <kit:StatusBarBehavior StatusBarColor="Green" StatusBarStyle="LightContent" />
+        <kit:StatusBarBehavior StatusBarColor="Black" StatusBarStyle="LightContent" />
     </ContentPage.Behaviors>
 </ContentPage>

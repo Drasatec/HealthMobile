@@ -3,47 +3,182 @@
     x:Class="DrasatHealthMobile.Views.HomeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
     Title="HomeView"
     BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False">
-
-    <ContentPage.MenuBarItems>
-        <MenuBarItem Text="file">
-            <MenuFlyoutSubItem Text="save">
-                <MenuFlyoutItem Text="all" />
-            </MenuFlyoutSubItem>
-        </MenuBarItem>
-    </ContentPage.MenuBarItems>
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
 
     <ScrollView>
-        <VerticalStackLayout>
-            <HorizontalStackLayout
-                BackgroundColor="{StaticResource Primary}"
-                FlowDirection="RightToLeft"
-                HeightRequest="50"
-                VerticalOptions="Center">
-                <Label
-                    FontFamily="{StaticResource CairoRegular}"
-                    FontSize="Title"
-                    Text="الصفحة الرئيسية"
-                    TextColor="{StaticResource White}"
-                    VerticalOptions="Center" />
-            </HorizontalStackLayout>
+        <StackLayout Spacing="0">
 
-            <VerticalStackLayout HeightRequest="100" />
+            <!--  HosName & Bell  -->
+            <StackLayout
+                Padding="15,10"
+                BackgroundColor="{StaticResource Primary}"
+                Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="StartAndExpand"
+                    Style="{StaticResource SubTitle}"
+                    Text="مستشفى الرحمة"
+                    TextColor="{StaticResource White}" />
+                <Label
+                    Style="{StaticResource LableIcon}"
+                    Text="{x:Static font:IconFontMaterial.BellOutline}"
+                    TextColor="{StaticResource White}" />
+            </StackLayout>
+
+            <Grid
+                Padding="15"
+                ColumnDefinitions="*,*,*"
+                ColumnSpacing="15"
+                RowDefinitions="120">
+                <template:ServiceCardTemplate
+                    CommandParameter="1"
+                    ImageSource="clinic"
+                    Text="العيادات" />
+                <template:ServiceCardTemplate
+                    Grid.Column="1"
+                    CommandParameter="2"
+                    ImageSource="healthcare"
+                    Text="الخدمات" />
+                <template:ServiceCardTemplate
+                    Grid.Column="2"
+                    CommandParameter="3"
+                    ImageSource="medicalteam"
+                    Text="الأطباء" />
+            </Grid>
+
+            <Border
+                Margin="15,0,10,15"
+                Padding="20"
+                BackgroundColor="{StaticResource White}"
+                Stroke="{StaticResource Gray100}"
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="0">
+                <StackLayout>
+                    <Label
+                        Margin="0,0,0,10"
+                        Style="{StaticResource Body}"
+                        Text="احجز كشف عيادة" />
+                    <!--  search box  -->
+                    <Border
+                        Margin="5"
+                        Padding="5,0"
+                        BackgroundColor="{StaticResource White}"
+                        HeightRequest="50"
+                        Stroke="{StaticResource Gray100}"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="1">
+                        <Border.Shadow>
+                            <Shadow
+                                Brush="{StaticResource Gray300}"
+                                Radius="10"
+                                Offset="5,10" />
+                        </Border.Shadow>
+
+                        <HorizontalStackLayout Padding="20,0" Spacing="10">
+                            <!--  Magnify Icon  -->
+                            <Label
+                                FontFamily="{StaticResource IconFont}"
+                                FontSize="25"
+                                Rotation="90"
+                                Text="{x:Static font:IconFontMaterial.Magnify}"
+                                TextColor="{StaticResource Gray400}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Style="{StaticResource Caption}"
+                                Text="ابحث باسم الطبيب او التخصص"
+                                TextColor="{StaticResource Gray500}" />
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToSearchView_Tapped" />
+                        </Border.GestureRecognizers>
+
+                    </Border>
+                </StackLayout>
+            </Border>
+
+
+            <CollectionView
+                x:Name="myCollectionView"
+                ItemsSource="{Binding ListOfHospitals}"
+                Scrolled="CollectionView_Scrolled"
+                SelectionChanged="CollectionView_SelectionChanged">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        ItemSpacing="5"
+                        Orientation="Horizontal"
+                        SnapPointsAlignment="Center"
+                        SnapPointsType="MandatorySingle" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="0">
+                            <Border
+                                Padding="0"
+                                BackgroundColor="{StaticResource White}"
+                                StrokeShape="RoundRectangle 20"
+                                WidthRequest="{Binding Source={Reference this}, Path=Width}">
+                                <StackLayout
+                                    Margin="0"
+                                    BackgroundColor="{StaticResource White}"
+                                    HeightRequest="200"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="Center"
+                                        Source="{Binding .}" />
+                                </StackLayout>
+                            </Border>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <IndicatorView
+                x:Name="indicatorView"
+                Count="4"
+                HorizontalOptions="Center"
+                IndicatorColor="LightGray"
+                IsVisible="false"
+                SelectedIndicatorColor="Red" />
+
+            <Border
+                Margin="10,20"
+                Padding="20"
+                BackgroundColor="{StaticResource White}"
+                HeightRequest="100"
+                Stroke="{StaticResource Gray100}"
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="0">
+                <Label Style="{StaticResource Body}" Text="اطلب المساعدة" />
+            </Border>
 
             <StackLayout Padding="10,0" Spacing="10">
-                <Button Clicked="Button_Clicked" Text="البحث" />
+                <Button Clicked="Button_Clicked_8" Text="كل الاعضاء" />
+                <Button Clicked="Button_Clicked_7" Text=" اضافة مريض" />
+                <Button Clicked="Button_Clicked_3" Text="بواسطة المريض" />
                 <Button Clicked="Button_Clicked_1" Text="التخصصات" />
-                <Button Clicked="Button_Clicked_2" Text="تفاصيل الطبيب" />
-                <Button Clicked="Button_Clicked_3" Text="الحجز بواسطة المريض" />
-                <Button Clicked="Button_Clicked_4" Text="تفاصيل الحجز" />
                 <Button Clicked="Button_Clicked_5" Text="الحجوزات" />
+                <Button Clicked="Button_Clicked_4" Text="تفاصيل الحجز" />
                 <Button Clicked="Button_Clicked_6" Text="الأطباء" />
-
+                <Button Clicked="Button_Clicked_2" Text="تفاصيل الطبيب" />
+                <Button Clicked="GoToDoSomethingView" Text="افعل شيئا" />
             </StackLayout>
-        </VerticalStackLayout>
+
+            <StackLayout HeightRequest="500" />
+
+        </StackLayout>
     </ScrollView>
+
 </ContentPage>

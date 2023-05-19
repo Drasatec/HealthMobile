@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="DrasatHealthMobile.Views.BookingByPatientView"
+    x:Class="DrasatHealthMobile.Views.AddBookingView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
@@ -9,7 +9,7 @@
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="BookingByPatientView"
+    Title="AddBookingView"
     BackgroundColor="{StaticResource White}"
     FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False"
@@ -23,7 +23,7 @@
         <ResourceDictionary>
             <ControlTemplate x:Key="RadioButtonTemplate">
                 <Border
-                    BackgroundColor="WhiteSmoke"
+                    BackgroundColor="White"
                     StrokeShape="RoundRectangle 10"
                     WidthRequest="70">
                     <Grid
@@ -99,11 +99,14 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ScrollView>
-        <Grid RowDefinitions="Auto,*">
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <Grid RowDefinitions="Auto,Auto,90,*" RowSpacing="10">
+            <!--  Row ##0##  -->
             <template:BackButtonTemplate Title="الحجز بواسطة المريض" />
+            <!--  Row ##1##  -->
             <StackLayout
                 Grid.Row="1"
+                Margin="15,0"
                 Padding="10"
                 Spacing="10">
 
@@ -159,26 +162,14 @@
                             TextColor="{StaticResource Primary}" />
                     </HorizontalStackLayout>
                 </StackLayout>
+            </StackLayout>
 
-                <!--  ##3## Name  -->
-                <StackLayout Spacing="5">
-                    <Label Style="{StaticResource SubTitle}" Text="اسم المريض" />
-                    <Frame
-                        Padding="10,0"
-                        Background="White"
-                        VerticalOptions="CenterAndExpand">
-                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                            <Entry
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="FillAndExpand"
-                                Placeholder="اسم المريض"
-                                TextColor="Black"
-                                VerticalOptions="CenterAndExpand" />
-                        </StackLayout>
-                    </Frame>
-                </StackLayout>
-
-                <!--  ##4## Phone  -->
+            <!--  Row ##3##  -->
+            <StackLayout
+                Grid.Row="3"
+                Margin="15,0,15,40"
+                Spacing="20">
+                <!--  **1** Phone  -->
                 <StackLayout Spacing="5">
                     <Label Style="{StaticResource SubTitle}" Text="الهاتف" />
                     <Frame
@@ -196,7 +187,7 @@
                     </Frame>
                 </StackLayout>
 
-                <!--  ##5## Visit Type  -->
+                <!--  **2** Visit Type  -->
                 <StackLayout Spacing="5">
                     <Label Style="{StaticResource SubTitle}" Text="نوع الكشف" />
                     <StackLayout
@@ -226,11 +217,10 @@
                                 </StackLayout>
                             </RadioButton.Content>
                         </RadioButton>
-                        <Label Text="{Binding RadioButtonGroupSelectedValue}" />
                     </StackLayout>
                 </StackLayout>
 
-                <!--  ##6## Date Visit  -->
+                <!--  **3** Date Visit  -->
                 <StackLayout Spacing="10">
                     <Label Style="{StaticResource SubTitle}" Text="تاريخ الحجز" />
                     <Label Style="{StaticResource Body}" Text="الاثنين 6 مارس" />
@@ -240,9 +230,38 @@
                         <Label Style="{StaticResource Body}" Text="2:00 م" />
                     </HorizontalStackLayout>
                 </StackLayout>
-                <Button Text="تأكيد" />
 
+                <!--  **4** Button submit  -->
+                <Button Margin="0,20" Text="تأكيد" />
             </StackLayout>
+
+            <!--  Row ##2## Drobdown list & entry Name  -->
+            <StackLayout
+                Grid.Row="2"
+                Margin="15,0"
+                Spacing="5">
+                <Label Style="{StaticResource SubTitle}" Text="اسم المريض" />
+                <Grid ColumnDefinitions="*,40">
+                    <template:DropdownListEntryTemplate Grid.Column="0" />
+
+                    <Button
+                        Grid.Column="1"
+                        Margin="2"
+                        Padding="0"
+                        BackgroundColor="{StaticResource Gray50}"
+                        BorderColor="{StaticResource Gray200}"
+                        BorderWidth="0"
+                        Clicked="Button_Clicked"
+                        CornerRadius="8"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource LableIcon}"
+                        Text="{x:Static font:IconFontMaterial.Plus}"
+                        VerticalOptions="Start" />
+
+                </Grid>
+            </StackLayout>
+
         </Grid>
     </ScrollView>
 </ContentPage>

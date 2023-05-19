@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrasatHealthMobile.Views.DoSomethingView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Title="DoSomethingView"
+    BackgroundColor="{StaticResource Background}"
+    FlowDirection="RightToLeft"
+    NavigationPage.HasNavigationBar="False">
+
+    <StackLayout Padding="10,30" HorizontalOptions="FillAndExpand">
+        <StackLayout
+            Margin="15,0"
+            HorizontalOptions="FillAndExpand"
+            Spacing="5">
+            <Label Style="{StaticResource SubTitle}" Text="اسم المريض" />
+
+            <Grid ColumnDefinitions="*,40">
+                <template:DropdownListEntryTemplate Grid.Column="0" />
+
+                <Button
+                    Grid.Column="1"
+                    Margin="2"
+                    Padding="0"
+                    BackgroundColor="{StaticResource Gray50}"
+                    BorderColor="{StaticResource Gray200}"
+                    BorderWidth="0"
+                    CornerRadius="8"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource LableIcon}"
+                    Text="{x:Static font:IconFontMaterial.Plus}"
+                    VerticalOptions="Start" />
+
+            </Grid>
+        </StackLayout>
+
+        <Grid
+            Margin="0,0,0,0"
+            HeightRequest="18"
+            HorizontalOptions="End"
+            VerticalOptions="Center"
+            WidthRequest="18">
+            <Ellipse
+                Fill="White"
+                HeightRequest="16"
+                Stroke="Blue"
+                WidthRequest="16" />
+            <Ellipse
+                x:Name="check1"
+                Fill="Blue"
+                HeightRequest="8"
+                WidthRequest="8" />
+        </Grid>
+
+        <Grid
+            Margin="0,0,0,0"
+            HeightRequest="18"
+            HorizontalOptions="End"
+            VerticalOptions="Center"
+            WidthRequest="18">
+            <Ellipse
+                Fill="White"
+                HeightRequest="16"
+                Stroke="Blue"
+                WidthRequest="16" />
+            <Ellipse
+                x:Name="check2"
+                Fill="Blue"
+                HeightRequest="8"
+                WidthRequest="8" />
+        </Grid>
+    </StackLayout>
+</ContentPage>

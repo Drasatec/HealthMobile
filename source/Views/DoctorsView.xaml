@@ -24,12 +24,16 @@
                             <VisualState.Setters>
                                 <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="Black" />
                                 <Setter TargetName="labelNumberDay" Property="Label.TextColor" Value="Gray" />
+                                <Setter TargetName="labelNameDay" Property="Label.FontFamily" Value="CairoRegular" />
+                                <Setter TargetName="labelNumberDay" Property="Label.FontFamily" Value="CairoRegular" />
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
-                                <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="Green" />
-                                <Setter TargetName="labelNumberDay" Property="Label.TextColor" Value="Green" />
+                                <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="#0070CD" />
+                                <Setter TargetName="labelNumberDay" Property="Label.TextColor" Value="#0070CD" />
+                                <Setter TargetName="labelNameDay" Property="Label.FontFamily" Value="CairoBold" />
+                                <Setter TargetName="labelNumberDay" Property="Label.FontFamily" Value="CairoBold" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -44,16 +48,18 @@
     </ContentPage.BindingContext>
 
     <Grid RowDefinitions="Auto,Auto,*">
-        <!--  ROW ##1##  -->
+
+        <!--  ROW ##1## backbutton  -->
         <template:BackButtonTemplate Title="الأطباء" />
 
-        <!--  ROW ##2##  -->
+        <!--  ROW ##2## seacch box  -->
         <Grid
             Grid.Row="1"
             BackgroundColor="{StaticResource Primary}"
             ColumnDefinitions="*,60"
             ColumnSpacing="0">
             <template:SearchBoxTemplate HorizontalOptions="FillAndExpand" />
+            <!--  Filter Icon  -->
             <Frame
                 Grid.Column="1"
                 Margin="5,5,5,15"
@@ -64,38 +70,66 @@
                     Source="filter.svg"
                     VerticalOptions="Center" />
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    <TapGestureRecognizer Tapped="OpenFiltrFrame" />
                 </Frame.GestureRecognizers>
             </Frame>
         </Grid>
 
-        <!--  ROW ##3##  -->
+        <!--  ROW ##3##  Collection View  -->
         <CollectionView
+            x:Name="ClViewDoctors"
             Grid.Row="2"
+            Margin="0,10"
             BackgroundColor="{StaticResource Background}"
             ItemsSource="{Binding Doctors}"
-            SelectionChanged="CollectionView_SelectionChanged"
+            SelectionChanged="ClViewDoctors_SelectionChanged"
             SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <template:DoctorCardTemplate />
+                    <template:DoctorCardTemplate CommandParameter="{Binding FullName}" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <StackLayout BackgroundColor="LightGray">
+                    <Label
+                        Margin="10,0,0,0"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        Text="end collection" />
+                </StackLayout>
+            </CollectionView.Footer>
         </CollectionView>
 
-        <!--  ROW ##4##  -->
+        <!--  ROW ##4## Filter  -->
         <Border
             x:Name="borderFilter"
             Grid.RowSpan="3"
             Margin="0,10,0,0"
             Padding="0"
             BackgroundColor="{StaticResource White}"
+            IsVisible="false"
             Stroke="{StaticResource Primary}"
-            StrokeThickness="1">
+            StrokeThickness="1"
+            TranslationY="800">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10,10,0,0" />
             </Border.StrokeShape>
-            <VerticalStackLayout Padding="10,20" Spacing="10">
+            <VerticalStackLayout Padding="10,20" Spacing="20">
+                <!--  Hedar  -->
+                <StackLayout Orientation="Horizontal">
+                    <Label Style="{StaticResource SubTitle}" Text="الترتيب" />
+                    <!--  close icon  -->
+                    <Button
+                        BackgroundColor="{StaticResource White}"
+                        Clicked="CloseFiltrFrame"
+                        HorizontalOptions="EndAndExpand"
+                        Style="{StaticResource LableIcon}"
+                        Text="{x:Static font:IconFontMaterial.Close}" />
+
+                </StackLayout>
                 <!--  Title  -->
                 <HorizontalStackLayout HorizontalOptions="Center">
                     <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
@@ -103,11 +137,12 @@
                     <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronLeft}" />
                 </HorizontalStackLayout>
                 <!--  Dayes  -->
-                <Grid ColumnDefinitions="Auto,*,Auto" HorizontalOptions="Center">
+                <Grid ColumnDefinitions="40,*,40" HorizontalOptions="Center">
                     <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
                     <CollectionView
                         x:Name="daysCollection"
                         Grid.Column="1"
+                        ItemsUpdatingScrollMode="KeepLastItemInView"
                         SelectionChanged="CollectionView_SelectionChanged_1"
                         SelectionMode="Single"
                         VerticalOptions="Center">
@@ -123,22 +158,20 @@
                             </x:Array>
                         </CollectionView.ItemsSource>
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" />
+                            <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Style="{StaticResource stackStat}">
-                                    <StackLayout Margin="5,0">
+                                <StackLayout BackgroundColor="{StaticResource White}" Style="{StaticResource stackStat}">
+                                    <StackLayout Margin="0,0" BackgroundColor="Transparent">
                                         <Label
                                             x:Name="labelNameDay"
-                                            FontFamily="{StaticResource CairoBold}"
                                             HorizontalOptions="Center"
                                             Style="{StaticResource Body}"
                                             Text="{Binding .}" />
                                         <Label
                                             x:Name="labelNumberDay"
-                                            FontFamily="{StaticResource CairoBold}"
                                             HorizontalOptions="Center"
                                             Style="{StaticResource Body}"
                                             Text="1" />
@@ -152,8 +185,53 @@
                         Style="{StaticResource LableIcon}"
                         Text="{x:Static font:IconFontMaterial.ChevronLeft}" />
                 </Grid>
+
+                <Label Style="{StaticResource SubTitle}" Text="الجنس" />
+                <HorizontalStackLayout Spacing="10">
+                    <CheckBox IsChecked="true" />
+                    <Label Style="{StaticResource Body}" Text="دكتور" />
+                    <CheckBox IsChecked="true" />
+                    <Label Style="{StaticResource Body}" Text="دكتورة" />
+                </HorizontalStackLayout>
+
+                <!--    -->
+                <Label Style="{StaticResource SubTitle}" Text="اللقب" />
+                <Grid
+                    ColumnDefinitions="40,100,40,100"
+                    RowDefinitions="*,*"
+                    RowSpacing="5">
+
+                    <CheckBox Grid.Row="0" Grid.Column="0" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource Body}"
+                        Text="استاذ" />
+                    <CheckBox Grid.Row="0" Grid.Column="2" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Style="{StaticResource Body}"
+                        Text="امتياز" />
+                    <CheckBox Grid.Row="1" Grid.Column="0" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource Body}"
+                        Text="استشاري" />
+                    <CheckBox Grid.Row="1" Grid.Column="2" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        Style="{StaticResource Body}"
+                        Text="اخصائي" />
+
+                </Grid>
+
+
             </VerticalStackLayout>
         </Border>
+
         <!--  ROW ##5##  -->
     </Grid>
 </ContentPage>

@@ -21,9 +21,9 @@ public class DoctorsViewModel : ObservableObject
         GetDoctors();
     }
 
-    private async Task GetDoctors()
+    private void GetDoctors()
     {
-       await Task.Run(() =>
+       Task.Run(() =>
         {
             Doctors.Clear();
             foreach (var item in mock.ListDoctors)

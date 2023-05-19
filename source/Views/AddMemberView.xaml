@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrasatHealthMobile.Views.AddMemberView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Title="AddMemberView"
+    BackgroundColor="{StaticResource Background}"
+    FlowDirection="RightToLeft"
+    NavigationPage.HasNavigationBar="False">
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <Grid Padding="0,0,0,30" RowDefinitions="Auto,90,90,90,90,90,90,90,90">
+            <!--  ##0##  -->
+            <template:BackButtonTemplate />
+            <!--  ##1##  -->
+            <StackLayout
+                Grid.Row="1"
+                Padding="10,5"
+                Spacing="5">
+                <Label Style="{StaticResource SubTitle}" Text="الاسم" />
+                <Frame
+                    Padding="10,0"
+                    Background="White"
+                    VerticalOptions="Center">
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Entry
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="الهاتف"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+            <!--  ##2##  -->
+            <StackLayout
+                Grid.Row="2"
+                Padding="10,5"
+                Spacing="5">
+                <Label Style="{StaticResource SubTitle}" Text="العنوان" />
+                <Frame
+                    Padding="10,0"
+                    Background="White"
+                    VerticalOptions="Center">
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Entry
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="الهاتف"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+            <!--  ##3##  -->
+            <StackLayout
+                Grid.Row="3"
+                Padding="10,5"
+                Spacing="5">
+                <Label Style="{StaticResource SubTitle}" Text="تاريخ الميلاد" />
+                <Frame
+                    Padding="10,0"
+                    Background="White"
+                    VerticalOptions="Center">
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <DatePicker
+                            Grid.Row="3"
+                            Date="05/19/2023"
+                            MaximumDate="12/31/2024"
+                            MinimumDate="01/01/1950" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+            <!--  ##5##  -->
+            <StackLayout
+                Grid.Row="5"
+                Padding="10,5"
+                Spacing="5">
+                <Label Style="{StaticResource SubTitle}" Text="رقم الهوية" />
+                <Frame
+                    Padding="10,0"
+                    Background="White"
+                    VerticalOptions="Center">
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Entry
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="الهوية"
+                            TextColor="Black"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+            <!--  ##6##  -->
+            <StackLayout
+                Grid.Row="6"
+                Padding="10,5"
+                Spacing="5">
+                <Label Style="{StaticResource SubTitle}" Text="الجنسية" />
+                <Frame
+                    Padding="10,0"
+                    Background="White"
+                    VerticalOptions="Center">
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Picker
+                            x:Name="picker"
+                            Title="اختر الجنسية"
+                            Grid.Row="7"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            SelectedIndex="-1">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Baboon</x:String>
+                                    <x:String>Capuchin Monkey</x:String>
+                                    <x:String>Blue Monkey</x:String>
+                                    <x:String>Squirrel Monkey</x:String>
+                                    <x:String>Golden Lion Tamarin</x:String>
+                                    <x:String>Howler Monkey</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                    <x:String>Japanese Macaque</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+            <!--  ##4##  -->
+            <StackLayout
+                Grid.Row="4"
+                Padding="10,5"
+                Spacing="5">
+                <Label Style="{StaticResource SubTitle}" Text="فصيلة الدم" />
+                <template:DropdownListEntryTemplate />
+            </StackLayout>
+
+        </Grid>
+
+    </ScrollView>
+
+</ContentPage>

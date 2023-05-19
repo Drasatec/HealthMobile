@@ -3,16 +3,46 @@
     x:Class="DrasatHealthMobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:local="clr-namespace:DrasatHealthMobile"
-    xmlns:view="clr-namespace:DrasatHealthMobile.Views"
+    xmlns:views="clr-namespace:DrasatHealthMobile.Views"
     FlowDirection="RightToLeft"
     Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="NotAnimated">
+    Shell.NavBarIsVisible="False">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate view:HomeView}"
-        Route="MainPage" />
+    <TabBar>
+        <!--  Home  -->
+        <Tab Title="الرئيسية">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource IconFont}" Glyph="{x:Static font:IconFontMaterial.Home}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:HomeView}" Route="main" />
+        </Tab>
+
+        <!--  Specialties  -->
+        <Tab Title="التخصصات">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource IconFont}" Glyph="{x:Static font:IconFontMaterial.Heart}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:SpecialtiesView}" Route="specialties" />
+        </Tab>
+
+        <!--  Bookings  -->
+        <Tab Title="الحجوزات">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource IconFont}" Glyph="{x:Static font:IconFontMaterial.CalendarMonthOutline}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:BookingsView}" Route="bookings" />
+        </Tab>
+
+        <!--  More  -->
+        <Tab Title="المزيد">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource IconFont}" Glyph="{x:Static font:IconFontMaterial.DotsGrid}" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:ProfileView}" Route="profile" />
+        </Tab>
+
+    </TabBar>
 
 </Shell>

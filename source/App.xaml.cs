@@ -12,6 +12,7 @@ public partial class App : Application
         MainPage = new AppShell();//  NavigationPage(new HomeView());
 
         MainPage.FlowDirection = FlowDirection.RightToLeft;
+
         //ModifyEntry();
     }
 
@@ -29,10 +30,10 @@ public partial class App : Application
                 handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
             };
 #elif WINDOWS
-        handler.PlatformView.GotFocus += (s, e) =>
-        {
-            handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
-        };
+            handler.PlatformView.GotFocus += (s, e) =>
+            {
+                handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
+            };
 #endif
         });
     }
