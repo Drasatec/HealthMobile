@@ -22,7 +22,7 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <Frame
-                    Margin="20,0"
+                    Margin="20,5"
                     Padding="0"
                     HasShadow="False"
                     IsVisible="true">

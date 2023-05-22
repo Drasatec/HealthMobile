@@ -1,3 +1,6 @@
+using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Core;
+
 namespace DrasatHealthMobile.Views;
 
 public partial class HomeView : ContentPage
@@ -13,7 +16,16 @@ public partial class HomeView : ContentPage
         timer.Tick += (s, e) => Scrol();
         timer.Start();
     }
-
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+#if ANDROID
+        this.Behaviors.Add(new StatusBarBehavior
+        {
+            StatusBarColor = Color.FromArgb("#0070CD")
+        });
+#endif
+    }
     int flag = 0;
     void Scrol()
     {
@@ -62,7 +74,7 @@ public partial class HomeView : ContentPage
     {
         //var item = (List<string>)(sender as CollectionView).ItemsSource;
         //var index = item.IndexOf((string)e.CurrentSelection.FirstOrDefault());
-       // indicatorView.Position = index;
+        // indicatorView.Position = index;
     }
 
 
@@ -87,9 +99,14 @@ public partial class HomeView : ContentPage
     {
         await Shell.Current.GoToAsync("AddMemberView");
     }
-    
+
     private async void Button_Clicked_8(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("MembersView");
+    }
+
+    private async void GoToNotificationsView(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("NotificationsView");
     }
 }

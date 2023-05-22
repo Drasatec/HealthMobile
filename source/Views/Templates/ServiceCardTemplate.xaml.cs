@@ -64,7 +64,7 @@ public partial class ServiceCardTemplate : Border
                 await Shell.Current.GoToAsync("//specialties/SpecialtiesView");
                 break;
             case "2":
-                await Shell.Current.GoToAsync("SearchView");
+                await Shell.Current.GoToAsync("MedicalServicesView");
                 break;
             case "3":
                 await Shell.Current.GoToAsync("DoctorsView");

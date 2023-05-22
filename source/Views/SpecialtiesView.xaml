@@ -19,7 +19,10 @@
     <Grid RowDefinitions="Auto,*">
         <StackLayout>
             <!--  Navigation  -->
-            <template:BackButtonTemplate x:Name="navigation" Title="التخصصات" />
+            <template:BackButtonTemplate
+                x:Name="backButton"
+                Title="التخصصات"
+                ButtonIsVisible="False" />
 
             <!--  SEARCH BOX  -->
             <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" />
@@ -42,7 +45,10 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid BackgroundColor="{StaticResource White}">
-                        <Border Margin="5" Padding="5">
+                        <Border
+                            Margin="5"
+                            Padding="5"
+                            BackgroundColor="{StaticResource White}">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="8" />
                             </Border.StrokeShape>

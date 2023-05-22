@@ -2,10 +2,10 @@ namespace DrasatHealthMobile.Views;
 
 public partial class SpecialtiesView : ContentPage
 {
-	public SpecialtiesView()
-	{
-		InitializeComponent();
-	}
+    public SpecialtiesView()
+    {
+        InitializeComponent();
+    }
 
     private async void collectionOfSpecialists_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {

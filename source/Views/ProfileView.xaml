@@ -10,11 +10,82 @@
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
     Title="ProfileView"
-    BackgroundColor="{StaticResource Background}"
+    BackgroundColor="{StaticResource Secondary}"
     FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False">
 
-    <Grid>
-        <Label Text="ON progres ............" />
+    <Grid RowDefinitions="Auto,*">
+        <!--  BackButton  -->
+        <Button
+            Margin="20"
+            Padding="0"
+            BackgroundColor="{StaticResource White}"
+            BorderColor="Transparent"
+            CornerRadius="20"
+            FontFamily="{StaticResource IconFont}"
+            FontSize="Title"
+            HeightRequest="40"
+            HorizontalOptions="End"
+            IsVisible="false"
+            Text="{x:Static font:IconFontMaterial.Close}"
+            TextColor="{StaticResource Black}"
+            VerticalOptions="Start"
+            WidthRequest="40" />
+        <StackLayout Padding="40">
+            <kit:AvatarView
+                BorderWidth="3"
+                HeightRequest="80"
+                HorizontalOptions="Start"
+                ImageSource="person"
+                Style="{StaticResource Avatar}"
+                WidthRequest="80" />
+
+            <Label Style="{StaticResource Body}" Text="محمد سامح" />
+            <Label Style="{StaticResource Body}" Text="0125134214" />
+        </StackLayout>
+
+
+        <!--  ####  -->
+        <StackLayout
+            Grid.Row="1"
+            Margin="10,0"
+            Spacing="1">
+            <StackLayout HeightRequest="45" Orientation="Horizontal">
+                <Label
+                    Style="{StaticResource LableIcon}"
+                    Text="{x:Static font:IconFontMaterial.Heart}"
+                    TextColor="Black" />
+                <Label Style="{StaticResource Body}" Text="العنصر الأول" />
+            </StackLayout>
+
+            <StackLayout HeightRequest="45" Orientation="Horizontal">
+                <Label
+                    Style="{StaticResource LableIcon}"
+                    Text="{x:Static font:IconFontMaterial.Heart}"
+                    TextColor="Black" />
+                <Label Style="{StaticResource Body}" Text="العنصر الثاني" />
+            </StackLayout>
+
+            <StackLayout HeightRequest="45" Orientation="Horizontal">
+                <Label
+                    Style="{StaticResource LableIcon}"
+                    Text="{x:Static font:IconFontMaterial.Heart}"
+                    TextColor="Black" />
+                <Label Style="{StaticResource Body}" Text="العنصر الثالث" />
+            </StackLayout>
+        </StackLayout>
+
+        <Button
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            Clicked="Button_Clicked"
+            HeightRequest="45"
+            VerticalOptions="Start" />
     </Grid>
+
+
+    <!--  end  -->
+    <ContentPage.Behaviors>
+        <kit:StatusBarBehavior StatusBarColor="{StaticResource Secondary}" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
 </ContentPage>

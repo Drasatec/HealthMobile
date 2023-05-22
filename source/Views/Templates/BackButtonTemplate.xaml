@@ -26,6 +26,7 @@
                 FontFamily="{StaticResource IconFont}"
                 FontSize="Title"
                 HeightRequest="30"
+                IsVisible="{Binding ButtonIsVisible, Source={x:Reference this}}"
                 Text="{x:Static f:IconFontMaterial.ArrowRight}"
                 TextColor="{StaticResource White}"
                 VerticalOptions="CenterAndExpand"
@@ -36,11 +37,7 @@
                 FontFamily="{StaticResource CairoBold}"
                 Text="{Binding Title, Source={x:Reference this}}"
                 TextColor="{StaticResource White}"
-                VerticalOptions="Center">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="BackButton" />
-                </Label.GestureRecognizers>
-            </Label>
+                VerticalOptions="Center" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentView>

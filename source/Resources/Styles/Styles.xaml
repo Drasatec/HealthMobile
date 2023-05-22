@@ -380,6 +380,18 @@
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="Shell">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource Gray500}" />
+        <Setter Property="Shell.TitleColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shell.DisabledColor" Value="{StaticResource Gray100}" />
+        <Setter Property="Shell.UnselectedColor" Value="{StaticResource Gray100}" />
+        <Setter Property="Shell.NavBarHasShadow" Value="False" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Gray100}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Gray400}" />
+    </Style>
+    <!--<Style ApplyToDerivedTypes="True" TargetType="Shell">
         <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}" />
         <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource Primary}, Default={StaticResource White}}" />
         <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
@@ -390,7 +402,7 @@
         <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />
-    </Style>
+    </Style>-->
 
     <Style TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}" />

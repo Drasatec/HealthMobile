@@ -33,9 +33,15 @@
                 <Label
                     Style="{StaticResource LableIcon}"
                     Text="{x:Static font:IconFontMaterial.BellOutline}"
-                    TextColor="{StaticResource White}" />
+                    TextColor="{StaticResource White}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="GoToNotificationsView" />
+                    </Label.GestureRecognizers>
+                </Label>
             </StackLayout>
 
+
+            <!--  ServiceCardTemplate  -->
             <Grid
                 Padding="15"
                 ColumnDefinitions="*,*,*"
@@ -180,5 +186,8 @@
 
         </StackLayout>
     </ScrollView>
-
+    <!--  end  -->
+    <ContentPage.Behaviors>
+        <kit:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
 </ContentPage>

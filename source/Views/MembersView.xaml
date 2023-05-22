@@ -12,7 +12,8 @@
     Title="MembersView"
     BackgroundColor="{StaticResource White}"
     FlowDirection="RightToLeft"
-    NavigationPage.HasNavigationBar="False">
+    NavigationPage.HasNavigationBar="False"
+    Shell.TabBarIsVisible="False">
 
 
     <ContentPage.Resources>

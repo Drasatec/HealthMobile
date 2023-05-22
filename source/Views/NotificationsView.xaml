@@ -16,9 +16,11 @@
     Shell.PresentationMode="ModalAnimated">
 
     <Grid>
+        <template:BackButtonTemplate Title="الاشعارات" />
         <Label
             HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
+            Style="{StaticResource SubTitle}"
+            Text="in progress..........."
             VerticalOptions="Center" />
     </Grid>
 

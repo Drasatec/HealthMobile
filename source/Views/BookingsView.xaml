@@ -13,10 +13,32 @@
     BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False">
-    <Grid>
-        <VerticalStackLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <x:Array x:Key="itemsSource" Type="{x:Type x:String}">
+                <x:String>mono</x:String>
+                <x:String>monodroid</x:String>
+                <x:String>monotouch</x:String>
+                <x:String>monorail</x:String>
+                <x:String>monodevelop</x:String>
+                <x:String>monodevelop</x:String>
+                <x:String>monodevelop</x:String>
+            </x:Array>
+
+            <Style TargetType="CollectionView">
+                <Setter Property="ItemsSource" Value="{StaticResource itemsSource}" />
+                <Setter Property="SelectionMode" Value="Single" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <StackLayout>
             <!--  Navigation  -->
-            <template:BackButtonTemplate x:Name="navigation" Title="الحجوزات" />
+            <template:BackButtonTemplate Title="الحجوزات" ButtonIsVisible="False" />
 
             <!--  Three TABS  -->
             <StackLayout
@@ -53,20 +75,27 @@
                     Style="{StaticResource Unchecked}"
                     Text="المرفوضة" />
             </StackLayout>
+        </StackLayout>
 
-            <!--  Content of Tabs  -->
-            <VerticalStackLayout x:Name="contentOfTabs">
 
-                <!--  Comings_____##1##  -->
-                <template:BookingCardTemplate IsVisible="true" />
+        <!--  Content of Tabs  -->
+        <Grid x:Name="contentOfTabs" Grid.Row="1">
+            <!--  Comings_____##1##  -->
+            <template:BookingCardTemplate IsVisible="true" />
 
-                <!--  Pasts_______##2##  -->
-                <template:BookingCardTemplate />
+            <!--  Pasts_______##2##  -->
+            <template:BookingCardTemplate />
 
-                <!--  Rejectings__##3##  -->
-                <template:BookingCardTemplate />
+            <!--  Rejectings__##3##  -->
+            <template:BookingCardTemplate />
+        </Grid>
 
-            </VerticalStackLayout>
-        </VerticalStackLayout>
+        <ActivityIndicator
+            x:Name="activityIndicator"
+            Grid.Row="1"
+            HeightRequest="40"
+            VerticalOptions="Start"
+            Color="{StaticResource Primary}" />
+
     </Grid>
 </ContentPage>
