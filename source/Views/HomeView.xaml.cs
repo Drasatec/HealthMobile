@@ -1,13 +1,15 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
+using DrasatHealthMobile.ViewModels;
 
 namespace DrasatHealthMobile.Views;
 
 public partial class HomeView : ContentPage
 {
     //public double WidthImage { get; set; }
-    public HomeView()
+    public HomeView(HomeViewModel homeViewModel)
     {
+        BindingContext = homeViewModel;
         InitializeComponent();
         //WidthImage = this.Width - 20;
 

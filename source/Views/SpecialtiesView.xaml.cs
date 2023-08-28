@@ -1,9 +1,12 @@
+using DrasatHealthMobile.ViewModels;
+
 namespace DrasatHealthMobile.Views;
 
 public partial class SpecialtiesView : ContentPage
 {
-    public SpecialtiesView()
+    public SpecialtiesView(SpecialtiesViewModel specialtiesViewModel)
     {
+        BindingContext = specialtiesViewModel;
         InitializeComponent();
     }
 

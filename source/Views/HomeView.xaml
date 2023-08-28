@@ -13,13 +13,13 @@
     BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False">
-    <ContentPage.BindingContext>
+
+    <!--<ContentPage.BindingContext>
         <vm:HomeViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
 
     <ScrollView>
         <StackLayout Spacing="0">
-
             <!--  HosName & Bell  -->
             <StackLayout
                 Padding="15,10"
@@ -40,11 +40,10 @@
                 </Label>
             </StackLayout>
 
-
             <!--  ServiceCardTemplate  -->
             <Grid
                 Padding="15"
-                ColumnDefinitions="*,*,*"
+                ColumnDefinitions="*,*"
                 ColumnSpacing="15"
                 RowDefinitions="120">
                 <template:ServiceCardTemplate
@@ -53,16 +52,12 @@
                     Text="العيادات" />
                 <template:ServiceCardTemplate
                     Grid.Column="1"
-                    CommandParameter="2"
-                    ImageSource="healthcare"
-                    Text="الخدمات" />
-                <template:ServiceCardTemplate
-                    Grid.Column="2"
                     CommandParameter="3"
                     ImageSource="medicalteam"
                     Text="الأطباء" />
             </Grid>
 
+            <!--  visit clinic  -->
             <Border
                 Margin="15,0,10,15"
                 Padding="20"
@@ -113,10 +108,10 @@
                 </StackLayout>
             </Border>
 
-
+            <!--  Promotion  -->
             <CollectionView
                 x:Name="myCollectionView"
-                ItemsSource="{Binding ListOfHospitals}"
+                ItemsSource="{Binding Promotions}"
                 Scrolled="CollectionView_Scrolled"
                 SelectionChanged="CollectionView_SelectionChanged">
                 <CollectionView.ItemsLayout>
@@ -129,28 +124,34 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="0">
-                            <Border
-                                Padding="0"
-                                BackgroundColor="{StaticResource White}"
-                                StrokeShape="RoundRectangle 20"
-                                WidthRequest="{Binding Source={Reference this}, Path=Width}">
-                                <StackLayout
-                                    Margin="0"
+                            <Grid>
+                                <Border
+                                    Padding="0"
                                     BackgroundColor="{StaticResource White}"
-                                    HeightRequest="200"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="CenterAndExpand">
-                                    <Image
-                                        Aspect="AspectFill"
+                                    StrokeShape="RoundRectangle 20"
+                                    WidthRequest="{Binding Source={Reference this}, Path=Width}">
+                                    <StackLayout
+                                        Margin="0"
+                                        BackgroundColor="{StaticResource White}"
+                                        HeightRequest="200"
                                         HorizontalOptions="Center"
-                                        Source="{Binding .}" />
+                                        VerticalOptions="CenterAndExpand">
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HorizontalOptions="Center"
+                                            Source="{Binding ImageUrl}" />
+                                    </StackLayout>
+                                </Border>
+                                <StackLayout Padding="20" VerticalOptions="End">
+                                    <Label Text="{Binding PromotionsTranslations[0].Title, FallbackValue='لا يوجد عنوان'}" />
                                 </StackLayout>
-                            </Border>
+                            </Grid>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <!--  Indicator  -->
             <IndicatorView
                 x:Name="indicatorView"
                 Count="4"
@@ -159,6 +160,7 @@
                 IsVisible="false"
                 SelectedIndicatorColor="Red" />
 
+            <!--  aske help  -->
             <Border
                 Margin="10,20"
                 Padding="20"

@@ -1,7 +1,12 @@
-﻿using CommunityToolkit.Maui;
+﻿using alrahmacare00.Services.Home;
+using alrahmacare00.Services.PublicServices;
+using alrahmacare00.Services.RequestProvider;
+using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Markup;
+using DrasatHealthMobile.ViewModels;
+using DrasatHealthMobile.Views;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 
 namespace DrasatHealthMobile;
@@ -12,6 +17,7 @@ public static class MauiProgram
     {
 
         var builder = MauiApp.CreateBuilder();
+       
 
         builder
             .UseMauiApp<App>()
@@ -28,6 +34,13 @@ public static class MauiProgram
                 fonts.AddFont("Cairo-Regular.ttf", "CairoRegular");
                 fonts.AddFont("Cairo-Bold.ttf", "CairoBold");
             });
+        builder.Services.AddSingleton<IRequestProvider, RequestProvider>();
+        builder.Services.AddSingleton<IHomeServices, HomeServices>();
+        builder.Services.AddSingleton<IPublicService, PublicService>();
+        builder.Services.AddSingleton<HomeViewModel>();
+        builder.Services.AddSingleton<HomeView>();
+        builder.Services.AddSingleton<SpecialtiesViewModel>();
+        builder.Services.AddSingleton<SpecialtiesView>();
 
 #if DEBUG
         builder.Logging.AddDebug();

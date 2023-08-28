@@ -5,6 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
+    <x:String x:Key="IconFont">IconFontMaterial</x:String>
+    <x:String x:Key="CairoBold">CairoBold</x:String>
+    <x:String x:Key="CairoRegular">CairoRegular</x:String>
 
     <Style x:Key="Avatar" TargetType="kit:AvatarView">
         <Setter Property="ImageSource" Value="dotnet_bot.svg" />

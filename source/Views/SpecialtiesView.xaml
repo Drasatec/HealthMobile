@@ -13,11 +13,13 @@
     BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False">
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <vm:SpecialtiesViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     <Grid RowDefinitions="Auto,*">
+
         <StackLayout>
+
             <!--  Navigation  -->
             <template:BackButtonTemplate
                 x:Name="backButton"
@@ -28,20 +30,24 @@
             <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" />
 
         </StackLayout>
+
+
         <CollectionView
             x:Name="collectionOfSpecialists"
             Grid.Row="1"
             Margin="5,0"
             BackgroundColor="{StaticResource White}"
-            ItemsSource="{Binding SpecialistsList}"
+            ItemsSource="{Binding Specialties}"
             SelectionChanged="collectionOfSpecialists_SelectionChanged"
             SelectionMode="Single">
+
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
                     HorizontalItemSpacing="0"
                     Orientation="Vertical"
                     Span="3" />
             </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid BackgroundColor="{StaticResource White}">
@@ -57,7 +63,7 @@
                                     BackgroundColor="{StaticResource White}"
                                     CornerRadius="10"
                                     HeightRequest="50"
-                                    ImageSource="dotnet_bot.svg"
+                                    ImageSource="{Binding ImageUrl}"
                                     VerticalOptions="Center"
                                     WidthRequest="50" />
                                 <StackLayout>
@@ -67,7 +73,7 @@
                                         HorizontalTextAlignment="Center"
                                         MaxLines="2"
                                         Style="{StaticResource Body}"
-                                        Text="{Binding Name}"
+                                        Text="{Binding SpecialtyTranslations[0].Name}"
                                         VerticalOptions="CenterAndExpand"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>

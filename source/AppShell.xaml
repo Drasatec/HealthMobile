@@ -14,7 +14,7 @@
         <!--  Home  -->
         <Tab Title="الرئيسية">
             <Tab.Icon>
-                <FontImageSource FontFamily="{StaticResource IconFont}" Glyph="{x:Static font:IconFontMaterial.Home}" />
+                <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.Home}" />
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate views:HomeView}" Route="main" />
         </Tab>
@@ -22,7 +22,7 @@
         <!--  Specialties  -->
         <Tab Title="التخصصات">
             <Tab.Icon>
-                <FontImageSource FontFamily="{StaticResource IconFont}" Glyph="{x:Static font:IconFontMaterial.Heart}" />
+                <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.Heart}" />
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate views:SpecialtiesView}" Route="specialties" />
         </Tab>
@@ -30,7 +30,7 @@
         <!--  Bookings  -->
         <Tab Title="الحجوزات">
             <Tab.Icon>
-                <FontImageSource FontFamily="{StaticResource IconFont}" Glyph="{x:Static font:IconFontMaterial.CalendarMonthOutline}" />
+                <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.CalendarMonthOutline}" />
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate views:BookingsView}" Route="bookings" />
         </Tab>
@@ -38,7 +38,7 @@
         <!--  More  -->
         <Tab Title="المزيد">
             <Tab.Icon>
-                <FontImageSource FontFamily="{StaticResource IconFont}" Glyph="{x:Static font:IconFontMaterial.DotsGrid}" />
+                <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.DotsGrid}" />
             </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate views:ProfileView}" Route="profile" />
         </Tab>

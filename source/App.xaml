@@ -6,9 +6,9 @@
     xmlns:local="clr-namespace:DrasatHealthMobile">
     <Application.Resources>
         <ResourceDictionary>
-            <x:String x:Key="IconFont">IconFontMaterial</x:String>
+            <!--<x:String x:Key="IconFont">IconFontMaterial</x:String>
             <x:String x:Key="CairoBold">CairoBold</x:String>
-            <x:String x:Key="CairoRegular">CairoRegular</x:String>
+            <x:String x:Key="CairoRegular">CairoRegular</x:String>-->
 
             <Style x:Key="Checked" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
