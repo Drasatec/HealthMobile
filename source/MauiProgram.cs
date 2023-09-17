@@ -1,6 +1,6 @@
-﻿using alrahmacare00.Services.Home;
-using alrahmacare00.Services.PublicServices;
-using alrahmacare00.Services.RequestProvider;
+﻿using DrasatHealthMobile.Services.Home;
+using DrasatHealthMobile.Services.PublicServices;
+using DrasatHealthMobile.Services.RequestProvider;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Markup;
 using DrasatHealthMobile.ViewModels;
@@ -17,8 +17,6 @@ public static class MauiProgram
     {
 
         var builder = MauiApp.CreateBuilder();
-       
-
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
@@ -37,10 +35,18 @@ public static class MauiProgram
         builder.Services.AddSingleton<IRequestProvider, RequestProvider>();
         builder.Services.AddSingleton<IHomeServices, HomeServices>();
         builder.Services.AddSingleton<IPublicService, PublicService>();
+
         builder.Services.AddSingleton<HomeViewModel>();
         builder.Services.AddSingleton<HomeView>();
+
         builder.Services.AddSingleton<SpecialtiesViewModel>();
         builder.Services.AddSingleton<SpecialtiesView>();
+
+        builder.Services.AddSingleton<DoctorsViewModel>();
+        builder.Services.AddSingleton<DoctorsView>();
+        
+        builder.Services.AddSingleton<RegisterViewModel>();
+        builder.Services.AddSingleton<RegisterView>();
 
 #if DEBUG
         builder.Logging.AddDebug();

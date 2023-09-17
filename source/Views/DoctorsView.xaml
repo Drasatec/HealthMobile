@@ -43,9 +43,9 @@
         </Style>
     </ContentPage.Resources>
 
-    <ContentPage.BindingContext>
-        <vm:DoctorsViewModel />
-    </ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
+        <vm:DoctorsViewModel >
+    </ContentPage.BindingContext>-->
 
     <Grid RowDefinitions="Auto,Auto,*">
 
@@ -58,13 +58,13 @@
             BackgroundColor="{StaticResource Primary}"
             ColumnDefinitions="*,60"
             ColumnSpacing="0">
-            <template:SearchBoxTemplate HorizontalOptions="FillAndExpand" />
+            <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" HorizontalOptions="FillAndExpand" />
             <!--  Filter Icon  -->
             <Frame
                 Grid.Column="1"
-                Margin="5,5,5,15"
+                Margin="5,6,10,17"
                 Padding="0"
-                VerticalOptions="Center">
+                VerticalOptions="FillAndExpand">
                 <Image
                     HorizontalOptions="Center"
                     Source="filter.svg"
@@ -75,7 +75,7 @@
             </Frame>
         </Grid>
 
-        <!--  ROW ##3##  Collection View  -->
+        <!--  ROW ##3## Collection  of doctor card View  -->
         <CollectionView
             x:Name="ClViewDoctors"
             Grid.Row="2"
@@ -89,10 +89,10 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <template:DoctorCardTemplate CommandParameter="{Binding FullName}" />
+                    <template:DoctorCardTemplate CommandParameter="1" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            <CollectionView.Footer>
+            <!--<CollectionView.Footer>
                 <StackLayout BackgroundColor="LightGray">
                     <Label
                         Margin="10,0,0,0"
@@ -100,7 +100,7 @@
                         FontSize="12"
                         Text="end collection" />
                 </StackLayout>
-            </CollectionView.Footer>
+            </CollectionView.Footer>-->
         </CollectionView>
 
         <!--  ROW ##4## Filter  -->
@@ -130,12 +130,14 @@
                         Text="{x:Static font:IconFontMaterial.Close}" />
 
                 </StackLayout>
+
                 <!--  Title  -->
                 <HorizontalStackLayout HorizontalOptions="Center">
                     <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
                     <Label Style="{StaticResource SubTitle}" Text="5/2023" />
                     <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronLeft}" />
                 </HorizontalStackLayout>
+
                 <!--  Dayes  -->
                 <Grid ColumnDefinitions="40,*,40" HorizontalOptions="Center">
                     <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
@@ -225,10 +227,7 @@
                         Grid.Column="3"
                         Style="{StaticResource Body}"
                         Text="اخصائي" />
-
                 </Grid>
-
-
             </VerticalStackLayout>
         </Border>
 

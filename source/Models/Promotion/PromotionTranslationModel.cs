@@ -1,4 +1,4 @@
-﻿namespace alrahmacare00.Models.Promotion;
+﻿namespace DrasatHealthMobile.Models.Promotion;
 
 public class PromotionTranslationModel
 {

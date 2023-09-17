@@ -1,4 +1,4 @@
-﻿namespace alrahmacare00.Models.Hospital;
+﻿namespace DrasatHealthMobile.Models.Hospital;
 
 public class HospitalTranslation
 {

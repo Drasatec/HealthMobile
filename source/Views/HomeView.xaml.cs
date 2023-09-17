@@ -111,4 +111,9 @@ public partial class HomeView : ContentPage
     {
         await Shell.Current.GoToAsync("NotificationsView");
     }
+
+    private async void Button_Clicked_10(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("LoginView");
+    }
 }

@@ -1,18 +1,38 @@
+using DrasatHealthMobile.Helpers;
+using DrasatHealthMobile.ViewModels;
 using Microsoft.Maui.Controls;
 
 namespace DrasatHealthMobile.Views;
 
+//[QueryProperty(nameof(SpeId), "Id")]
 public partial class DoctorsView : ContentPage
 {
-    public DoctorsView() => InitializeComponent();
+    int id;
+    public int SpeId
+    {
+        get => id;
+        set
+        {
+            id = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public DoctorsView(DoctorsViewModel doctorsViewModel)
+    {
+        BindingContext = doctorsViewModel;
+        InitializeComponent();
+        var s = SpeId;
+    }
 
     private async void ClViewDoctors_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (ClViewDoctors.SelectedItem == null) return;
-        await Shell.Current.GoToAsync("DoctorDetailsView");
+        //await Helper.DisplayAlert(nameof(DoctorsView),nameof(), "");
+        await Helper.NavigationToAsync(nameof(DoctorDetailsView));
+        //await Shell.Current.GoToAsync("DoctorDetailsView");
         ClViewDoctors.SelectedItem = null;
     }
-
 
     private void CollectionView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
     {
@@ -20,6 +40,7 @@ public partial class DoctorsView : ContentPage
         // collection.ScrollTo(collection.);
         //VisualStateManager.GoToState(visualStack, "Invalid");
     }
+
     private async void OpenFiltrFrame(object sender, TappedEventArgs e)
     {
         try
@@ -35,7 +56,7 @@ public partial class DoctorsView : ContentPage
     }
     private async void CloseFiltrFrame(object sender, EventArgs e)
     {
-        await borderFilter.TranslateTo(0, 800,length:500, easing: Easing.CubicInOut);
+        await borderFilter.TranslateTo(0, 800, length: 500, easing: Easing.CubicInOut);
         borderFilter.IsVisible = false;
     }
 }

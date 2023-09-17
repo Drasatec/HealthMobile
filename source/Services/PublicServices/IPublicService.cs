@@ -1,9 +1,12 @@
-﻿using alrahmacare00.Models;
-using alrahmacare00.Models.MedicalSpecialty;
+﻿using DrasatHealthMobile.Models;
+using DrasatHealthMobile.Models.Doctors;
+using DrasatHealthMobile.Models.MedicalSpecialty;
 
-namespace alrahmacare00.Services.PublicServices;
+namespace DrasatHealthMobile.Services.PublicServices;
 
 public interface IPublicService
 {
-    Task<PagedResponse<SpecialtyModel>> GetAllSpecialtiesAsync(string guidUser);
+    Task<PagedResponse<DoctorModel>> GetAllDoctorsAsync(string endpoint, Dictionary<string, string> queryParams);
+    Task<List<HumanGenderNames>> GetAllHumanGenderAsync(string endpoint, string param);
+    Task<PagedResponse<SpecialtyModel>> GetAllSpecialtiesAsync(string endpoint, Dictionary<string, object> queryParams);
 }

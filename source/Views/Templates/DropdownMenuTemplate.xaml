@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="DrasatHealthMobile.Views.Templates.DropdownMenuTemplate"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Margin="0"
+    Padding="0"
+    BackgroundColor="{StaticResource Background}"
+    FlowDirection="RightToLeft">
+    <Border
+        x:Name="dropdown"
+        Margin="0,0"
+        Padding="0,0"
+        Background="{StaticResource White}"
+        StrokeShape="RoundRectangle 10"
+        StrokeThickness="1"
+        VerticalOptions="StartAndExpand">
+        <Grid
+            HorizontalOptions="Fill"
+            RowDefinitions="45,1,*"
+            RowSpacing="0">
+            <!--  Header  -->
+            <StackLayout
+                x:Name="dropdownHeader"
+                HeightRequest="45"
+                Orientation="Horizontal"
+                Spacing="0"
+                VerticalOptions="StartAndExpand">
+                <Entry
+                    x:Name="entry"
+                    Margin="10,0"
+                    HorizontalOptions="FillAndExpand"
+                    InputTransparent="True"
+                    IsEnabled="False"
+                    Placeholder="{Binding TextPlaceholder, Source={x:Reference this}}"
+                    TextColor="Black" />
+
+                <Label
+                    x:Name="chevronIcon"
+                    Style="{StaticResource LableIconGray}"
+                    Text="{x:Static font:IconFontMaterial.ChevronDown}">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ExpanderCommand, Source={x:Reference this}}" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ExpanderCommand, Source={x:Reference this}}" />
+                </StackLayout.GestureRecognizers>
+
+            </StackLayout>
+
+            <BoxView
+                x:Name="separatorLine"
+                Grid.Row="1"
+                HeightRequest="1"
+                HorizontalOptions="Start"
+                IsVisible="false"
+                VerticalOptions="End"
+                WidthRequest="0"
+                Color="{StaticResource Gray200}" />
+
+            <!--  Content  -->
+            <StackLayout
+                x:Name="dropdownContent"
+                Grid.Row="2"
+                Padding="3"
+                IsVisible="false"
+                VerticalOptions="Start">
+                <CollectionView
+                    x:Name="CollectionOfItems"
+                    BackgroundColor="{StaticResource White}"
+                    ItemsSource="{Binding MenuItemsSource, Source={x:Reference this}}"
+                    SelectionChanged="CollectionOfItems_SelectionChanged"
+                    SelectionChangedCommandParameter="{Binding Source={x:Reference CollectionOfItems}, Path=SelectedItem}"
+                    SelectionMode="Single">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout BackgroundColor="White">
+                                <Border
+                                    Margin="0"
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource White}"
+                                    StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+                                    <Label
+                                        Padding="10,0"
+                                        HorizontalTextAlignment="Start"
+                                        MaxLines="2"
+                                        Style="{StaticResource Body}"
+                                        Text="{Binding Name}"
+                                        VerticalOptions="CenterAndExpand"
+                                        VerticalTextAlignment="Center" />
+                                </Border>
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
+    </Border>
+</ContentView>

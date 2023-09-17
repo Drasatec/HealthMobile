@@ -72,4 +72,12 @@
         <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
+    <Style x:Key="LableIconGray" TargetType="Label">
+        <Setter Property="FontFamily" Value="IconFontMaterial" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="TextColor" Value="{StaticResource Gray500}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
 </ResourceDictionary>

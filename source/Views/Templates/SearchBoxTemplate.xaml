@@ -10,7 +10,10 @@
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this">
 
-    <StackLayout Padding="0,0,0,10" BackgroundColor="{StaticResource Primary}">
+    <StackLayout
+        Padding="0,0,0,10"
+        BackgroundColor="{StaticResource Primary}"
+        HeightRequest="65">
         <Frame
             Margin="10,5"
             Padding="10,0"

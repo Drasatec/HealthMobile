@@ -61,7 +61,7 @@ public partial class ServiceCardTemplate : Border
         switch (parm)
         {
             case "1":
-                await Shell.Current.GoToAsync("//specialties/SpecialtiesView");
+                await Shell.Current.GoToAsync("///specialties");
                 break;
             case "2":
                 await Shell.Current.GoToAsync("MedicalServicesView");
@@ -71,5 +71,4 @@ public partial class ServiceCardTemplate : Border
                 break;
         }
     }
-
 }

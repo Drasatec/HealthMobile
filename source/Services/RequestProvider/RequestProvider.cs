@@ -1,10 +1,11 @@
-﻿using alrahmacare00.Models;
+﻿using DrasatHealthMobile.Models;
+using DrasatHealthMobile.Helpers;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace alrahmacare00.Services.RequestProvider;
+namespace DrasatHealthMobile.Services.RequestProvider;
 
 public class RequestProvider : IRequestProvider
 {
@@ -15,8 +16,7 @@ public class RequestProvider : IRequestProvider
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             return httpClient;
-        },
-            LazyThreadSafetyMode.ExecutionAndPublication);
+        }, LazyThreadSafetyMode.ExecutionAndPublication);
 
     public async Task<List<TResult>> GetAsync<TResult>(string uri, string token = "")
     {
@@ -29,16 +29,44 @@ public class RequestProvider : IRequestProvider
         List<TResult> result = await response.Content.ReadFromJsonAsync<List<TResult>>();
         return result;
     }
-    
+
     public async Task<PagedResponse<TResult>> GetPagedResponseAsync<TResult>(string uri, string token = "")
     {
-        var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Get, uri);
-        request.Headers.Add("Authorization", $"Bearer {token}");
-        var response = await client.SendAsync(request);
-        response.EnsureSuccessStatusCode();
-        PagedResponse<TResult> result = await response.Content.ReadFromJsonAsync<PagedResponse<TResult>>();
-        return result;
+        try
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            request.Headers.Add("Authorization", $"Bearer {token}");
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            PagedResponse<TResult> result = await response.Content.ReadFromJsonAsync<PagedResponse<TResult>>();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            await Helper.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
+            //await Shell.Current.DisplayAlert("GetPagedResponseAsync", ex.Message, "cancel");
+            return null;
+        }
+    }
+
+    public async Task<List<TResult>> GetListAsync<TResult>(string uri, string token = "")
+    {
+        try
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            request.Headers.Add("Authorization", $"Bearer {token}");
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            List<TResult> result = await response.Content.ReadFromJsonAsync<List<TResult>>();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            await Helper.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
+            return null;
+        }
     }
 
     public async Task<TResult> PostAsync<TResult>(string uri, TResult data, string token = "", string header = "")

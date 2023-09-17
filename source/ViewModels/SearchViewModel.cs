@@ -10,22 +10,13 @@ public class SearchViewModel : ObservableObject
 {
     private MockService mock = new();
     public ObservableCollection<Specialist> SpecialistsList { get; set; } = new();
-    public ObservableCollection<Doctor> Doctors { get; set; } = new();
     int selectedSearshType = (int)SearchBy.specialist;
 
     public SearchViewModel()
     {
-        Task.Run(() => GetDoctors());
         Task.Run(() => GetSpecialists());
     }
 
-    private void GetDoctors()
-    {
-        foreach (var item in mock.ListDoctors)
-        {
-            Doctors.Add(item);
-        }
-    }
     private void GetSpecialists()
     {
         foreach (var item in mock.ListSpecialists)
@@ -46,11 +37,7 @@ public class SearchViewModel : ObservableObject
 
     private void SearchBoxTyping(string text)
     {
-        Doctors.Clear();
-        foreach (var item in mock.LocalDoctors(text))
-        {
-            Doctors.Add(item);
-        }
+        
     }
 
     private void SelectSearchType(int type)

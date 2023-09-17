@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="DrasatHealthMobile.Views.Templates.EntryFrameTemplate"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Margin="0"
+    Padding="0"
+    BackgroundColor="{StaticResource Background}"
+    FlowDirection="RightToLeft">
+    <Border
+        Margin="0,0"
+        Padding="0,0"
+        Background="{StaticResource White}"
+        HeightRequest="49"
+        StrokeShape="RoundRectangle 10"
+        StrokeThickness="1"
+        VerticalOptions="StartAndExpand">
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Orientation="Horizontal"
+            Spacing="7">
+            <Entry
+                x:Name="entry"
+                Margin="10,0"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                Placeholder="{Binding TextPlaceholder, Source={x:Reference this}}"
+                TextColor="Black"
+                VerticalOptions="CenterAndExpand">
+                <Entry.Behaviors>
+                    <kit:UserStoppedTypingBehavior
+                        x:Name="userStoppedTypingBehavior"
+                        Command="{Binding Command, Source={x:Reference this}}"
+                        CommandParameter="{Binding Source={x:Reference entry}, Path=Text}"
+                        StoppedTypingTimeThreshold="200" />
+                </Entry.Behaviors>
+            </Entry>
+        </StackLayout>
+    </Border>
+</ContentView>

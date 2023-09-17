@@ -1,4 +1,5 @@
 ﻿using DrasatHealthMobile.Views;
+using DrasatHealthMobile.Views;
 
 namespace DrasatHealthMobile;
 
@@ -22,5 +23,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("MembersView", typeof(MembersView));
         Routing.RegisterRoute("MedicalServicesView", typeof(MedicalServicesView));
         Routing.RegisterRoute("NotificationsView", typeof(NotificationsView));
+        Routing.RegisterRoute("LoginView", typeof(RegisterView));
     }
 }

@@ -1,6 +1,6 @@
-﻿using alrahmacare00.Models.Hospital;
-using alrahmacare00.Models.Promotion;
-using alrahmacare00.Services.Home;
+﻿using DrasatHealthMobile.Models.Hospital;
+using DrasatHealthMobile.Models.Promotion;
+using DrasatHealthMobile.Services.Home;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,10 @@ public class HomeViewModel : ObservableObject
     public async void GetNames()
     {
         var result = await homeServices.GetPromotionModelAsync("");
-
+        if (result == null)
+        {
+            return;
+        }
         Promotions = result.Data;
         OnPropertyChanged(nameof(Promotions));
     }

@@ -1,6 +1,6 @@
-﻿using alrahmacare00.Models;
+﻿using DrasatHealthMobile.Models;
 
-namespace alrahmacare00.Services.RequestProvider;
+namespace DrasatHealthMobile.Services.RequestProvider;
 
 public interface IRequestProvider
 {
@@ -14,4 +14,5 @@ public interface IRequestProvider
 
     Task DeleteAsync(string uri, string token = "");
     Task<PagedResponse<TResult>> GetPagedResponseAsync<TResult>(string uri, string token = "");
+    Task<List<TResult>> GetListAsync<TResult>(string uri, string token = "");
 }

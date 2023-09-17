@@ -173,7 +173,8 @@
             </Border>
 
             <StackLayout Padding="10,0" Spacing="10">
-                <Button Clicked="Button_Clicked_8" Text="كل الاعضاء" />
+                <Button Clicked="Button_Clicked_10" Text="اللوجن" />
+                <!--<Button Clicked="Button_Clicked_8" Text="كل الاعضاء" />
                 <Button Clicked="Button_Clicked_7" Text=" اضافة مريض" />
                 <Button Clicked="Button_Clicked_3" Text="بواسطة المريض" />
                 <Button Clicked="Button_Clicked_1" Text="التخصصات" />
@@ -181,7 +182,7 @@
                 <Button Clicked="Button_Clicked_4" Text="تفاصيل الحجز" />
                 <Button Clicked="Button_Clicked_6" Text="الأطباء" />
                 <Button Clicked="Button_Clicked_2" Text="تفاصيل الطبيب" />
-                <Button Clicked="GoToDoSomethingView" Text="افعل شيئا" />
+                <Button Clicked="GoToDoSomethingView" Text="افعل شيئا" />-->
             </StackLayout>
 
             <StackLayout HeightRequest="500" />

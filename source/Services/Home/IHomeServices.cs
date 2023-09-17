@@ -1,8 +1,8 @@
-﻿using alrahmacare00.Models;
-using alrahmacare00.Models.Hospital;
-using alrahmacare00.Models.Promotion;
+﻿using DrasatHealthMobile.Models;
+using DrasatHealthMobile.Models.Hospital;
+using DrasatHealthMobile.Models.Promotion;
 
-namespace alrahmacare00.Services.Home;
+namespace DrasatHealthMobile.Services.Home;
 
 public interface IHomeServices
 {

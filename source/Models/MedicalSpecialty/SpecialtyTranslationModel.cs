@@ -1,4 +1,4 @@
-﻿namespace alrahmacare00.Models.MedicalSpecialty;
+﻿namespace DrasatHealthMobile.Models.MedicalSpecialty;
 
 public class SpecialtyTranslationModel
 {

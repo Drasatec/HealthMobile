@@ -1,7 +1,7 @@
 ﻿using DrasatHealthMobile.Helpers;
 using System.Text.Json.Serialization;
 
-namespace alrahmacare00.Models.MedicalSpecialty;
+namespace DrasatHealthMobile.Models.MedicalSpecialty;
 public class SpecialtyModel
 {
     public int Id { get; set; }

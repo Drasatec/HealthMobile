@@ -24,27 +24,27 @@
                     BorderColor="{StaticResource Gray50}"
                     CornerRadius="40"
                     HeightRequest="80"
-                    ImageSource="{Binding Photo}"
+                    ImageSource="{Binding ImageUrl}"
                     Style="{StaticResource Avatar}"
                     VerticalOptions="Start"
                     WidthRequest="80" />
                 <!--  CONTENT  -->
                 <StackLayout HorizontalOptions="FillAndExpand" Spacing="2">
-                    <Label Style="{StaticResource SubTitle}" Text="{Binding FullName}" />
-                    <Label Style="{StaticResource Body}" Text="{Binding Headline}" />
+                    <Label Style="{StaticResource SubTitle}" Text="{Binding DoctorTranslations[0].FullName}" />
+                    <Label Style="{StaticResource Body}" Text="{Binding DoctorTranslations[0].Headline}" />
 
                     <!--  Visit Price  -->
-                    <HorizontalStackLayout Spacing="5">
+                    <!--<HorizontalStackLayout Spacing="5">
                         <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
                         <Label
                             Style="{StaticResource Body}"
-                            Text="{Binding Price}"
+                            Text="{Binding DoctorTranslations[0].Price}"
                             TextColor="{StaticResource Primary}" />
                         <Label
                             Style="{StaticResource Body}"
                             Text="{Binding Currency}"
                             TextColor="{StaticResource Primary}" />
-                    </HorizontalStackLayout>
+                    </HorizontalStackLayout>-->
 
                     <!--  STARS  -->
                     <CollectionView>

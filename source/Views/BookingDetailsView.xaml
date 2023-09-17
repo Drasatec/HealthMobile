@@ -1,157 +1,109 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    x:Class="DrasatHealthMobile.Views.BookingDetailsView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DrasatHealthMobile.Views.BookingDetailsView"
-    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
-    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
-    NavigationPage.HasNavigationBar="False"
-    Shell.PresentationMode="ModalAnimated"
-    FlowDirection="RightToLeft"
-    BackgroundColor="{StaticResource White}"
     x:Name="this"
-    Title="BookingDetailsView">
+    Title="BookingDetailsView"
+    BackgroundColor="{StaticResource White}"
+    FlowDirection="RightToLeft"
+    NavigationPage.HasNavigationBar="False"
+    Shell.PresentationMode="ModalAnimated">
     <ScrollView>
-        <Grid
-            RowDefinitions="Auto,Auto,*">
-            <!-- Hedar -->
-            <template:BackButtonTemplate
-                Title="صفحة تأكيد الحجز" />
+        <Grid RowDefinitions="Auto,Auto,*">
+            <!--  Hedar  -->
+            <template:BackButtonTemplate Title="صفحة تأكيد الحجز" />
 
-            <!-- Status ##1##-->
+            <!--  Status ##1##  -->
             <StackLayout
                 Grid.Row="1"
                 Padding="20,25"
                 BackgroundColor="{StaticResource Success}">
                 <StackLayout
-                    Orientation="Horizontal"
                     HorizontalOptions="Center"
+                    Orientation="Horizontal"
                     Spacing="15">
                     <Label
-                        Text="حالة الحجز"
                         Style="{StaticResource Title}"
+                        Text="حالة الحجز"
                         TextColor="{StaticResource White}" />
                     <Label
-                        Text="{x:Static font:IconFontMaterial.CheckCircle}"
                         FontFamily="{StaticResource IconFont}"
+                        FontSize="Title"
+                        Text="{x:Static font:IconFontMaterial.CheckCircle}"
                         TextColor="{StaticResource White}"
-                        VerticalOptions="Center"
-                        FontSize="Title" />
+                        VerticalOptions="Center" />
                 </StackLayout>
             </StackLayout>
 
-            <!-- Content-->
+            <!--  Content  -->
             <VerticalStackLayout
                 Grid.Row="2"
-                Spacing="10"
-                Padding="20,0">
+                Padding="20,0"
+                Spacing="10">
 
-                <!-- Doctor ##2## -->
-                <StackLayout
-                    Orientation="Horizontal"
-                    Spacing="8">
-                    <kit:AvatarView
-                        ImageSource="doctor1"
-                        Style="{StaticResource Avatar}" />
-                    <Label
-                        Text="د.محمد علاء الدين"
-                        Style="{StaticResource SubTitle}" />
+                <!--  Doctor ##2##  -->
+                <StackLayout Orientation="Horizontal" Spacing="8">
+                    <kit:AvatarView ImageSource="doctor1" Style="{StaticResource Avatar}" />
+                    <Label Style="{StaticResource SubTitle}" Text="د.محمد علاء الدين" />
                 </StackLayout>
 
-                <!-- Hospital ##3## -->
+                <!--  Hospital ##3##  -->
                 <StackLayout>
-                    <!-- Hos Name -->
-                    <Label
-                        Style="{StaticResource SubTitle}"
-                        Text="عيادة الرحمة الغربية" />
-                    <StackLayout
-                        Spacing="5"
-                        Orientation="Horizontal">
+                    <!--  Hos Name  -->
+                    <Label Style="{StaticResource SubTitle}" Text="عيادة الرحمة الغربية" />
+                    <StackLayout Orientation="Horizontal" Spacing="5">
                         <Label
-                            Text="{x:Static font:IconFontMaterial.MapMarker}"
+                            FontFamily="{StaticResource IconFont}"
                             Style="{StaticResource Body}"
-                            TextColor="{StaticResource Primary}"
-                            FontFamily="{StaticResource IconFont}" />
-                        <Label
-                            Text="طنطا شارع الجيش"
-                            Style="{StaticResource Body}" />
+                            Text="{x:Static font:IconFontMaterial.MapMarker}"
+                            TextColor="{StaticResource Primary}" />
+                        <Label Style="{StaticResource Body}" Text="طنطا شارع الجيش" />
                     </StackLayout>
                 </StackLayout>
 
-                <!-- ##3## Name -->
-                <StackLayout
-                    Spacing="5">
-                    <Label
-                        Text="اسم المريض"
-                        Style="{StaticResource SubTitle}" />
-                    <Label
-                        Text="يمنى زغلول المنزلاوي"
-                        Style="{StaticResource Body}" />
+                <!--  ##3## Name  -->
+                <StackLayout Spacing="5">
+                    <Label Style="{StaticResource SubTitle}" Text="اسم المريض" />
+                    <Label Style="{StaticResource Body}" Text="يمنى زغلول المنزلاوي" />
                 </StackLayout>
 
-                <!-- ##4## Phone  -->
-                <StackLayout
-                    Spacing="5">
-                    <Label
-                        Text="الهاتف"
-                        Style="{StaticResource SubTitle}" />
-                    <Label
-                        Text="012542165218"
-                        Style="{StaticResource Body}" />
+                <!--  ##4## Phone  -->
+                <StackLayout Spacing="5">
+                    <Label Style="{StaticResource SubTitle}" Text="الهاتف" />
+                    <Label Style="{StaticResource Body}" Text="012542165218" />
                 </StackLayout>
 
-                <!-- ##5## Visit Type -->
-                <StackLayout
-                    Spacing="5">
-                    <Label
-                        Text="نوع الكشف"
-                        Style="{StaticResource SubTitle}" />
-                    <Label
-                        Text="كشف جديد"
-                        Style="{StaticResource Body}" />
+                <!--  ##5## Visit Type  -->
+                <StackLayout Spacing="5">
+                    <Label Style="{StaticResource SubTitle}" Text="نوع الكشف" />
+                    <Label Style="{StaticResource Body}" Text="كشف جديد" />
                 </StackLayout>
 
-                <!-- ##6## Clinic -->
-                <StackLayout
-                    Spacing="5">
-                    <Label
-                        Text="العيادة"
-                        Style="{StaticResource SubTitle}" />
-                    <Label
-                        Text="النساء والتوليد"
-                        Style="{StaticResource Body}" />
+                <!--  ##6## Clinic  -->
+                <StackLayout Spacing="5">
+                    <Label Style="{StaticResource SubTitle}" Text="العيادة" />
+                    <Label Style="{StaticResource Body}" Text="النساء والتوليد" />
                 </StackLayout>
 
-                <!-- ##7## Date Visit -->
-                <StackLayout
-                    Spacing="10">
-                    <Label
-                        Text="تاريخ الحجز"
-                        Style="{StaticResource SubTitle}" />
-                    <Label
-                        Text="الاثنين 6 مارس"
-                        Style="{StaticResource Body}" />
-                    <HorizontalStackLayout
-                        Spacing="5">
-                        <Label
-                            Text="8:00 ص"
-                            Style="{StaticResource Body}" />
-                        <Label
-                            Text="إلى"
-                            Style="{StaticResource Body}" />
-                        <Label
-                            Text="2:00 م"
-                            Style="{StaticResource Body}" />
+                <!--  ##7## Date Visit  -->
+                <StackLayout Spacing="10">
+                    <Label Style="{StaticResource SubTitle}" Text="تاريخ الحجز" />
+                    <Label Style="{StaticResource Body}" Text="الاثنين 6 مارس" />
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Style="{StaticResource Body}" Text="8:00 ص" />
+                        <Label Style="{StaticResource Body}" Text="إلى" />
+                        <Label Style="{StaticResource Body}" Text="2:00 م" />
                     </HorizontalStackLayout>
                 </StackLayout>
 
-                <!-- ##8##-->
-                <Button
-                    BackgroundColor="{StaticResource Danger}"
-                    Text="إلغاء الحجز" />
+                <!--  ##8##  -->
+                <Button BackgroundColor="{StaticResource Danger}" Text="إلغاء الحجز" />
 
             </VerticalStackLayout>
         </Grid>

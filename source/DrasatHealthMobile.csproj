@@ -6,7 +6,7 @@
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
-		<RootNamespace>alrahmacare00</RootNamespace>
+		<RootNamespace>DrasatHealthMobile</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -133,14 +133,21 @@
 
 	<ItemGroup>
 	  <Folder Include="Controls\" />
+	  <Folder Include="Models\Sitines\" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Compile Update="Views\AddBookingView.xaml.cs">
 	    <DependentUpon>AddBookingView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\RegisterView.xaml.cs">
+	    <DependentUpon>RegisterView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\SearchView.xaml.cs">
 	    <DependentUpon>SearchView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Templates\DropdownMenuTemplate.xaml.cs">
+	    <DependentUpon>DropdownMenuTemplate.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -172,6 +179,9 @@
 	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\RegisterView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\MedicalServicesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -200,6 +210,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\DropdownListEntryTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Templates\DropdownMenuTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Templates\EntryFrameTemplate.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\SearchBoxTemplate.xaml">

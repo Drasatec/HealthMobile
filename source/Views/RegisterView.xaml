@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrasatHealthMobile.Views.RegisterView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Title="RegisterView"
+    BackgroundColor="{StaticResource Background}"
+    FlowDirection="RightToLeft"
+    NavigationPage.HasNavigationBar="False"
+    Shell.PresentationMode="ModalAnimated">
+
+    <!--<ContentPage.BindingContext>
+        <vm:RegisterViewModel />
+    </ContentPage.BindingContext>-->
+
+    <VerticalStackLayout Padding="50,100,50,0">
+
+        <Label
+            HorizontalOptions="Center"
+            Style="{StaticResource Title}"
+            Text="إنشاء حساب" />
+
+        <Grid RowDefinitions="49,49,49,49,49,49" RowSpacing="7">
+            <template:EntryFrameTemplate Command="{Binding FullNameTypingCommand}" TextPlaceholder="الاسم" />
+
+            <template:DropdownMenuTemplate
+                Grid.Row="3"
+                Grid.RowSpan="6"
+                BackgroundColor="Transparent"
+                Command="{Binding GenderListCommand}"
+                MenuItemsSource="{Binding HumanGenderNamesMenu}"
+                TextPlaceholder="الحالة الاجتماعية" />
+            
+            
+            <template:DropdownMenuTemplate
+                Grid.Row="2"
+                Grid.RowSpan="6"
+                BackgroundColor="Transparent"
+                Command="{Binding GenderListCommand}"
+                MenuItemsSource="{Binding HumanGenderNamesMenu}"
+                TextPlaceholder="الجنسية" />
+
+
+            <template:DropdownMenuTemplate
+                Grid.Row="1"
+                Grid.RowSpan="6"
+                BackgroundColor="Transparent"
+                Command="{Binding GenderListCommand}"
+                MenuItemsSource="{Binding HumanGenderNamesMenu}"
+                TextPlaceholder="النوع" />
+
+
+        </Grid>
+
+        <!--<Border
+            Margin="0,0"
+            Padding="0,0"
+            Background="{StaticResource White}"
+            StrokeShape="RoundRectangle 10"
+            StrokeThickness="1"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="7">
+                <Picker
+                    Title="النوع"
+                    Margin="10,0"
+                    BackgroundColor="Transparent"
+                    FontFamily="OpenSansRegular"
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding ListOfGender}"
+                    TextColor="Black"
+                    TitleColor="{StaticResource Gray300}"
+                    VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+        </Border>
+
+        <Picker Title="Select a monkey" FlowDirection="RightToLeft">
+            <Picker.Items>
+                <x:String>Baboon</x:String>
+                <x:String>Capuchin Monkey</x:String>
+                <x:String>Blue Monkey</x:String>
+                <x:String>Squirrel Monkey</x:String>
+                <x:String>Golden Lion Tamarin</x:String>
+                <x:String>Howler Monkey</x:String>
+                <x:String>Japanese Macaque</x:String>
+            </Picker.Items>
+        </Picker>-->
+    </VerticalStackLayout>
+
+</ContentPage>

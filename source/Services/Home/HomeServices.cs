@@ -1,10 +1,10 @@
-﻿using alrahmacare00.Models;
-using alrahmacare00.Models.Hospital;
-using alrahmacare00.Models.Promotion;
-using alrahmacare00.Services.RequestProvider;
+﻿using DrasatHealthMobile.Models;
+using DrasatHealthMobile.Models.Hospital;
+using DrasatHealthMobile.Models.Promotion;
+using DrasatHealthMobile.Services.RequestProvider;
 using DrasatHealthMobile.Helpers;
 
-namespace alrahmacare00.Services.Home;
+namespace DrasatHealthMobile.Services.Home;
 
 public class HomeServices : IHomeServices
 {

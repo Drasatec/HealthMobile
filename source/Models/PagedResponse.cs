@@ -1,4 +1,4 @@
-﻿namespace alrahmacare00.Models;
+﻿namespace DrasatHealthMobile.Models;
 
 public class PagedResponse<T>
 {
