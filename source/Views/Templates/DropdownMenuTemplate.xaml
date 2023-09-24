@@ -10,17 +10,43 @@
     x:Name="this"
     Margin="0"
     Padding="0"
-    BackgroundColor="{StaticResource Background}"
+    BackgroundColor="Transparent"
     FlowDirection="RightToLeft">
+    <ContentView.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentView.Resources>
+
     <Border
-        x:Name="dropdown"
+        x:Name="maneBorder"
         Margin="0,0"
         Padding="0,0"
-        Background="{StaticResource White}"
-        StrokeShape="RoundRectangle 10"
+        Stroke="{StaticResource White}"
+        StrokeShape="RoundRectangle 6"
         StrokeThickness="1"
         VerticalOptions="StartAndExpand">
+        <Border.Shadow>
+            <Shadow
+                Brush="{StaticResource Gray100}"
+                Opacity="0.8"
+                Radius="10"
+                Offset="10,10" />
+        </Border.Shadow>
+
         <Grid
+            Margin="0,0"
             HorizontalOptions="Fill"
             RowDefinitions="45,1,*"
             RowSpacing="0">
@@ -33,7 +59,8 @@
                 VerticalOptions="StartAndExpand">
                 <Entry
                     x:Name="entry"
-                    Margin="10,0"
+                    Margin="15,0"
+                    FontFamily="{StaticResource CairoRegular}"
                     HorizontalOptions="FillAndExpand"
                     InputTransparent="True"
                     IsEnabled="False"
@@ -42,16 +69,12 @@
 
                 <Label
                     x:Name="chevronIcon"
+                    InputTransparent="True"
                     Style="{StaticResource LableIconGray}"
-                    Text="{x:Static font:IconFontMaterial.ChevronDown}">
-
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ExpanderCommand, Source={x:Reference this}}" />
-                    </Label.GestureRecognizers>
-                </Label>
+                    Text="{x:Static font:IconFontMaterial.ChevronDown}" />
 
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ExpanderCommand, Source={x:Reference this}}" />
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                 </StackLayout.GestureRecognizers>
 
             </StackLayout>
@@ -64,48 +87,54 @@
                 IsVisible="false"
                 VerticalOptions="End"
                 WidthRequest="0"
-                Color="{StaticResource Gray200}" />
+                Color="{StaticResource Gray100}" />
 
             <!--  Content  -->
             <StackLayout
                 x:Name="dropdownContent"
                 Grid.Row="2"
-                Padding="3"
+                Margin="0,0,0,5"
+                Padding="2,3"
                 IsVisible="false"
                 VerticalOptions="Start">
                 <CollectionView
                     x:Name="CollectionOfItems"
-                    BackgroundColor="{StaticResource White}"
+                    BackgroundColor="{StaticResource Gray50}"
                     ItemsSource="{Binding MenuItemsSource, Source={x:Reference this}}"
+                    MaximumHeightRequest="300"
                     SelectionChanged="CollectionOfItems_SelectionChanged"
                     SelectionChangedCommandParameter="{Binding Source={x:Reference CollectionOfItems}, Path=SelectedItem}"
                     SelectionMode="Single">
 
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                        <LinearItemsLayout ItemSpacing="1" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout BackgroundColor="White">
-                                <Border
+                            <Grid>
+                                <StackLayout
                                     Margin="0"
-                                    Padding="0"
+                                    Padding="0,0"
                                     BackgroundColor="{StaticResource White}"
-                                    StrokeThickness="0">
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="8" />
-                                    </Border.StrokeShape>
+                                    Spacing="0"
+                                    VerticalOptions="Center">
                                     <Label
-                                        Padding="10,0"
-                                        HorizontalTextAlignment="Start"
-                                        MaxLines="2"
-                                        Style="{StaticResource Body}"
+                                        Margin="0"
+                                        Padding="15,0"
+                                        BackgroundColor="Transparent"
+                                        FontFamily="{StaticResource CairoRegular}"
+                                        FontSize="14"
+                                        HeightRequest="35"
+                                        InputTransparent="True"
                                         Text="{Binding Name}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray900},
+                                                                    Dark={StaticResource Gray900}}"
                                         VerticalOptions="CenterAndExpand"
                                         VerticalTextAlignment="Center" />
-                                </Border>
-                            </StackLayout>
+                                </StackLayout>
+
+                            </Grid>
 
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

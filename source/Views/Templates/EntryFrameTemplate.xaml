@@ -10,36 +10,70 @@
     x:Name="this"
     Margin="0"
     Padding="0"
-    BackgroundColor="{StaticResource Background}"
-    FlowDirection="RightToLeft">
+    BackgroundColor="Transparent"
+    FlowDirection="RightToLeft"
+    HorizontalOptions="FillAndExpand">
+
     <Border
-        Margin="0,0"
-        Padding="0,0"
-        Background="{StaticResource White}"
-        HeightRequest="49"
-        StrokeShape="RoundRectangle 10"
+        x:Name="maneBorder"
+        HeightRequest="46"
+        Stroke="{StaticResource White}"
         StrokeThickness="1"
-        VerticalOptions="StartAndExpand">
+        Style="{StaticResource BorderFrameTemplateStyle}">
+        <Border.Shadow>
+            <Shadow
+                Brush="{StaticResource Gray100}"
+                Opacity="0.8"
+                Radius="10"
+                Offset="10,10" />
+        </Border.Shadow>
+
         <StackLayout
             HorizontalOptions="FillAndExpand"
             Orientation="Horizontal"
             Spacing="7">
             <Entry
                 x:Name="entry"
-                Margin="10,0"
-                BackgroundColor="Transparent"
-                HorizontalOptions="FillAndExpand"
+                Margin="15,0,0,0"
+                HorizontalOptions="StartAndExpand"
+                IsPassword="{Binding IsPassword, Source={x:Reference this}}"
+                Keyboard="{Binding EntryKeyboard, Source={x:Reference this}}"
+                MinimumWidthRequest="500"
                 Placeholder="{Binding TextPlaceholder, Source={x:Reference this}}"
-                TextColor="Black"
-                VerticalOptions="CenterAndExpand">
+                Style="{StaticResource EntryFrameTemplateStyle}"
+                Text="{Binding Text, Source={x:Reference this}}">
                 <Entry.Behaviors>
                     <kit:UserStoppedTypingBehavior
                         x:Name="userStoppedTypingBehavior"
                         Command="{Binding Command, Source={x:Reference this}}"
                         CommandParameter="{Binding Source={x:Reference entry}, Path=Text}"
-                        StoppedTypingTimeThreshold="200" />
+                        StoppedTypingTimeThreshold="2000" />
                 </Entry.Behaviors>
             </Entry>
+            <Label
+                x:Name="eyeIcon"
+                Margin="0,0,0,0"
+                Padding="20,0"
+                BackgroundColor="Transparent"
+                FontFamily="{StaticResource IconFont}"
+                IsVisible="{Binding HasEyeIcon, Source={x:Reference this}}"
+                Text="{x:Static font:IconFontMaterial.EyeOff}"
+                TextColor="Black"
+                VerticalOptions="FillAndExpand"
+                VerticalTextAlignment="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
         </StackLayout>
+        <!--
+            BackgroundColor="Transparent"
+            FontFamily="{StaticResource CairoRegular}"
+            HorizontalOptions="FillAndExpand"
+            PlaceholderColor="{StaticResource Gray200}"
+            TextColor="Black"
+            VerticalOptions="CenterAndExpand"
+        -->
     </Border>
 </ContentView>

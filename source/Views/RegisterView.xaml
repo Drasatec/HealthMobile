@@ -12,87 +12,189 @@
     Title="RegisterView"
     BackgroundColor="{StaticResource Background}"
     FlowDirection="RightToLeft"
-    NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated">
 
     <!--<ContentPage.BindingContext>
         <vm:RegisterViewModel />
     </ContentPage.BindingContext>-->
+    <ScrollView>
+        <StackLayout VerticalOptions="FillAndExpand">
 
-    <VerticalStackLayout Padding="50,100,50,0">
-
-        <Label
-            HorizontalOptions="Center"
-            Style="{StaticResource Title}"
-            Text="إنشاء حساب" />
-
-        <Grid RowDefinitions="49,49,49,49,49,49" RowSpacing="7">
-            <template:EntryFrameTemplate Command="{Binding FullNameTypingCommand}" TextPlaceholder="الاسم" />
-
-            <template:DropdownMenuTemplate
-                Grid.Row="3"
-                Grid.RowSpan="6"
-                BackgroundColor="Transparent"
-                Command="{Binding GenderListCommand}"
-                MenuItemsSource="{Binding HumanGenderNamesMenu}"
-                TextPlaceholder="الحالة الاجتماعية" />
-            
-            
-            <template:DropdownMenuTemplate
-                Grid.Row="2"
-                Grid.RowSpan="6"
-                BackgroundColor="Transparent"
-                Command="{Binding GenderListCommand}"
-                MenuItemsSource="{Binding HumanGenderNamesMenu}"
-                TextPlaceholder="الجنسية" />
-
-
-            <template:DropdownMenuTemplate
-                Grid.Row="1"
-                Grid.RowSpan="6"
-                BackgroundColor="Transparent"
-                Command="{Binding GenderListCommand}"
-                MenuItemsSource="{Binding HumanGenderNamesMenu}"
-                TextPlaceholder="النوع" />
-
-
-        </Grid>
-
-        <!--<Border
-            Margin="0,0"
-            Padding="0,0"
-            Background="{StaticResource White}"
-            StrokeShape="RoundRectangle 10"
-            StrokeThickness="1"
-            VerticalOptions="CenterAndExpand">
-            <StackLayout
-                HorizontalOptions="FillAndExpand"
-                Orientation="Horizontal"
-                Spacing="7">
-                <Picker
-                    Title="النوع"
-                    Margin="10,0"
-                    BackgroundColor="Transparent"
-                    FontFamily="OpenSansRegular"
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding ListOfGender}"
-                    TextColor="Black"
-                    TitleColor="{StaticResource Gray300}"
-                    VerticalOptions="CenterAndExpand" />
+            <StackLayout HeightRequest="50" HorizontalOptions="Start">
+                <Button
+                    x:Name="backToPreviousButton"
+                    Margin="20"
+                    Padding="0"
+                    BorderColor="Transparent"
+                    Clicked="BackButton"
+                    CornerRadius="15"
+                    FontFamily="{StaticResource IconFont}"
+                    FontSize="19"
+                    HeightRequest="30"
+                    HorizontalOptions="Start"
+                    IsVisible="false"
+                    Text="{x:Static font:IconFontMaterial.ArrowRight}"
+                    TextColor="{StaticResource White}"
+                    VerticalOptions="Start"
+                    WidthRequest="30" />
             </StackLayout>
-        </Border>
 
-        <Picker Title="Select a monkey" FlowDirection="RightToLeft">
-            <Picker.Items>
-                <x:String>Baboon</x:String>
-                <x:String>Capuchin Monkey</x:String>
-                <x:String>Blue Monkey</x:String>
-                <x:String>Squirrel Monkey</x:String>
-                <x:String>Golden Lion Tamarin</x:String>
-                <x:String>Howler Monkey</x:String>
-                <x:String>Japanese Macaque</x:String>
-            </Picker.Items>
-        </Picker>-->
-    </VerticalStackLayout>
+            <!--  hedear  -->
+            <StackLayout HeightRequest="100">
+                <Label
+                    HorizontalOptions="Center"
+                    Style="{StaticResource Title}"
+                    Text="إنشاء حساب" />
 
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding ErrorMessage}"
+                    TextColor="{StaticResource Danger}"
+                    VerticalOptions="EndAndExpand" />
+
+            </StackLayout>
+
+            <Grid
+                Padding="50,0,50,0"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="False"
+                VerticalOptions="FillAndExpand">
+
+                <!--  Slide 1  -->
+                <Grid
+                    x:Name="Slide1"
+                    Grid.RowSpan="2"
+                    IsClippedToBounds="False"
+                    RowDefinitions="49,49,49,49,*"
+                    RowSpacing="12"
+                    VerticalOptions="FillAndExpand">
+
+                    <template:EntryFrameTemplate
+                        x:Name="fullName"
+                        Text="{Binding UserRegister.FullName, Mode=TwoWay}"
+                        TextPlaceholder="الاسم" />
+
+                    <template:DropdownMenuTemplate
+                        x:Name="countryTemplate"
+                        Grid.Row="3"
+                        Grid.RowSpan="5"
+                        BackgroundColor="Transparent"
+                        Clicked="DropdownMenuTemplate_Clicked"
+                        MenuItemsSource="{Binding CountriesMenu}"
+                        SelectionChangedCommand="{Binding SelectionChangedCountryCommand}"
+                        TextPlaceholder="الدولة" />
+
+                    <template:DropdownMenuTemplate
+                        x:Name="maritalStatusTemplate"
+                        Grid.Row="2"
+                        Grid.RowSpan="5"
+                        BackgroundColor="Transparent"
+                        Clicked="DropdownMenuTemplate_Clicked"
+                        MenuItemsSource="{Binding MaritalStatusesNamesMenu}"
+                        SelectionChangedCommand="{Binding SelectionChangedMaritalStatusCommand}"
+                        TextPlaceholder="الحالة الاجتماعية" />
+
+                    <template:DropdownMenuTemplate
+                        x:Name="genderTemplate"
+                        Grid.Row="1"
+                        Grid.RowSpan="5"
+                        BackgroundColor="Transparent"
+                        Clicked="DropdownMenuTemplate_Clicked"
+                        MenuItemsSource="{Binding HumanGenderNamesMenu}"
+                        SelectionChangedCommand="{Binding SelectionChangedGenderCommand}"
+                        TextPlaceholder="النوع" />
+
+                </Grid>
+                <!--  Slide 2  -->
+                <Grid
+                    x:Name="Slide2"
+                    Grid.RowSpan="2"
+                    IsVisible="false"
+                    RowDefinitions="49,49,49,49,10"
+                    RowSpacing="12"
+                    VerticalOptions="FillAndExpand">
+
+                    <template:EntryFrameTemplate
+                        x:Name="emailTemplate"
+                        Grid.RowSpan="5"
+                        Text="{Binding UserRegister.Email}"
+                        TextPlaceholder="البريد الالكتروني" />
+
+                    <template:EntryFrameTemplate
+                        x:Name="passwordTemplate"
+                        Grid.Row="2"
+                        Grid.RowSpan="5"
+                        HasEyeIcon="True"
+                        IsPassword="True"
+                        Text="{Binding UserRegister.Password}"
+                        TextPlaceholder="كلمة المرور" />
+
+                    <template:EntryFrameTemplate
+                        x:Name="secondPassworddTemplate"
+                        Grid.Row="3"
+                        Grid.RowSpan="5"
+                        Text="{Binding UserRegister.ConfirmPassword}"
+                        TextPlaceholder=" تأكيد كلمة المرور ">
+                        <template:EntryFrameTemplate.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Source={x:Reference passwordTemplate}, Path=IsPassword}"
+                                TargetType="template:EntryFrameTemplate"
+                                Value="True">
+                                <Setter Property="IsPassword" Value="True" />
+                                <!--  Multiple Setter elements are allowed  -->
+                            </DataTrigger>
+
+                        </template:EntryFrameTemplate.Triggers>
+                    </template:EntryFrameTemplate>
+
+                    <!--  phone  -->
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.RowSpan="5"
+                        FlowDirection="LeftToRight"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="5"
+                        VerticalOptions="Start">
+
+                        <template:DropdownMenuTemplate
+                            x:Name="callingCodeTemplate"
+                            BackgroundColor="Transparent"
+                            Clicked="DropdownMenuTemplate_Clicked"
+                            FlowDirection="LeftToRight"
+                            HorizontalOptions="Start"
+                            MenuItemsSource="{Binding CallingCodesMenu}"
+                            SelectionChangedCommand="{Binding SelectionChangedCallingCodeCommand}"
+                            TextPlaceholder="كود الدولة" />
+
+                        <template:EntryFrameTemplate
+                            x:Name="phonNumberTemplate"
+                            BackgroundColor="Transparent"
+                            Text="{Binding UserRegister.PhoneNumber}"
+                            TextPlaceholder=" الهاتف" />
+                    </StackLayout>
+                </Grid>
+                <!--  Slide 3  -->
+                <Grid
+                    x:Name="Slide3"
+                    BackgroundColor="Green"
+                    HeightRequest="100"
+                    IsVisible="false" />
+            </Grid>
+
+            <Button
+                x:Name="btnSave"
+                Grid.Row="1"
+                Margin="50,50"
+                Padding="30,0"
+                Clicked="NextOrSaveButton_Clicked"
+                HorizontalOptions="End"
+                Text="التالي"
+                ToolTipProperties.Text="Click to Save your data"
+                VerticalOptions="End" />
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="ManContainer_Tapped" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -3,6 +3,8 @@ using DrasatHealthMobile.Models.Doctors;
 using DrasatHealthMobile.Models.MedicalSpecialty;
 using DrasatHealthMobile.Services.RequestProvider;
 using DrasatHealthMobile.Helpers;
+using DrasatHealthMobile.Models.Countries;
+using DrasatHealthMobile.Models.UserModels;
 
 namespace DrasatHealthMobile.Services.PublicServices;
 public class PublicService : IPublicService
@@ -58,4 +60,64 @@ public class PublicService : IPublicService
         }
         return list;
     }
+    
+    public async Task<List<MaritalStatusNames>> GetAllMaritalStatusAsync(string endpoint, string param)
+    {
+        List<MaritalStatusNames> list;
+        
+        try
+        {
+            list = await RequestProvider.GetListAsync<MaritalStatusNames>($"{Constants.BaseUrl}{endpoint}{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
+    
+    public async Task<string> GetConfirmationOptionAsync()
+    {
+        string text;
+        try
+        {
+            text = await RequestProvider.GetStringAsync($"{Constants.BaseUrl}ConfirmationOption/option-chosen", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            text = null;
+        }
+        return text;
+    }
+
+    public async Task<PagedResponse<CountryModel>> GetAllCountriesAsync(string endpoint, string queryParams)
+    {
+        PagedResponse<CountryModel> list;
+
+        try
+        {
+            list = await RequestProvider.GetPagedResponseAsync<CountryModel>($"{Constants.BaseUrl}{endpoint}?{queryParams}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
+    
+    public async Task<UserRegisterResponse> PostUserRegisterAsync(string endpoint, UserRegisterModel user)
+    {
+        UserRegisterResponse response;
+
+        try
+        {
+            response = await RequestProvider.PostSingleAsync<UserRegisterResponse, UserRegisterModel>($"{Constants.BaseUrl}{endpoint}",data:user).ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            response = null;
+        }
+        return response;
+    }
+
 }

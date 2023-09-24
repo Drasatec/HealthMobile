@@ -6,11 +6,14 @@ namespace DrasatHealthMobile.Views.Templates;
 
 public partial class DropdownMenuTemplate : ContentView
 {
-    public ICommand ExpanderCommand => new Command(ddd);
+    int maximumHeightToCollectionView = 300;
+    int maximumHeightToRow = 36;
+    //public ICommand ExpanderCommand => new Command(ddd);
+    public event EventHandler Clicked;
 
-    public static readonly BindableProperty CommandProperty =
+    public static readonly BindableProperty SelectionChangedCommandProperty =
         BindableProperty.Create(
-            nameof(Command),
+            nameof(SelectionChangedCommand),
             typeof(ICommand),
             typeof(EntryFrameTemplate));
 
@@ -25,16 +28,24 @@ public partial class DropdownMenuTemplate : ContentView
             nameof(TextPlaceholder),
             typeof(string),
             typeof(EntryFrameTemplate),
+
             "insert text");
+    public static readonly BindableProperty ErrorStyleProperty =
+        BindableProperty.Create(
+            nameof(ErrorStyle),
+            typeof(bool),
+            typeof(EntryFrameTemplate),
+            false, BindingMode.TwoWay);
 
     public DropdownMenuTemplate()
     {
         InitializeComponent();
     }
-    public ICommand Command
+
+    public ICommand SelectionChangedCommand
     {
-        get => (ICommand)GetValue(CommandProperty);
-        set => SetValue(CommandProperty, value);
+        get => (ICommand)GetValue(SelectionChangedCommandProperty);
+        set => SetValue(SelectionChangedCommandProperty, value);
     }
     public List<DropdownMenuModel> MenuItemsSource
     {
@@ -47,6 +58,33 @@ public partial class DropdownMenuTemplate : ContentView
         get => (string)GetValue(TextPlaceholderProperty);
         set => SetValue(TextPlaceholderProperty, value);
     }
+    public bool ErrorStyle
+    {
+        get => (bool)GetValue(ErrorStyleProperty);
+        set
+        {
+            SetValue(ErrorStyleProperty, value);
+            if (value)
+            {
+                maneBorder.Stroke = Color.FromArgb("#df4759");
+            }
+            else
+            {
+                maneBorder.Stroke = default;
+            }
+            OnPropertyChanged(nameof(ErrorStyle));
+        }
+    }
+    public void InValidStyle()
+    {
+        ErrorStyle = true;
+    }
+    
+    public void ValidStyle()
+    {
+        ErrorStyle = false;
+    }
+
     private async void CollectionOfItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         try
@@ -54,9 +92,10 @@ public partial class DropdownMenuTemplate : ContentView
             if (CollectionOfItems.SelectedItem == null)
                 return;
             entry.Text = (CollectionOfItems.SelectedItem as DropdownMenuModel).Name;
-            Command.Execute(CollectionOfItems.SelectedItem);
-            CloseAnimation(dropdownContent, chevronIcon, separatorLine);
+            SelectionChangedCommand.Execute(CollectionOfItems.SelectedItem);
+            ssss();
             CollectionOfItems.SelectedItem = null;
+            ErrorStyle = false;
         }
         catch (Exception ex)
         {
@@ -64,53 +103,78 @@ public partial class DropdownMenuTemplate : ContentView
         }
     }
 
-    #region Animation
-    private void ddd()
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        if (!dropdownContent.IsVisible)
-            OpenAnimation(dropdownContent, chevronIcon, separatorLine);
-        else
-            CloseAnimation(dropdownContent, chevronIcon, separatorLine);
-
+        ssss();
     }
 
-    void OpenAnimation(View container, View icon, View line)
+    void ssss()
     {
+        EventHandler handler = Clicked;
+        handler?.Invoke(this, new EventArgs());
+        OpenCloseAnimation();
+    }
+    public async void Close()
+    {
+        await CloseAnimation(dropdownContent, chevronIcon, separatorLine);
+    }
+
+    private async void OpenCloseAnimation()
+    {
+        if (!dropdownContent.IsVisible)
+            await OpenAnimation(dropdownContent, chevronIcon, separatorLine);
+        else
+            await CloseAnimation(dropdownContent, chevronIcon, separatorLine);
+    }
+
+    #region Animation
+    async Task OpenAnimation(View container, View icon, View line)
+    {
+        if (dropdownContent.IsVisible) return;
+
+        var height = MenuItemsSource.Count * maximumHeightToRow;
+        if (height > maximumHeightToCollectionView)
+        {
+            height = maximumHeightToCollectionView;
+        }
         container.HeightRequest = 0;
         container.IsVisible = true;
         line.IsVisible = true;
         line.Opacity = 0;
 
-        new Animation
+        await Task.Run(() =>
         {
-            { 0  , 1, new Animation (v => container.HeightRequest = v, 0, CollectionOfItems.HeightRequest) },
-            { 0  , 0.5, new Animation (v => container.Opacity = v, 0, 1) },
-            { 0  , 1  , new Animation (v => icon.Rotation           = v, 0, 180) },
-            { 0.5, 1  , new Animation (v => line.WidthRequest       = v, 0, this.Width) },
-            { 0  , 1  , new Animation (v => line.Opacity            = v, 0, 1) }
+            new Animation
+            {
+                { 0  , 1, new Animation (v => container.HeightRequest = v, 0, height) },
+                { 0  , 0.5, new Animation (v => container.Opacity = v, 0, 1) },
+                { 0  , 1  , new Animation (v => icon.Rotation           = v, 0, 180) },
+                { 0.5, 1  , new Animation (v => line.WidthRequest       = v, 0, this.Width) },
+                { 0  , 1  , new Animation (v => line.Opacity            = v, 0, 1) }
 
-        }.Commit(this, "OpenAnimations", 16, 250, easing: Easing.SinIn, (v, c) =>
-        {
-            //dropdown.Stroke = Color.FromArgb("#0070CD");
+            }.Commit(this, "OpenAnimations", 16, 300, easing: Easing.SinIn, null);//  (v, c) =>{}
         });
+        //maneBorder.Stroke = Color.FromArgb("#0070CD");
     }
 
-    void CloseAnimation(View container, View icon, View line)
+    async Task CloseAnimation(View container, View icon, View line)
     {
-        new Animation
+        if (!dropdownContent.IsVisible) return;
+        await Task.Run(() =>
         {
-            { 0  ,1, new Animation (v => container.HeightRequest = v, CollectionOfItems.HeightRequest,0) },
-            { 0.6,1, new Animation (v => container.Opacity       = v, 1 , 0 ) },
-            { 0  ,1, new Animation (v => icon.Rotation           = v, 180, 0) },
-            { 0  ,1, new Animation (v => line.WidthRequest       = v, this.Width,0) }
+            new Animation
+            {
+                { 0  ,1, new Animation ( v => container.HeightRequest = v, container.HeightRequest,0) },
+                { 0.6,1, new Animation (v => container.Opacity       = v, 1 , 0 ) },
+                { 0  ,1, new Animation (v => icon.Rotation           = v, 180, 0) },
+                { 0  ,1, new Animation (v => line.WidthRequest       = v, this.Width,0) }
 
-        }.Commit(this, "CloseAnimations", 16, 250, easing: Easing.SinOut, (v, c) =>
-        {
-            container.IsVisible = false; line.IsVisible = false;
-            //dropdown.Stroke = Color.FromArgb("#C8C8C8");
+            }.Commit(this, "CloseAnimations", 16, 300, easing: Easing.SinOut, (v, c) => 
+                { 
+                    container.IsVisible = false; line.IsVisible = false;
+                    //maneBorder.Stroke = Color.FromArgb("#C8C8C8");
+                });
         });
     }
     #endregion
-
-
 }

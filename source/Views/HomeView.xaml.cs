@@ -1,5 +1,6 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
+using DrasatHealthMobile.Helpers;
 using DrasatHealthMobile.ViewModels;
 
 namespace DrasatHealthMobile.Views;
@@ -21,6 +22,7 @@ public partial class HomeView : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        welcomLabel.Text = Helper.GetValue("userName");
 #if ANDROID
         this.Behaviors.Add(new StatusBarBehavior
         {
@@ -31,17 +33,17 @@ public partial class HomeView : ContentPage
     int flag = 0;
     void Scrol()
     {
-        try
-        {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                myCollectionView.ScrollTo((flag + 1) % 4);
-                flag++;
-            });
-        }
-        catch (Exception)
-        {
-        }
+        //try
+        //{
+        //    MainThread.BeginInvokeOnMainThread(() =>
+        //    {
+        //        myCollectionView.ScrollTo((flag + 1) % 4);
+        //        flag++;
+        //    });
+        //}
+        //catch (Exception)
+        //{
+        //}
     }
 
     private void Button_Clicked_1(object sender, EventArgs e)
@@ -114,6 +116,6 @@ public partial class HomeView : ContentPage
 
     private async void Button_Clicked_10(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("LoginView");
+        await Shell.Current.GoToAsync("LoginView",true);
     }
 }

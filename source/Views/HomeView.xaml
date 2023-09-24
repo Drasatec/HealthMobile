@@ -26,6 +26,7 @@
                 BackgroundColor="{StaticResource Primary}"
                 Orientation="Horizontal">
                 <Label
+                    x:Name="welcomLabel"
                     HorizontalOptions="StartAndExpand"
                     Style="{StaticResource SubTitle}"
                     Text="مستشفى الرحمة"

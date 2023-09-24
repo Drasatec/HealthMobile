@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text;
 
 namespace DrasatHealthMobile.Services.RequestProvider;
 
@@ -68,6 +69,61 @@ public class RequestProvider : IRequestProvider
             return null;
         }
     }
+    
+    public async Task<string> GetStringAsync(string uri, string token = "")
+    {
+        try
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            request.Headers.Add("Authorization", $"Bearer {token}");
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            string result = await response.Content.ReadAsStringAsync();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            await Helper.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
+            return null;
+        }
+    }
+
+
+    public async Task<TResult> PostSingleAsync<TResult,TTake>(string uri, TTake data, string token = "", string header = "")
+    {
+        //HttpClient httpClient = GetOrCreateHttpClient(token);
+
+        //if (!string.IsNullOrEmpty(header))
+        //{
+        //    RequestProvider.AddHeaderParameter(httpClient, header);
+        //}
+        var client = new HttpClient();
+        var request = new HttpRequestMessage(HttpMethod.Post, uri);
+        var content = new StringContent(JsonSerializer.Serialize(data), null, "application/json") ;
+        request.Content = content;
+        var response = await client.SendAsync(request);
+        //response.EnsureSuccessStatusCode();
+
+        //if (!response.IsSuccessStatusCode)
+        //{
+        //    return default(TResult);
+        //}
+        TResult result = await response.Content.ReadFromJsonAsync<TResult>();
+        return result;
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
 
     public async Task<TResult> PostAsync<TResult>(string uri, TResult data, string token = "", string header = "")
     {

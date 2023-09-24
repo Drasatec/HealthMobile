@@ -15,4 +15,6 @@ public interface IRequestProvider
     Task DeleteAsync(string uri, string token = "");
     Task<PagedResponse<TResult>> GetPagedResponseAsync<TResult>(string uri, string token = "");
     Task<List<TResult>> GetListAsync<TResult>(string uri, string token = "");
+    Task<string> GetStringAsync(string uri, string token = "");
+    Task<TResult> PostSingleAsync<TResult, TTake>(string uri, TTake data, string token = "", string header = "");
 }
