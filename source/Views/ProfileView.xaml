@@ -47,6 +47,7 @@
 
         <!--  ####  -->
         <StackLayout
+            IsVisible="true"
             Grid.Row="1"
             Margin="10,0"
             Spacing="1">
@@ -79,6 +80,7 @@
             Grid.Row="1"
             BackgroundColor="Transparent"
             Clicked="Button_Clicked"
+            Text="dddddddddddddddddddddd"
             HeightRequest="45"
             VerticalOptions="Start" />
     </Grid>

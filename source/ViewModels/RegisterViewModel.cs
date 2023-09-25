@@ -47,6 +47,7 @@ public class RegisterViewModel : ObservableObject
             {
                 Helper.SetValue("token", responseUser.Token);
                 Helper.SetValue("userName", responseUser.UserAccount?.userName);
+                Helper.SetValue<int>("userId", responseUser.UserAccount.userId);
                 await Helper.NavigationToAsync("///main");
                 Debug.WriteLine(responseUser.Token);
                 return true;

@@ -18,9 +18,45 @@ public static class Helper
         return true;
     }
     
+    public static bool SetValue<T>(string key, T value)
+    {
+        try
+        {
+            Preferences.Default.Set<T>(key, value);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ToastAlert(ex.Message);
+            return false;
+        }
+       
+    }
+    
     public static string GetValue(string key)
     {
-        return Preferences.Default.Get<string>(key,"no");
+        try
+        {
+            return Preferences.Default.Get<string>(key, "no");
+        }
+        catch (Exception ex)
+        {
+            ToastAlert(ex.Message);
+            return string.Empty;
+        }
+    }
+    
+    public static T GetValue<T>(string key, T def = default)
+    {
+        try
+        {
+            return Preferences.Default.Get<T>(key,def);
+        }
+        catch (Exception ex)
+        {
+            ToastAlert(ex.Message);
+            return default;
+        }
     }
 
     public async static Task DisplayAlert(string classname, string methodName, string message)
@@ -39,7 +75,7 @@ public static class Helper
         try
         {
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            ToastDuration duration = ToastDuration.Short;
+            ToastDuration duration = ToastDuration.Long;
             double fontSize = 14;
 
             var toast = Toast.Make(message, duration, fontSize);
@@ -54,6 +90,11 @@ public static class Helper
     public async static Task NavigationToAsync(string page, bool animate = false)
     {
         await Shell.Current.GoToAsync(page, animate);
+    }
+    
+    public static void NavigationTo(string page, bool animate = false)
+    {
+        Shell.Current.GoToAsync(page, animate);
     }
 
     public static string BuildQueryString(System.Collections.Generic.Dictionary<string, object> queryParams)

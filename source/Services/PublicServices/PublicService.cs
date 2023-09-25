@@ -119,5 +119,20 @@ public class PublicService : IPublicService
         }
         return response;
     }
+    
+    public async Task<UserRegisterResponse> PostUserLonginAsync(string endpoint, UserLogin user)
+    {
+        UserRegisterResponse response;
+
+        try
+        {
+            response = await RequestProvider.PostSingleAsync<UserRegisterResponse, UserLogin>($"{Constants.BaseUrl}{endpoint}",data:user).ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            response = null;
+        }
+        return response;
+    }
 
 }

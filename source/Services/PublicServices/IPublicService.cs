@@ -14,5 +14,6 @@ public interface IPublicService
     Task<List<MaritalStatusNames>> GetAllMaritalStatusAsync(string endpoint, string param);
     Task<PagedResponse<SpecialtyModel>> GetAllSpecialtiesAsync(string endpoint, Dictionary<string, object> queryParams);
     Task<string> GetConfirmationOptionAsync();
+    Task<UserRegisterResponse> PostUserLonginAsync(string endpoint, UserLogin user);
     Task<UserRegisterResponse> PostUserRegisterAsync(string endpoint, UserRegisterModel user);
 }

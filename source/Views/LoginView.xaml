@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrasatHealthMobile.Views.LoginView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
+    xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
+    x:Name="this"
+    Title="LoginView"
+    BackgroundColor="{StaticResource Background}"
+    FlowDirection="RightToLeft"
+    Shell.PresentationMode="ModalAnimated">
+    <VerticalStackLayout>
+        <!--  hedear  -->
+        <StackLayout
+            Padding="0,40,0,0"
+            HeightRequest="120"
+            VerticalOptions="FillAndExpand">
+            <Label
+                HorizontalOptions="Center"
+                Style="{StaticResource Title}"
+                Text="تسجيل الدخول" />
+
+            <Label
+                x:Name="errorMessageLabel"
+                HorizontalOptions="Center"
+                Text=""
+                TextColor="{StaticResource Danger}"
+                VerticalOptions="EndAndExpand" />
+
+        </StackLayout>
+
+        <StackLayout Padding="40,0" Spacing="20">
+            <template:EntryFrameTemplate
+                x:Name="emailTemplate"
+                Text="{Binding UserRegister.Email}"
+                TextPlaceholder="البريد الالكتروني" />
+
+            <template:EntryFrameTemplate
+                x:Name="passwordTemplate"
+                HasEyeIcon="True"
+                IsPassword="True"
+                Text="{Binding UserRegister.Password}"
+                TextPlaceholder="كلمة المرور" />
+            <Button
+                x:Name="btnSubmit"
+                Grid.Row="1"
+                Clicked="BtnSubmit_Clicked"
+                Text="تسجيل الدخول"
+                ToolTipProperties.Text="Click to Submit"
+                VerticalOptions="End" />
+
+            <Label
+                FontFamily="{StaticResource CairoRegular}"
+                FontSize="13"
+                HorizontalTextAlignment="Center"
+                IsVisible="false"
+                Text="هل نسيت كلمة المرور؟"
+                TextColor="{StaticResource Primary}" />
+
+            <BoxView HeightRequest="1" Color="{StaticResource Gray200}" />
+
+            <Button
+                x:Name="btnGoToRegister"
+                Grid.Row="1"
+                Padding="20,0"
+                BackgroundColor="{StaticResource Success}"
+                Clicked="BtnGoToRegister_Clicked"
+                HeightRequest="35"
+                HorizontalOptions="Center"
+                Text="إنشاء حساب جديد"
+                ToolTipProperties.Text="Click to Go To Register Page" />
+
+        </StackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -6,6 +6,7 @@
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
@@ -25,6 +26,12 @@
                 Padding="15,10"
                 BackgroundColor="{StaticResource Primary}"
                 Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="StartAndExpand"
+                    Style="{StaticResource SubTitle}"
+                    Text="{x:Static lang:AppResources.test}"
+                    TextColor="{StaticResource White}" />
+
                 <Label
                     x:Name="welcomLabel"
                     HorizontalOptions="StartAndExpand"
@@ -174,7 +181,8 @@
             </Border>
 
             <StackLayout Padding="10,0" Spacing="10">
-                <Button Clicked="Button_Clicked_10" Text="اللوجن" />
+                <Button Clicked="Button_Clicked_10" Text="تسجيل" />
+                <Button Clicked="Button_Clicked_11" Text="اللوجن" />
                 <!--<Button Clicked="Button_Clicked_8" Text="كل الاعضاء" />
                 <Button Clicked="Button_Clicked_7" Text=" اضافة مريض" />
                 <Button Clicked="Button_Clicked_3" Text="بواسطة المريض" />

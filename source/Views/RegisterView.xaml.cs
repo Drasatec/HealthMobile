@@ -92,6 +92,8 @@ public partial class RegisterView : ContentPage
         if (lastPosition && inputValied)
         {
             var result = await vm.SendUserRegister();
+            passwordTemplate.Text = string.Empty;
+            secondPassworddTemplate.Text = string.Empty;
         }
         HandelTextOfButtonSaveOrNext();
     }

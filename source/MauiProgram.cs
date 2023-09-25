@@ -48,6 +48,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<RegisterViewModel>();
         builder.Services.AddSingleton<RegisterView>();
 
+        builder.Services.AddSingleton<LoginView>();
+
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

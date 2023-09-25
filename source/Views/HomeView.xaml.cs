@@ -22,7 +22,7 @@ public partial class HomeView : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        welcomLabel.Text = Helper.GetValue("userName");
+        welcomLabel.Text = Helper.GetValue<int>("userId",0).ToString();
 #if ANDROID
         this.Behaviors.Add(new StatusBarBehavior
         {
@@ -116,6 +116,11 @@ public partial class HomeView : ContentPage
 
     private async void Button_Clicked_10(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("LoginView",true);
+        await Shell.Current.GoToAsync("RegisterView", true);
+    }
+    
+    private async void Button_Clicked_11(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("LoginView", true);
     }
 }
