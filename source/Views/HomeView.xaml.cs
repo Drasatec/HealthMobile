@@ -12,8 +12,6 @@ public partial class HomeView : ContentPage
     {
         BindingContext = homeViewModel;
         InitializeComponent();
-        //WidthImage = this.Width - 20;
-
         var timer = Application.Current.Dispatcher.CreateTimer();
         timer.Interval = TimeSpan.FromSeconds(3);
         timer.Tick += (s, e) => Scrol();

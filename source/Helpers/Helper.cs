@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using Microsoft.Maui.ApplicationModel.Communication;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 
@@ -10,7 +11,7 @@ public static class Helper
 {
     public static string Language
     {
-        get => "ar";
+        get => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     }
     public static bool SetValue(string key, string value)
     {

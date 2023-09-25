@@ -4,15 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:local="clr-namespace:DrasatHealthMobile"
     xmlns:views="clr-namespace:DrasatHealthMobile.Views"
-    FlowDirection="RightToLeft"
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False">
 
     <TabBar>
         <!--  Home  -->
-        <Tab Title="الرئيسية">
+        <Tab Title="{x:Static lang:AppResources.ShellTabMain}">
             <Tab.Icon>
                 <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.Home}" />
             </Tab.Icon>

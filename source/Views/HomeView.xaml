@@ -12,8 +12,9 @@
     x:Name="this"
     Title="HomeView"
     BackgroundColor="{StaticResource Background}"
-    FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False">
+
+    <!--  FlowDirection="{x:Static help:FlowDirectionManager.CurentFlowDirection}"  -->
 
     <!--<ContentPage.BindingContext>
         <vm:HomeViewModel />

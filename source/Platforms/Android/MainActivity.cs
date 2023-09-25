@@ -5,28 +5,29 @@ using Android.Content.Res;
 using Android.OS;
 using Android.Views;
 using Android.Views.InputMethods;
+using System.Globalization;
 
 namespace DrasatHealthMobile;
 
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
 public class MainActivity : MauiAppCompatActivity
 {
-    
+
     public MainActivity()
     {
         Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("MyEntry", (handler, view) =>
         {
-           handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
         });
-        
+
         Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("MyDatePicker", (handler, view) =>
         {
-           handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
         });
-        
+
         Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("MyPicker", (handler, view) =>
         {
-           handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
         });
     }
     protected override void OnCreate(Bundle savedInstanceState)
@@ -34,7 +35,17 @@ public class MainActivity : MauiAppCompatActivity
         base.OnCreate(savedInstanceState);
 
         // Set the LayoutDirection to RTL (right-to-left)
-        Window.DecorView.LayoutDirection = Android.Views.LayoutDirection.Rtl;
+        //Window.DecorView.LayoutDirection = Android.Views.LayoutDirection.Rtl;
+        var ss = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        if (ss == "ar")
+        {
+            Window.DecorView.LayoutDirection = Android.Views.LayoutDirection.Rtl;
+        }
+        else
+        {
+            Window.DecorView.LayoutDirection = Android.Views.LayoutDirection.Ltr;
+
+        }
 
         //var context = Android.App.Application.Context;
         //var inputMethodManager = context.GetSystemService(Context.InputMethodService) as InputMethodManager;

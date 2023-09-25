@@ -61,6 +61,15 @@ namespace DrasatHealthMobile.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main.
+        /// </summary>
+        internal static string ShellTabMain {
+            get {
+                return ResourceManager.GetString("ShellTabMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to welcom.
         /// </summary>
         internal static string test {
