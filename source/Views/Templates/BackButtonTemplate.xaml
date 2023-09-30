@@ -5,32 +5,29 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     x:Name="this">
     <VerticalStackLayout>
         <HorizontalStackLayout
             Padding="10,0"
             BackgroundColor="{StaticResource Primary}"
-            FlowDirection="RightToLeft"
-            HeightRequest="70"
+            HeightRequest="55"
             Spacing="10"
             VerticalOptions="CenterAndExpand">
 
-            <!--  BackButton  -->
-            <Button
+            <!--  BackButton {x:Static f:IconFontMaterial.ArrowRight}  -->
+            <ImageButton
                 Margin="0"
                 Padding="0"
                 BackgroundColor="Transparent"
                 BorderColor="Transparent"
                 Clicked="BackButton"
                 CornerRadius="15"
-                FontFamily="{StaticResource IconFont}"
-                FontSize="Title"
-                HeightRequest="30"
+                HeightRequest="25"
                 IsVisible="{Binding ButtonIsVisible, Source={x:Reference this}}"
-                Text="{x:Static f:IconFontMaterial.ArrowRight}"
-                TextColor="{StaticResource White}"
+                Source="{x:Static lang:AppResources.Icon_BackButtonArrow}"
                 VerticalOptions="CenterAndExpand"
-                WidthRequest="30" />
+                WidthRequest="25" />
 
             <!--  Titel  -->
             <Label

@@ -11,32 +11,11 @@
     x:Name="this"
     Title="BookingsView"
     BackgroundColor="{StaticResource Background}"
-    FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-
-            <x:Array x:Key="itemsSource" Type="{x:Type x:String}">
-                <x:String>mono</x:String>
-                <x:String>monodroid</x:String>
-                <x:String>monotouch</x:String>
-                <x:String>monorail</x:String>
-                <x:String>monodevelop</x:String>
-                <x:String>monodevelop</x:String>
-                <x:String>monodevelop</x:String>
-            </x:Array>
-
-            <Style TargetType="CollectionView">
-                <Setter Property="ItemsSource" Value="{StaticResource itemsSource}" />
-                <Setter Property="SelectionMode" Value="Single" />
-            </Style>
-
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
-
         <StackLayout>
+
             <!--  Navigation  -->
             <template:BackButtonTemplate Title="الحجوزات" ButtonIsVisible="False" />
 
@@ -67,34 +46,99 @@
                     Text="الماضية" />
 
                 <!--  BUTTON Rejected  -->
-                <Button
-                    x:Name="buttonRejected"
-                    Clicked="OnTabClicked"
-                    Command="{Binding SelectSearchTypeCommand}"
-                    CommandParameter="2"
-                    Style="{StaticResource Unchecked}"
-                    Text="المرفوضة" />
             </StackLayout>
         </StackLayout>
 
 
         <!--  Content of Tabs  -->
-        <Grid x:Name="contentOfTabs" Grid.Row="1">
-            <!--  Comings_____##1##  -->
-            <template:BookingCardTemplate IsVisible="true" />
+        <CollectionView
+            x:Name="collectionBookings"
+            Grid.Row="1"
+            Margin="0,10"
+            ItemsSource="{Binding Bookings, Source={x:Reference this}}"
+            SelectionChanged="CollectionView_SelectionChanged"
+            SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid BackgroundColor="{StaticResource Background}">
+                        <Border
+                            Margin="5,0"
+                            Padding="0"
+                            StrokeShape="RoundRectangle 6"
+                            StrokeThickness="1"
+                            VerticalOptions="FillAndExpand">
+                            <HorizontalStackLayout
+                                Margin="5"
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="5">
 
-            <!--  Pasts_______##2##  -->
-            <template:BookingCardTemplate />
+                                <kit:AvatarView ImageSource="doctor1" Style="{StaticResource Avatar}" />
 
-            <!--  Rejectings__##3##  -->
-            <template:BookingCardTemplate />
-        </Grid>
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource Title}"
+                                        Text="{Binding Doctor}" />
+                                    <Label Style="{StaticResource Body}" Text="{Binding Hospital}" />
+
+                                    <!--  Time  **2**  -->
+                                    <Frame
+                                        Margin="0"
+                                        Padding="5"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        VerticalOptions="FillAndExpand">
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label
+                                                FontFamily="{StaticResource IconFont}"
+                                                Text="{x:Static font:IconFontMaterial.Calendar}"
+                                                TextColor="{StaticResource Primary}"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Style="{StaticResource Body}"
+                                                Text="{Binding VisitDate}"
+                                                TextColor="{StaticResource Primary}" />
+                                        </HorizontalStackLayout>
+                                    </Frame>
+
+                                    <!--  status  **2**  -->
+                                    <Frame
+                                        Margin="0,5"
+                                        Padding="5"
+                                        BackgroundColor="{StaticResource Gray50}"
+                                        BorderColor="Transparent"
+                                        HorizontalOptions="FillAndExpand">
+                                        <StackLayout
+                                            HorizontalOptions="Center"
+                                            Orientation="Horizontal"
+                                            Spacing="5">
+                                            <Label
+                                                Style="{StaticResource Body}"
+                                                Text="الحالة:"
+                                                TextColor="{StaticResource Primary}" />
+                                            <Label
+                                                Style="{StaticResource Body}"
+                                                Text="{Binding BookingStatus}"
+                                                TextColor="{StaticResource Primary}" />
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+
+                            </HorizontalStackLayout>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <ActivityIndicator
             x:Name="activityIndicator"
             Grid.Row="1"
-            HeightRequest="40"
-            VerticalOptions="Start"
+            HeightRequest="50"
+            VerticalOptions="Center"
             Color="{StaticResource Primary}" />
 
     </Grid>

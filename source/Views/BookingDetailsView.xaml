@@ -14,98 +14,102 @@
     FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated">
-    <ScrollView>
-        <Grid RowDefinitions="Auto,Auto,*">
-            <!--  Hedar  -->
-            <template:BackButtonTemplate Title="صفحة تأكيد الحجز" />
+    <RefreshView Command="{Binding  RefreshingCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <ScrollView>
+            <Grid RowDefinitions="Auto,Auto,*">
+                <!--  Hedar  -->
+                <template:BackButtonTemplate Title="صفحة تأكيد الحجز" />
 
-            <!--  Status ##1##  -->
-            <StackLayout
-                Grid.Row="1"
-                Padding="20,25"
-                BackgroundColor="{StaticResource Success}">
+                <!--  Status ##1##  -->
                 <StackLayout
-                    HorizontalOptions="Center"
-                    Orientation="Horizontal"
-                    Spacing="15">
-                    <Label
-                        Style="{StaticResource Title}"
-                        Text="حالة الحجز"
-                        TextColor="{StaticResource White}" />
-                    <Label
-                        FontFamily="{StaticResource IconFont}"
-                        FontSize="Title"
-                        Text="{x:Static font:IconFontMaterial.CheckCircle}"
-                        TextColor="{StaticResource White}"
-                        VerticalOptions="Center" />
-                </StackLayout>
-            </StackLayout>
-
-            <!--  Content  -->
-            <VerticalStackLayout
-                Grid.Row="2"
-                Padding="20,0"
-                Spacing="10">
-
-                <!--  Doctor ##2##  -->
-                <StackLayout Orientation="Horizontal" Spacing="8">
-                    <kit:AvatarView ImageSource="doctor1" Style="{StaticResource Avatar}" />
-                    <Label Style="{StaticResource SubTitle}" Text="د.محمد علاء الدين" />
+                    Grid.Row="1"
+                    Padding="20,25"
+                    BackgroundColor="{StaticResource Success}">
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="15">
+                        <Label
+                            Style="{StaticResource Title}"
+                            Text="{Binding Booking.BookingStatus}"
+                            TextColor="{StaticResource White}" />
+                        <Label
+                            FontFamily="{StaticResource IconFont}"
+                            FontSize="Title"
+                            Text="{x:Static font:IconFontMaterial.CheckCircle}"
+                            TextColor="{StaticResource White}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
                 </StackLayout>
 
-                <!--  Hospital ##3##  -->
-                <StackLayout>
-                    <!--  Hos Name  -->
-                    <Label Style="{StaticResource SubTitle}" Text="عيادة الرحمة الغربية" />
-                    <StackLayout Orientation="Horizontal" Spacing="5">
+                <!--  Content  -->
+                <VerticalStackLayout
+                    Grid.Row="2"
+                    Padding="20,0"
+                    Spacing="10">
+
+                    <!--  Doctor ##2##  -->
+                    <StackLayout Orientation="Horizontal" Spacing="8">
+                        <kit:AvatarView ImageSource="doctor1" Style="{StaticResource Avatar}" />
+                        <Label Style="{StaticResource SubTitle}" Text="{Binding Booking.Doctor}" />
+                    </StackLayout>
+
+                    <!--  Hospital ##3##  -->
+                    <StackLayout>
+                        <!--  Hos Name  -->
+                        <Label Style="{StaticResource SubTitle}" Text="{Binding Booking.Hospital}" />
+                        <!--<StackLayout Orientation="Horizontal" Spacing="5">
                         <Label
                             FontFamily="{StaticResource IconFont}"
                             Style="{StaticResource Body}"
                             Text="{x:Static font:IconFontMaterial.MapMarker}"
                             TextColor="{StaticResource Primary}" />
                         <Label Style="{StaticResource Body}" Text="طنطا شارع الجيش" />
+                    </StackLayout>-->
                     </StackLayout>
-                </StackLayout>
 
-                <!--  ##3## Name  -->
-                <StackLayout Spacing="5">
-                    <Label Style="{StaticResource SubTitle}" Text="اسم المريض" />
-                    <Label Style="{StaticResource Body}" Text="يمنى زغلول المنزلاوي" />
-                </StackLayout>
+                    <!--  ##3## Name  -->
+                    <StackLayout Spacing="5">
+                        <Label Style="{StaticResource SubTitle}" Text="اسم المريض" />
+                        <Label Style="{StaticResource Body}" Text="{Binding Booking.Patient}" />
+                    </StackLayout>
 
-                <!--  ##4## Phone  -->
-                <StackLayout Spacing="5">
+                    <!--  ##4## Phone  -->
+                    <!--<StackLayout Spacing="5">
                     <Label Style="{StaticResource SubTitle}" Text="الهاتف" />
                     <Label Style="{StaticResource Body}" Text="012542165218" />
-                </StackLayout>
+                </StackLayout>-->
 
-                <!--  ##5## Visit Type  -->
-                <StackLayout Spacing="5">
-                    <Label Style="{StaticResource SubTitle}" Text="نوع الكشف" />
-                    <Label Style="{StaticResource Body}" Text="كشف جديد" />
-                </StackLayout>
+                    <!--  ##5## Visit Type  -->
+                    <StackLayout Spacing="5">
+                        <Label Style="{StaticResource SubTitle}" Text="نوع الكشف" />
+                        <Label Style="{StaticResource Body}" Text="{Binding Booking.TypeVisit}" />
+                    </StackLayout>
 
-                <!--  ##6## Clinic  -->
-                <StackLayout Spacing="5">
-                    <Label Style="{StaticResource SubTitle}" Text="العيادة" />
-                    <Label Style="{StaticResource Body}" Text="النساء والتوليد" />
-                </StackLayout>
+                    <!--  ##6## Clinic  -->
+                    <StackLayout Spacing="5">
+                        <Label Style="{StaticResource SubTitle}" Text="العيادة" />
+                        <Label Style="{StaticResource Body}" Text="{Binding Booking.Clinic}" />
+                    </StackLayout>
 
-                <!--  ##7## Date Visit  -->
-                <StackLayout Spacing="10">
-                    <Label Style="{StaticResource SubTitle}" Text="تاريخ الحجز" />
-                    <Label Style="{StaticResource Body}" Text="الاثنين 6 مارس" />
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Style="{StaticResource Body}" Text="8:00 ص" />
-                        <Label Style="{StaticResource Body}" Text="إلى" />
-                        <Label Style="{StaticResource Body}" Text="2:00 م" />
-                    </HorizontalStackLayout>
-                </StackLayout>
+                    <!--  ##7## Date Visit  -->
+                    <StackLayout Spacing="10">
+                        <Label Style="{StaticResource SubTitle}" Text="تاريخ الحجز" />
+                        <Label Style="{StaticResource Body}" Text="{Binding Booking.VisitDate}" />
 
-                <!--  ##8##  -->
-                <Button BackgroundColor="{StaticResource Danger}" Text="إلغاء الحجز" />
+                        <Label Style="{StaticResource SubTitle}" Text="الفترة" />
+                        <Label Style="{StaticResource Body}" Text="{Binding Booking.WorkingPeriod}" />
 
-            </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
+                    </StackLayout>
+
+                    <!--  ##8##  -->
+                    <Button
+                        BackgroundColor="{StaticResource Danger}"
+                        Command="{Binding CancelBooningCommand}"
+                        Text="إلغاء الحجز" />
+
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>

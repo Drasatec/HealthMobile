@@ -8,6 +8,7 @@ using DrasatHealthMobile.Views;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
+using The49.Maui.BottomSheet;
 
 namespace DrasatHealthMobile;
 
@@ -21,6 +22,7 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .UseMauiCommunityToolkitMarkup()
+            .UseBottomSheet()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -46,9 +48,22 @@ public static class MauiProgram
         builder.Services.AddSingleton<DoctorsView>();
         
         builder.Services.AddSingleton<RegisterViewModel>();
-        builder.Services.AddSingleton<RegisterView>();
+        builder.Services.AddTransient<RegisterView>();
+        
+        
+        builder.Services.AddTransient<DoctorDetailsViewModel>();
+        builder.Services.AddTransient<DoctorDetailsView>();
 
-        builder.Services.AddSingleton<LoginView>();
+        builder.Services.AddTransient<AddBookingViewModel>();
+        builder.Services.AddTransient<AddBookingView>();
+        
+        builder.Services.AddTransient<BookingDetailsViewModel>();
+        builder.Services.AddTransient<BookingDetailsView>();
+
+
+        builder.Services.AddTransient<LoginView>();
+        builder.Services.AddSingleton<BookingsView>();
+
 
 #if DEBUG
         builder.Logging.AddDebug();

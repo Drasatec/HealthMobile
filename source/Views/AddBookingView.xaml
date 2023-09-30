@@ -15,13 +15,36 @@
     NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated">
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <vm:BookingByPatientViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <ControlTemplate x:Key="RadioButtonTemplate">
+            <Style x:Key="gridSelectedCheckBoxStyle" TargetType="Grid">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="Black" />
+                                    <Setter TargetName="labelNameDay" Property="Label.FontFamily" Value="CairoRegular" />
+                                    <Setter TargetName="checkEllipse" Property="Ellipse.IsVisible" Value="false" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="#0070CD" />
+                                    <Setter TargetName="labelNameDay" Property="Label.FontFamily" Value="CairoBold" />
+                                    <Setter TargetName="checkEllipse" Property="Ellipse.IsVisible" Value="true" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+            <!--<ControlTemplate x:Key="RadioButtonTemplate">
                 <Border
                     BackgroundColor="White"
                     StrokeShape="RoundRectangle 10"
@@ -40,6 +63,7 @@
                                 Fill="White"
                                 HeightRequest="16"
                                 Stroke="Blue"
+                                StrokeThickness="3"
                                 WidthRequest="16" />
                             <Ellipse
                                 x:Name="check"
@@ -95,173 +119,167 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
-            </Style>
+            </Style>-->
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ScrollView VerticalScrollBarVisibility="Never">
-        <Grid RowDefinitions="Auto,Auto,90,*" RowSpacing="10">
-            <!--  Row ##0##  -->
+        <Grid RowDefinitions="Auto,*">
             <template:BackButtonTemplate Title="الحجز بواسطة المريض" />
-            <!--  Row ##1##  -->
             <StackLayout
                 Grid.Row="1"
                 Margin="15,0"
                 Padding="10"
-                Spacing="10">
+                Spacing="15">
 
-                <!--  ##1##  Doctor  -->
-                <StackLayout>
-                    <!--  Avatar  -->
-                    <kit:AvatarView
-                        Grid.Row="1"
-                        BorderColor="{StaticResource Gray100}"
-                        HeightRequest="70"
-                        ImageSource="doctor1"
-                        Style="{StaticResource Avatar}"
-                        VerticalOptions="Start"
-                        WidthRequest="70" />
-                    <!--  Doctor Name  -->
-                    <Label
-                        HorizontalOptions="Center"
-                        Style="{StaticResource Title}"
-                        Text="د. محمد علاء الدين" />
-                    <Label
-                        HorizontalOptions="Center"
-                        Style="{StaticResource Body}"
-                        Text="أخصائي النساء والتوليد" />
+                <StackLayout Spacing="5">
+                    <!--  Doctor  -->
+                    <StackLayout>
+                        <!--  Avatar  -->
+                        <kit:AvatarView
+                            Grid.Row="1"
+                            BorderColor="{StaticResource Gray100}"
+                            HeightRequest="70"
+                            ImageSource="doctor1"
+                            Style="{StaticResource Avatar}"
+                            VerticalOptions="Start"
+                            WidthRequest="70" />
+                        <!--  Doctor Name  -->
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource Title}"
+                            Text="{Binding WorkPeriodMoel.Doctor}" />
+                        <!--  Doctor Headline  -->
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource Body}"
+                            Text="{Binding WorkPeriodMoel.Headline}" />
+                    </StackLayout>
+
+                    <!--  Hospital  -->
+                    <StackLayout Spacing="5">
+                        <!--  Hos Name  -->
+                        <Label
+                            Padding="0,10"
+                            HorizontalOptions="Center"
+                            Style="{StaticResource SubTitle}"
+                            Text="{Binding WorkPeriodMoel.Hospital}"
+                            TextColor="{StaticResource Primary}" />
+                        <!--  Visit Price  -->
+                        <HorizontalStackLayout Spacing="5">
+                            <Label
+                                FontFamily="{StaticResource CairoBold}"
+                                Style="{StaticResource Body}"
+                                Text="رسوم الكشف:" />
+                            <Label
+                                Style="{StaticResource Body}"
+                                Text="{Binding VisitPriceModel.Price}"
+                                TextColor="{StaticResource Primary}" />
+                            <Label
+                                Style="{StaticResource Body}"
+                                Text="{Binding VisitPriceModel.PriceCurrency}"
+                                TextColor="{StaticResource Primary}" />
+                        </HorizontalStackLayout>
+                    </StackLayout>
                 </StackLayout>
 
-                <!--  ##2## Hospital  -->
-                <StackLayout>
-                    <!--  Hos Name  -->
-                    <Label Style="{StaticResource SubTitle}" Text="عيادة الرحمة الغربية" />
-                    <StackLayout Orientation="Horizontal" Spacing="5">
-                        <Label
-                            FontFamily="{StaticResource IconFont}"
-                            Style="{StaticResource Body}"
-                            Text="{x:Static font:IconFontMaterial.MapMarker}"
-                            TextColor="{StaticResource Primary}" />
-                        <Label Style="{StaticResource Body}" Text="طنطا شارع الجيش" />
-                    </StackLayout>
-                    <!--  Visit Price  -->
+                <!--  Visit Type  -->
+                <CollectionView
+                    x:Name="typeVisitCollection"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    ItemsSource="{Binding TypeVisits}"
+                    ItemsUpdatingScrollMode="KeepLastItemInView"
+                    SelectedItem="{Binding TypeVisitSelectedItem, Mode=TwoWay}"
+                    SelectionChangedCommand="{Binding TypesVisitSelectionChangedCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={x:Reference typeVisitCollection}, Path=SelectedItem}"
+                    SelectionMode="Single"
+                    VerticalOptions="Center">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="15"
+                            Orientation="Vertical"
+                            Span="2" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="{StaticResource White}" Style="{StaticResource gridSelectedCheckBoxStyle}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        x:Name="labelNameDay"
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Style="{StaticResource Body}"
+                                        Text="{Binding Name}" />
+                                    <Grid
+                                        Margin="20,0"
+                                        HeightRequest="18"
+                                        HorizontalOptions="EndAndExpand"
+                                        VerticalOptions="Center"
+                                        WidthRequest="18">
+                                        <Ellipse
+                                            Fill="White"
+                                            HeightRequest="16"
+                                            Stroke="{StaticResource Primary}"
+                                            StrokeThickness="3"
+                                            WidthRequest="16" />
+                                        <Ellipse
+                                            x:Name="checkEllipse"
+                                            Fill="{StaticResource Primary}"
+                                            HeightRequest="8"
+                                            WidthRequest="8" />
+                                    </Grid>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  Date Visit  -->
+                <StackLayout Spacing="10">
+
+                    <Label Style="{StaticResource SubTitle}" Text="تاريخ الحجز" />
+
                     <HorizontalStackLayout Spacing="5">
                         <Label
-                            FontFamily="{StaticResource IconFont}"
+                            FontFamily="{StaticResource CairoBold}"
                             Style="{StaticResource Body}"
-                            Text="{x:Static font:IconFontMaterial.CurrencyUsd}"
-                            TextColor="{StaticResource Primary}" />
-                        <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
-                        <Label
-                            Style="{StaticResource Body}"
-                            Text="300"
-                            TextColor="{StaticResource Primary}" />
-                        <Label
-                            Style="{StaticResource Body}"
-                            Text="فرنك"
-                            TextColor="{StaticResource Primary}" />
-                    </HorizontalStackLayout>
-                </StackLayout>
-            </StackLayout>
+                            Text="اليوم:" />
+                        <Label Style="{StaticResource Body}" Text="{Binding WorkPeriodMoel.DateName}" />
 
-            <!--  Row ##3##  -->
-            <StackLayout
-                Grid.Row="3"
-                Margin="15,0,15,40"
-                Spacing="20">
-                <!--  **1** Phone  -->
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="5">
+                        <Label
+                            FontFamily="{StaticResource CairoBold}"
+                            Style="{StaticResource Body}"
+                            Text="الفترة:" />
+                        <Label Style="{StaticResource Body}" Text="{Binding WorkPeriodMoel.WorkingPeriod}" />
+                    </HorizontalStackLayout>
+
+                </StackLayout>
+
                 <StackLayout Spacing="5">
-                    <Label Style="{StaticResource SubTitle}" Text="الهاتف" />
-                    <Frame
-                        Padding="10,0"
-                        Background="White"
-                        VerticalOptions="CenterAndExpand">
-                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                            <Entry
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="FillAndExpand"
-                                Placeholder="الهاتف"
-                                TextColor="Black"
-                                VerticalOptions="CenterAndExpand" />
-                        </StackLayout>
+                    <Label Style="{StaticResource SubTitle}" Text="سبب الحجز" />
+                    <Frame Padding="0">
+                        <Editor
+                            FontAutoScalingEnabled="True"
+                            HeightRequest="100"
+                            Text="{Binding StatusReason}" />
                     </Frame>
                 </StackLayout>
 
-                <!--  **2** Visit Type  -->
-                <StackLayout Spacing="5">
-                    <Label Style="{StaticResource SubTitle}" Text="نوع الكشف" />
-                    <StackLayout
-                        Orientation="Horizontal"
-                        RadioButtonGroup.GroupName="222222222222"
-                        RadioButtonGroup.SelectedValue="{Binding RadioButtonGroupSelectedValue}">
-                        <RadioButton
-                            FontFamily="{StaticResource CairoRegular}"
-                            IsChecked="True"
-                            Value="Visit">
-                            <RadioButton.Content>
-                                <StackLayout>
-                                    <Label
-                                        Style="{StaticResource Body}"
-                                        Text="كشف"
-                                        VerticalOptions="Center" />
-                                </StackLayout>
-                            </RadioButton.Content>
-                        </RadioButton>
-                        <RadioButton FontFamily="{StaticResource CairoRegular}" Value="follow">
-                            <RadioButton.Content>
-                                <StackLayout>
-                                    <Label
-                                        Style="{StaticResource Body}"
-                                        Text="متابعة"
-                                        VerticalOptions="Center" />
-                                </StackLayout>
-                            </RadioButton.Content>
-                        </RadioButton>
-                    </StackLayout>
-                </StackLayout>
+                <!--  Button submit  -->
+                <Button
+                    Margin="20"
+                    Command="{Binding SubmitBookingCommand}"
+                    Text="تأكيد" />
 
-                <!--  **3** Date Visit  -->
-                <StackLayout Spacing="10">
-                    <Label Style="{StaticResource SubTitle}" Text="تاريخ الحجز" />
-                    <Label Style="{StaticResource Body}" Text="الاثنين 6 مارس" />
-                    <HorizontalStackLayout Spacing="5">
-                        <Label Style="{StaticResource Body}" Text="8:00 ص" />
-                        <Label Style="{StaticResource Body}" Text="إلى" />
-                        <Label Style="{StaticResource Body}" Text="2:00 م" />
-                    </HorizontalStackLayout>
-                </StackLayout>
+                <StackLayout Margin="15,0,15,40" Spacing="20" />
 
-                <!--  **4** Button submit  -->
-                <Button Margin="0,20" Text="تأكيد" />
             </StackLayout>
-
-            <!--  Row ##2## Drobdown list & entry Name  -->
-            <StackLayout
-                Grid.Row="2"
-                Margin="15,0"
-                Spacing="5">
-                <Label Style="{StaticResource SubTitle}" Text="اسم المريض" />
-                <Grid ColumnDefinitions="*,40">
-                    <template:DropdownListEntryTemplate Grid.Column="0" />
-
-                    <Button
-                        Grid.Column="1"
-                        Margin="2"
-                        Padding="0"
-                        BackgroundColor="{StaticResource Gray50}"
-                        BorderColor="{StaticResource Gray200}"
-                        BorderWidth="0"
-                        Clicked="Button_Clicked"
-                        CornerRadius="8"
-                        HeightRequest="40"
-                        HorizontalOptions="Center"
-                        Style="{StaticResource LableIcon}"
-                        Text="{x:Static font:IconFontMaterial.Plus}"
-                        VerticalOptions="Start" />
-
-                </Grid>
-            </StackLayout>
-
         </Grid>
     </ScrollView>
 </ContentPage>

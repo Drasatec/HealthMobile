@@ -2,25 +2,29 @@ using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 using DrasatHealthMobile.Helpers;
 using DrasatHealthMobile.ViewModels;
+using DrasatHealthMobile.Views.Templates;
+using Microsoft.Maui.Controls;
 
 namespace DrasatHealthMobile.Views;
 
 public partial class HomeView : ContentPage
 {
-    //public double WidthImage { get; set; }
+    SelectHospitalBottomSheet sheet;
     public HomeView(HomeViewModel homeViewModel)
     {
         BindingContext = homeViewModel;
         InitializeComponent();
-        var timer = Application.Current.Dispatcher.CreateTimer();
-        timer.Interval = TimeSpan.FromSeconds(3);
-        timer.Tick += (s, e) => Scrol();
-        timer.Start();
+        
+        // var timer = Application.Current.Dispatcher.CreateTimer();
+        //timer.Interval = TimeSpan.FromSeconds(3);
+        // timer.Tick += (s, e) => Scrol();
+        //timer.Start();
     }
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        welcomLabel.Text = Helper.GetValue<int>("userId",0).ToString();
+        welcomLabel.Text = Helper.GetValue<int>("userId", 0).ToString();
+        //sheet.Clicked += (sender, e) => SelectHospitalBottomSheet_Clicked(sender,e);
 #if ANDROID
         this.Behaviors.Add(new StatusBarBehavior
         {
@@ -116,9 +120,15 @@ public partial class HomeView : ContentPage
     {
         await Shell.Current.GoToAsync("RegisterView", true);
     }
-    
+
     private async void Button_Clicked_11(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("LoginView", true);
+    }
+
+    private async void SelectHospitalBottomSheet_Clicked(object sender, EventArgs e)
+    {
+        //var ss = sheet.GetValueMy();
+        //await Helper.ToastAlert(ss);
     }
 }

@@ -11,6 +11,13 @@ public partial class SearchBoxTemplate : ContentView
                     typeof(ICommand), 
                     typeof(SearchBoxTemplate));
 
+    public static readonly BindableProperty TextProperty =
+        BindableProperty.Create(
+            nameof(Text),
+            typeof(string),
+            typeof(EntryFrameTemplate),
+            string.Empty, BindingMode.TwoWay);
+
     public SearchBoxTemplate()
     {
         InitializeComponent();
@@ -23,4 +30,9 @@ public partial class SearchBoxTemplate : ContentView
         set => SetValue(CommandProperty, value);
     }
 
+    public string Text
+    {
+        get => (string)GetValue(TextProperty);
+        set => SetValue(TextProperty, value);
+    }
 }

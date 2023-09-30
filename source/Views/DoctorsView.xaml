@@ -11,29 +11,48 @@
     x:Name="this"
     Title="DoctorsView"
     BackgroundColor="{StaticResource White}"
-    FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated">
 
     <ContentPage.Resources>
-        <Style x:Key="stackStat" TargetType="StackLayout">
+        <Style x:Key="gridSelectedStyle" TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal">
                             <VisualState.Setters>
                                 <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="Black" />
-                                <Setter TargetName="labelNumberDay" Property="Label.TextColor" Value="Gray" />
                                 <Setter TargetName="labelNameDay" Property="Label.FontFamily" Value="CairoRegular" />
-                                <Setter TargetName="labelNumberDay" Property="Label.FontFamily" Value="CairoRegular" />
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="#0070CD" />
-                                <Setter TargetName="labelNumberDay" Property="Label.TextColor" Value="#0070CD" />
                                 <Setter TargetName="labelNameDay" Property="Label.FontFamily" Value="CairoBold" />
-                                <Setter TargetName="labelNumberDay" Property="Label.FontFamily" Value="CairoBold" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+            <Setter Property="BackgroundColor" Value="White" />
+        </Style>
+
+        <Style x:Key="gridSelectedCheckBoxStyle" TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="Black" />
+                                <Setter TargetName="labelNameDay" Property="Label.FontFamily" Value="CairoRegular" />
+                                <Setter TargetName="checkEllipse" Property="Ellipse.IsVisible" Value="false" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter TargetName="labelNameDay" Property="Label.TextColor" Value="#0070CD" />
+                                <Setter TargetName="labelNameDay" Property="Label.FontFamily" Value="CairoBold" />
+                                <Setter TargetName="checkEllipse" Property="Ellipse.IsVisible" Value="true" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -49,30 +68,45 @@
 
     <Grid RowDefinitions="Auto,Auto,*">
 
-        <!--  ROW ##1## backbutton  -->
-        <template:BackButtonTemplate Title="الأطباء" />
-
-        <!--  ROW ##2## seacch box  -->
-        <Grid
-            Grid.Row="1"
-            BackgroundColor="{StaticResource Primary}"
-            ColumnDefinitions="*,60"
-            ColumnSpacing="0">
-            <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" HorizontalOptions="FillAndExpand" />
+        <!--  Header  -->
+        <Grid BackgroundColor="{StaticResource Primary}" ColumnDefinitions="*,60">
+            <!--  ROW ##1## backbutton  -->
+            <template:BackButtonTemplate Title="الأطباء" HorizontalOptions="FillAndExpand" />
             <!--  Filter Icon  -->
             <Frame
                 Grid.Column="1"
-                Margin="5,6,10,17"
-                Padding="0"
-                VerticalOptions="FillAndExpand">
-                <Image
-                    HorizontalOptions="Center"
-                    Source="filter.svg"
-                    VerticalOptions="Center" />
+                Margin="0"
+                Padding="4"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                CornerRadius="5"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <Label
+                    FontFamily="{StaticResource IconFont}"
+                    FontSize="30"
+                    Text="{x:Static font:IconFontMaterial.FilterVariant}"
+                    TextColor="{StaticResource White}" />
+
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OpenFiltrFrame" />
                 </Frame.GestureRecognizers>
             </Frame>
+
+        </Grid>
+
+        <!--  ROW ##2## seacch box  -->
+        <Grid
+            Grid.Row="1"
+            BackgroundColor="{StaticResource Gray300}"
+            ColumnSpacing="0">
+            <template:SearchBoxTemplate
+                x:Name="searchEntryTemplate"
+                Margin="0,0,0,0"
+                BackgroundColor="Red"
+                Command="{Binding SearchBoxTypingCommand}"
+                HorizontalOptions="FillAndExpand" />
+
         </Grid>
 
         <!--  ROW ##3## Collection  of doctor card View  -->
@@ -80,9 +114,10 @@
             x:Name="ClViewDoctors"
             Grid.Row="2"
             Margin="0,10"
-            BackgroundColor="{StaticResource Background}"
             ItemsSource="{Binding Doctors}"
-            SelectionChanged="ClViewDoctors_SelectionChanged"
+            SelectedItem="{Binding DoctorSelected}"
+            SelectionChangedCommand="{Binding DoctorSelectionChangedCommand}"
+            SelectionChangedCommandParameter="{Binding Source={x:Reference ClViewDoctors}, Path=SelectedItem}"
             SelectionMode="Single">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
@@ -110,13 +145,19 @@
             Margin="0,10,0,0"
             Padding="0"
             BackgroundColor="{StaticResource White}"
+            InputTransparent="False"
             IsVisible="false"
             Stroke="{StaticResource Primary}"
             StrokeThickness="1"
             TranslationY="800">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer />
+            </Border.GestureRecognizers>
+
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10,10,0,0" />
             </Border.StrokeShape>
+
             <VerticalStackLayout Padding="10,20" Spacing="20">
                 <!--  Hedar  -->
                 <StackLayout Orientation="Horizontal">
@@ -132,78 +173,127 @@
                 </StackLayout>
 
                 <!--  Title  -->
-                <HorizontalStackLayout HorizontalOptions="Center">
+                <!--<HorizontalStackLayout HorizontalOptions="Center">
                     <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
                     <Label Style="{StaticResource SubTitle}" Text="5/2023" />
                     <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronLeft}" />
-                </HorizontalStackLayout>
+                </HorizontalStackLayout>-->
 
                 <!--  Dayes  -->
-                <Grid ColumnDefinitions="40,*,40" HorizontalOptions="Center">
-                    <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
-                    <CollectionView
-                        x:Name="daysCollection"
-                        Grid.Column="1"
-                        ItemsUpdatingScrollMode="KeepLastItemInView"
-                        SelectionChanged="CollectionView_SelectionChanged_1"
-                        SelectionMode="Single"
-                        VerticalOptions="Center">
-                        <CollectionView.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>السبت</x:String>
-                                <x:String>الأحد</x:String>
-                                <x:String>الإثنين</x:String>
-                                <x:String>الثلاثاء</x:String>
-                                <x:String>الاربعاء</x:String>
-                                <x:String>الخميس</x:String>
-                                <x:String>الجمعة</x:String>
-                            </x:Array>
-                        </CollectionView.ItemsSource>
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
-                        </CollectionView.ItemsLayout>
 
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout BackgroundColor="{StaticResource White}" Style="{StaticResource stackStat}">
-                                    <StackLayout Margin="0,0" BackgroundColor="Transparent">
-                                        <Label
-                                            x:Name="labelNameDay"
-                                            HorizontalOptions="Center"
-                                            Style="{StaticResource Body}"
-                                            Text="{Binding .}" />
-                                        <Label
-                                            x:Name="labelNumberDay"
-                                            HorizontalOptions="Center"
-                                            Style="{StaticResource Body}"
-                                            Text="1" />
-                                    </StackLayout>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    <Label
-                        Grid.Column="2"
-                        Style="{StaticResource LableIcon}"
-                        Text="{x:Static font:IconFontMaterial.ChevronLeft}" />
-                </Grid>
+                <Label Style="{StaticResource SubTitle}" Text="اليوم" />
+
+                <CollectionView
+                    x:Name="daysCollection"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    ItemsSource="{Binding Weekdays}"
+                    ItemsUpdatingScrollMode="KeepLastItemInView"
+                    SelectionChangedCommand="{Binding DaysSelectionChangedCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={x:Reference daysCollection}, Path=SelectedItem}"
+                    SelectionMode="Single"
+                    VerticalOptions="Center">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="5"
+                            Orientation="Vertical"
+                            Span="3" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="{StaticResource White}" Style="{StaticResource gridSelectedStyle}">
+                                <Label
+                                    x:Name="labelNameDay"
+                                    Margin="10,0"
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource Body}"
+                                    Text="{Binding Name}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
 
                 <Label Style="{StaticResource SubTitle}" Text="الجنس" />
                 <HorizontalStackLayout Spacing="10">
-                    <CheckBox IsChecked="true" />
+                    <CheckBox x:Name="bothMaleFemaleCheckBox" CheckedChanged="BothMaleFemaleCheckBox_CheckedChanged" />
+                    <Label Style="{StaticResource Body}" Text="كلاهما" />
+                    <CheckBox x:Name="maleCheckBox" CheckedChanged="MaleCheckBox_CheckedChanged" />
                     <Label Style="{StaticResource Body}" Text="دكتور" />
-                    <CheckBox IsChecked="true" />
+                    <CheckBox x:Name="femaleCheckBox" CheckedChanged="FemaleCheckBox_CheckedChanged" />
                     <Label Style="{StaticResource Body}" Text="دكتورة" />
                 </HorizontalStackLayout>
 
                 <!--    -->
                 <Label Style="{StaticResource SubTitle}" Text="اللقب" />
-                <Grid
+
+                <CollectionView
+                    x:Name="degressCollection"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    ItemsSource="{Binding DoctorsDegrees}"
+                    ItemsUpdatingScrollMode="KeepLastItemInView"
+                    SelectionChangedCommand="{Binding DegreesSelectionChangedCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={x:Reference degressCollection}, Path=SelectedItem}"
+                    SelectionMode="Single"
+                    VerticalOptions="Center">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="15"
+                            Orientation="Vertical"
+                            Span="2" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="{StaticResource White}" Style="{StaticResource gridSelectedCheckBoxStyle}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        x:Name="labelNameDay"
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Style="{StaticResource Body}"
+                                        Text="{Binding DegreeName}" />
+                                    <Grid
+                                        Margin="20,0"
+                                        HeightRequest="18"
+                                        HorizontalOptions="EndAndExpand"
+                                        VerticalOptions="Center"
+                                        WidthRequest="18">
+                                        <Ellipse
+                                            Fill="White"
+                                            HeightRequest="16"
+                                            Stroke="{StaticResource Primary}"
+                                            StrokeThickness="3"
+                                            WidthRequest="16" />
+                                        <Ellipse
+                                            x:Name="checkEllipse"
+                                            Fill="{StaticResource Primary}"
+                                            HeightRequest="8"
+                                            WidthRequest="8" />
+                                    </Grid>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button
+                    Margin="10,30"
+                    Clicked="Button_Clicked"
+                    Text="تطبيق" />
+
+                <!--<Grid
                     ColumnDefinitions="40,100,40,100"
                     RowDefinitions="*,*"
                     RowSpacing="5">
 
-                    <CheckBox Grid.Row="0" Grid.Column="0" />
+                    <CheckBox
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        IsChecked="True" />
                     <Label
                         Grid.Row="0"
                         Grid.Column="1"
@@ -227,7 +317,7 @@
                         Grid.Column="3"
                         Style="{StaticResource Body}"
                         Text="اخصائي" />
-                </Grid>
+                </Grid>-->
             </VerticalStackLayout>
         </Border>
 

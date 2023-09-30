@@ -1,3 +1,4 @@
+using DrasatHealthMobile.Helpers;
 using DrasatHealthMobile.Models.MedicalSpecialty;
 using DrasatHealthMobile.ViewModels;
 namespace DrasatHealthMobile.Views;
@@ -9,7 +10,11 @@ public partial class SpecialtiesView : ContentPage
         BindingContext = specialtiesViewModel;
         InitializeComponent();
     }
-
+    protected override bool OnBackButtonPressed()
+    {
+        Helper.NavigationTo("///main");
+        return true;
+    }
     private void collectionOfSpecialists_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var collectionView = sender as CollectionView;

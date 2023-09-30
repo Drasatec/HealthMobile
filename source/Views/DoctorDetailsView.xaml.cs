@@ -1,11 +1,27 @@
-﻿namespace DrasatHealthMobile.Views;
+﻿using DrasatHealthMobile.Models.Doctors;
+using DrasatHealthMobile.ViewModels;
+using System.Reflection.Metadata;
 
+namespace DrasatHealthMobile.Views;
+//[QueryProperty(nameof(DoctorDetails), "doctorModel")]
 public partial class DoctorDetailsView : ContentPage
 {
-    public DoctorDetailsView()
+    public DoctorDetailsView(DoctorDetailsViewModel viewmodel)
     {
         InitializeComponent();
+        BindingContext = viewmodel;
     }
+
+    //private DoctorModel doctorDetails;
+    //public DoctorModel DoctorDetails
+    //{
+    //    get => doctorDetails;
+    //    set
+    //    {
+    //        doctorDetails = value;
+    //        OnPropertyChanged(nameof(DoctorDetails));
+    //    }
+    //}
 
     private void Button_Clicked(object sender, EventArgs e)
     {
@@ -18,23 +34,36 @@ public partial class DoctorDetailsView : ContentPage
         if (flag == 0)
         {
             uuu.Text = "أقل";
-            label.MaxLines = default;
-            label.LineBreakMode = LineBreakMode.WordWrap;
+            aboutLabel.MaxLines = default;
+            aboutLabel.LineBreakMode = LineBreakMode.WordWrap;
             flag = 1;
         }
         else
         {
             uuu.Text = "قراءة المزيد";
-            label.MaxLines = 3;
-            label.LineBreakMode = LineBreakMode.TailTruncation;
+            aboutLabel.MaxLines = 3;
+            aboutLabel.LineBreakMode = LineBreakMode.TailTruncation;
             flag = 0;
         }
     }
-
+    // deleted
     private async void BtnBookingClicked(object sender, EventArgs e)
     {
-        var btn = sender as Button;
-        var param = btn.CommandParameter;
-        await Shell.Current.GoToAsync("BookingDetailsView");
+        try
+        {
+            var btn = sender as Button;
+            var parameter = btn.CommandParameter;
+            //await Shell.Current.GoToAsync("BookingDetailsView");
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "docWPFromDocDetailsView", parameter }
+            };
+            await Shell.Current.GoToAsync("AddBookingView", navigationParameter);
+        }
+        catch (Exception ex)
+        {
+            await Helpers.Helper.DisplayAlert(nameof(AddBookingView), nameof(BtnBookingClicked), ex.Message);
+
+        }
     }
 }

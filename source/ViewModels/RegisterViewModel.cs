@@ -142,30 +142,37 @@ public class RegisterViewModel : ObservableObject
     {
         var queryParams = $"lang={Helper.Language}";
 
-        var result = await publicService.GetAllCountriesAsync("Country/all", queryParams);
-        if (result != null && result.Data != null)
+        try
         {
-            listOfCountries = result.Data;
-            CountriesMenu = new List<DropdownMenuModel>(result.Total);
-            CallingCodesMenu = new List<DropdownMenuModel>(result.Total);
-            foreach (var resultItem in result.Data)
+            var result = await publicService.GetAllCountriesAsync("Country/all", queryParams);
+            if (result != null && result.Data != null)
             {
-                var country = new DropdownMenuModel()
+                listOfCountries = result.Data;
+                CountriesMenu = new List<DropdownMenuModel>(listOfCountries.Count);
+                CallingCodesMenu = new List<DropdownMenuModel>(listOfCountries.Count);
+                foreach (var resultItem in result.Data)
                 {
-                    Id = resultItem.Id,
-                    Name = resultItem.CountriesTranslations[0]?.CountryName,
-                };
+                    var country = new DropdownMenuModel()
+                    {
+                        Id = resultItem.Id,
+                        Name = resultItem.CountriesTranslations[0]?.CountryName,
+                    };
 
-                var callingCode = new DropdownMenuModel()
-                {
-                    Id = resultItem.Id,
-                    Name = $"{resultItem.CountryCode} +{resultItem.CallingCode}"
-                };
-                CountriesMenu.Add(country);
-                CallingCodesMenu.Add(callingCode);
+                    var callingCode = new DropdownMenuModel()
+                    {
+                        Id = resultItem.Id,
+                        Name = $"{resultItem.CountryCode} +{resultItem.CallingCode}"
+                    };
+                    CountriesMenu.Add(country);
+                    CallingCodesMenu.Add(callingCode);
+                }
+                OnPropertyChanged(nameof(CountriesMenu));
+                OnPropertyChanged(nameof(CallingCodesMenu));
             }
-            OnPropertyChanged(nameof(CountriesMenu));
-            OnPropertyChanged(nameof(CallingCodesMenu));
+        }
+        catch (Exception ex)
+        {
+            await Helper.ToastAlert(ex.Message);
         }
     }
     private async void GetConfirmationOption()

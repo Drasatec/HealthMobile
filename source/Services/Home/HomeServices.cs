@@ -14,15 +14,15 @@ public class HomeServices : IHomeServices
     {
         this.requestProvider = requestProvider;
     }
-    public async Task<List<HospitalTranslation>> GetHosNamesAsync(string guidUser, string token)
+    public async Task<List<Models.Hospital.HospitalTranslation>> GetHosNamesAsync(string guidUser, string token)
     {
         //var uri = UriHelper.CombineUri(GlobalSetting.Instance.GatewayShoppingEndpoint, $"{ApiUrlBase}/{guidUser}");
 
-        List<HospitalTranslation> hosTranc;
+        List<Models.Hospital.HospitalTranslation> hosTranc;
 
         try
         {
-            hosTranc = await requestProvider.GetAsync<HospitalTranslation>("", token).ConfigureAwait(false);
+            hosTranc = await requestProvider.GetAsync<Models.Hospital.HospitalTranslation>("", token).ConfigureAwait(false);
         }
         catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
         {

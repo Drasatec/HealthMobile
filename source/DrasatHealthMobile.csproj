@@ -111,6 +111,8 @@
 	  <None Remove="Resources\Fonts\Cairo-Regular.ttf" />
 	  <None Remove="Resources\Fonts\fa-regular-400.ttf" />
 	  <None Remove="Resources\Fonts\materialdesignicons.ttf" />
+	  <None Remove="Resources\Images\arrow_left.svg" />
+	  <None Remove="Resources\Images\arrow_right.svg" />
 	  <None Remove="Resources\Images\clinic.png" />
 	  <None Remove="Resources\Images\doctor1.jpg" />
 	  <None Remove="Resources\Images\doctor2.jpg" />
@@ -129,6 +131,7 @@
 		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="3.1.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="The49.Maui.BottomSheet" Version="1.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -148,7 +151,7 @@
 	  <Compile Update="Views\RegisterView.xaml.cs">
 	    <DependentUpon>RegisterView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\SearchView.xaml.cs">
+	  <Compile Update="Views\v2\SearchView.xaml.cs">
 	    <DependentUpon>SearchView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Templates\DropdownMenuTemplate.xaml.cs">
@@ -170,7 +173,7 @@
 	  <MauiXaml Update="Views\AddBookingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AddMemberView.xaml">
+	  <MauiXaml Update="Views\v2\AddMemberView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\BookingDetailsView.xaml">
@@ -185,7 +188,7 @@
 	  <MauiXaml Update="Views\DoctorsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\DoSomethingView.xaml">
+	  <MauiXaml Update="Views\v2\DoSomethingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeView.xaml">
@@ -197,10 +200,10 @@
 	  <MauiXaml Update="Views\RegisterView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\MedicalServicesView.xaml">
+	  <MauiXaml Update="Views\v2\MedicalServicesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\MembersView.xaml">
+	  <MauiXaml Update="Views\v2\MembersView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\NotificationsView.xaml">
@@ -209,7 +212,7 @@
 	  <MauiXaml Update="Views\ProfileView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\SearchView.xaml">
+	  <MauiXaml Update="Views\v2\SearchView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SpecialtiesView.xaml">
@@ -234,6 +237,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\SearchBoxTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Templates\SelectHospitalBottomSheet.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\ServiceCardTemplate.xaml">

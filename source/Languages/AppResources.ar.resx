@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="direction" xml:space="preserve">
+    <value>90</value>
+  </data>
+  <data name="Icon_BackButtonArrow" xml:space="preserve">
+    <value>arrow_right</value>
+  </data>
+  <data name="public_SelectAll" xml:space="preserve">
+    <value>الكل</value>
+  </data>
   <data name="ShellTabMain" xml:space="preserve">
     <value>الرئيسية</value>
   </data>

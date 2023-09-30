@@ -10,10 +10,7 @@
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this">
 
-    <StackLayout
-        Padding="0,0,0,10"
-        BackgroundColor="{StaticResource Primary}"
-        HeightRequest="65">
+    <StackLayout Padding="0,0,0,0" BackgroundColor="{StaticResource Primary}">
         <Frame
             Margin="10,5"
             Padding="10,0"
@@ -34,6 +31,7 @@
                     BackgroundColor="Transparent"
                     HorizontalOptions="FillAndExpand"
                     Placeholder="بحث"
+                    Text="{Binding Text, Source={x:Reference this}}"
                     TextColor="Black"
                     VerticalOptions="CenterAndExpand">
                     <Entry.Behaviors>

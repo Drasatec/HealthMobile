@@ -19,6 +19,11 @@ public class MainActivity : MauiAppCompatActivity
         {
             handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
         });
+        
+        Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("MyEditor", (handler, view) =>
+        {
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+        });
 
         Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("MyDatePicker", (handler, view) =>
         {

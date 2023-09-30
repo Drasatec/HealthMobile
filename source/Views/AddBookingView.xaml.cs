@@ -1,14 +1,13 @@
+using DrasatHealthMobile.Models;
+using DrasatHealthMobile.ViewModels;
+
 namespace DrasatHealthMobile.Views;
 
 public partial class AddBookingView : ContentPage
 {
-	public AddBookingView()
-	{
-		InitializeComponent();
-	}
-
-    private async void Button_Clicked(object sender, EventArgs e)
+    public AddBookingView(AddBookingViewModel addBookingViewModel)
     {
-        await Shell.Current.GoToAsync("AddMemberView");
+        BindingContext = addBookingViewModel;
+        InitializeComponent();
     }
 }

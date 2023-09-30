@@ -45,7 +45,22 @@ public class PublicService : IPublicService
         }
         return list;
     }
-    
+
+    public async Task<List<DoctorWorkPeriodModel>> GetAllDoctorWorkPeriodAsync(string endpoint, Dictionary<string, string> queryParams)
+    {
+        List<DoctorWorkPeriodModel> list;
+
+        try
+        {
+            list = await RequestProvider.GetListAsync<DoctorWorkPeriodModel>($"{Constants.BaseUrl}{endpoint}{await Helper.BuildQueryString(queryParams)}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
+
     public async Task<List<HumanGenderNames>> GetAllHumanGenderAsync(string endpoint, string param)
     {
         List<HumanGenderNames> list;
@@ -135,4 +150,130 @@ public class PublicService : IPublicService
         return response;
     }
 
+    public async Task<List<Weekday>> GetAllWeekdaysAsync(string endpoint, string param)
+    {
+        List<Weekday> list;
+        try
+        {
+            list = await RequestProvider.GetListAsync<Weekday>($"{Constants.BaseUrl}{endpoint}?{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
+    
+    public async Task<List<DoctorsDegree>> GetAllDoctorsDegreesAsync(string endpoint, string param)
+    {
+        List<DoctorsDegree> list;
+        try
+        {
+            list = await RequestProvider.GetListAsync<DoctorsDegree>($"{Constants.BaseUrl}{endpoint}?{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
+    
+    public async Task<List<HospitalTranslation>> GetAllHospitalsTranslationsAsync(string endpoint, string param)
+    {
+        List<HospitalTranslation> list;
+        try
+        {
+            list = await RequestProvider.GetListAsync<HospitalTranslation>($"{Constants.BaseUrl}{endpoint}?{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
+    
+    public async Task<List<TypesVisitTranslation>> GetAllTypesVisitTranslationsAsync(string endpoint, string param)
+    {
+        List<TypesVisitTranslation> list;
+        try
+        {
+            list = await RequestProvider.GetListAsync<TypesVisitTranslation>($"{Constants.BaseUrl}{endpoint}?{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
+    
+    public async Task<List<DoctorVisitPriceModel>> GetAllDoctorVisitPriceAsync(string endpoint, string param)
+    {
+        List<DoctorVisitPriceModel> list;
+        try
+        {
+            list = await RequestProvider.GetListAsync<DoctorVisitPriceModel>($"{Constants.BaseUrl}{endpoint}?{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
+
+    public async Task<ResponseWithId> PostBookingAsync(string endpoint, SendBookingModel booking)
+    {
+        ResponseWithId response;
+        try
+        {
+            response = await RequestProvider.PostSingleAsync<ResponseWithId, SendBookingModel>($"{Constants.BaseUrl}{endpoint}", data: booking).ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            response = null;
+        }
+        return response;
+    }
+
+    public async Task<BookingModel> GetBookingByIdAsync(string endpoint, string param)
+    {
+        BookingModel model;
+        try
+        {
+            model = await RequestProvider.GetSingleAsync<BookingModel>($"{Constants.BaseUrl}{endpoint}?{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            model = null;
+        }
+        return model;
+    }
+    
+    public async Task<Response> CancelBooning(string endpoint, string param)
+    {
+        Response response;
+        try
+        {
+            response = await RequestProvider.PutByQueryParamsAsync<Response>($"{Constants.BaseUrl}{endpoint}?{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            response = null;
+        }
+        return response;
+    }
+
+    public async Task<PagedResponse<BookingModel>> GetAllBookingsAsync(string endpoint, string queryParams)
+    {
+        PagedResponse<BookingModel> list;
+
+        try
+        {
+            list = await RequestProvider.GetPagedResponseAsync<BookingModel>($"{Constants.BaseUrl}{endpoint}?{queryParams}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            list = null;
+        }
+        return list;
+    }
 }

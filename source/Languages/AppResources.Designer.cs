@@ -61,6 +61,33 @@ namespace DrasatHealthMobile.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 90.
+        /// </summary>
+        internal static string direction {
+            get {
+                return ResourceManager.GetString("direction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to arrow_left.
+        /// </summary>
+        internal static string Icon_BackButtonArrow {
+            get {
+                return ResourceManager.GetString("Icon_BackButtonArrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string public_SelectAll {
+            get {
+                return ResourceManager.GetString("public_SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         internal static string ShellTabMain {

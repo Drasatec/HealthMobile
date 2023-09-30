@@ -1,7 +1,4 @@
-﻿using DrasatHealthMobile.Helpers;
-using DrasatHealthMobile.Views;
-using DrasatHealthMobile.Views;
-
+﻿using DrasatHealthMobile.Views;
 namespace DrasatHealthMobile;
 
 public partial class AppShell : Shell
@@ -10,20 +7,20 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 
-        Routing.RegisterRoute("SearchView", typeof(SearchView));
-        Routing.RegisterRoute("SpecialtiesView", typeof(SpecialtiesView));
-        Routing.RegisterRoute("DoctorDetailsView", typeof(DoctorDetailsView));
-        Routing.RegisterRoute("BookingByPatient", typeof(AddBookingView));
+        Routing.RegisterRoute("AddBookingView", typeof(AddBookingView));
+        Routing.RegisterRoute("AddMemberView", typeof(AddMemberView));
         Routing.RegisterRoute("BookingDetailsView", typeof(BookingDetailsView));
         Routing.RegisterRoute("BookingsView", typeof(BookingsView));
+        Routing.RegisterRoute("DoctorDetailsView", typeof(DoctorDetailsView));
         Routing.RegisterRoute("DoctorsView", typeof(DoctorsView));
-        Routing.RegisterRoute("ProfileView", typeof(ProfileView));
         Routing.RegisterRoute("DoSomethingView", typeof(DoSomethingView));
-        Routing.RegisterRoute("AddMemberView", typeof(AddMemberView));
-        Routing.RegisterRoute("MembersView", typeof(MembersView));
-        Routing.RegisterRoute("MedicalServicesView", typeof(MedicalServicesView));
-        Routing.RegisterRoute("NotificationsView", typeof(NotificationsView));
-        Routing.RegisterRoute("RegisterView", typeof(RegisterView));
         Routing.RegisterRoute("LoginView", typeof(LoginView));
+        Routing.RegisterRoute("MedicalServicesView", typeof(MedicalServicesView));
+        Routing.RegisterRoute("MembersView", typeof(MembersView));
+        Routing.RegisterRoute("NotificationsView", typeof(NotificationsView));
+        Routing.RegisterRoute("ProfileView", typeof(ProfileView));
+        Routing.RegisterRoute("RegisterView", typeof(RegisterView));
+        Routing.RegisterRoute("SearchView", typeof(SearchView));
+        Routing.RegisterRoute("SpecialtiesView", typeof(SpecialtiesView));
     }
 }

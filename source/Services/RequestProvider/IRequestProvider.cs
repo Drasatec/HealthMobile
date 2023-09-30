@@ -17,4 +17,6 @@ public interface IRequestProvider
     Task<List<TResult>> GetListAsync<TResult>(string uri, string token = "");
     Task<string> GetStringAsync(string uri, string token = "");
     Task<TResult> PostSingleAsync<TResult, TTake>(string uri, TTake data, string token = "", string header = "");
+    Task<TResult> GetSingleAsync<TResult>(string uri, string token = "");
+    Task<TResult> PutByQueryParamsAsync<TResult>(string uri, string token = "", string header = "");
 }

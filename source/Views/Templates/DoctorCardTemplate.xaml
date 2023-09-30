@@ -13,77 +13,91 @@
             Padding="8"
             BackgroundColor="{StaticResource White}"
             Stroke="{StaticResource Primary}"
-            StrokeThickness="1">
+            StrokeThickness="1"
+            VerticalOptions="CenterAndExpand">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="25,10,10,25" />
             </Border.StrokeShape>
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <!--  AVATAR  -->
-                <kit:AvatarView
-                    BorderColor="{StaticResource Gray50}"
-                    CornerRadius="40"
-                    HeightRequest="80"
-                    ImageSource="{Binding ImageUrl}"
-                    Style="{StaticResource Avatar}"
-                    VerticalOptions="Start"
-                    WidthRequest="80" />
+            <StackLayout
+                Orientation="Vertical"
+                Spacing="10"
+                VerticalOptions="CenterAndExpand">
+
                 <!--  CONTENT  -->
-                <StackLayout HorizontalOptions="FillAndExpand" Spacing="2">
-                    <Label Style="{StaticResource SubTitle}" Text="{Binding DoctorTranslations[0].FullName}" />
-                    <Label Style="{StaticResource Body}" Text="{Binding DoctorTranslations[0].Headline}" />
-
-                    <!--  Visit Price  -->
-                    <!--<HorizontalStackLayout Spacing="5">
-                        <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    VerticalOptions="CenterAndExpand">
+                    <!--  AVATAR  -->
+                    <kit:AvatarView
+                        BorderColor="{StaticResource Gray50}"
+                        CornerRadius="40"
+                        HeightRequest="80"
+                        ImageSource="{Binding ImageUrl}"
+                        Style="{StaticResource Avatar}"
+                        VerticalOptions="Start"
+                        WidthRequest="80" />
+                    <StackLayout>
                         <Label
-                            Style="{StaticResource Body}"
-                            Text="{Binding DoctorTranslations[0].Price}"
-                            TextColor="{StaticResource Primary}" />
-                        <Label
-                            Style="{StaticResource Body}"
-                            Text="{Binding Currency}"
-                            TextColor="{StaticResource Primary}" />
-                    </HorizontalStackLayout>-->
+                            Style="{StaticResource SubTitle}"
+                            Text="{Binding DoctorTranslations[0].FullName}"
+                            TextColor="Black" />
+                        <Label Style="{StaticResource Body}" Text="{Binding DoctorTranslations[0].Headline}" />
 
-                    <!--  STARS  -->
-                    <CollectionView>
-                        <CollectionView.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>mono</x:String>
-                                <x:String>monodroid</x:String>
-                                <x:String>monotouch</x:String>
-                                <x:String>monorail</x:String>
-                                <x:String>monodevelop</x:String>
-                            </x:Array>
-                        </CollectionView.ItemsSource>
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout>
-                                    <Label
-                                        FontFamily="{StaticResource IconFont}"
-                                        FontSize="18"
-                                        Text="{x:Static font:IconFontMaterial.Star}"
-                                        TextColor="{StaticResource Yellow100Accent}"
-                                        VerticalOptions="Center" />
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    <!--  Button  -->
-                    <Button
-                        Margin="0"
-                        Padding="30,0"
-                        Clicked="Button_Clicked"
-                        CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"
-                        HeightRequest="30"
-                        HorizontalOptions="End"
-                        Text="حجز"
-                        VerticalOptions="Center" />
+                        <!--  Visit Price  -->
+                        <!--<HorizontalStackLayout Spacing="5">
+                             <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
+                             <Label
+                                 Style="{StaticResource Body}"
+                                 Text="{Binding DoctorTranslations[0].Price}"
+                                 TextColor="{StaticResource Primary}" />
+                             <Label
+                                 Style="{StaticResource Body}"
+                                 Text="{Binding Currency}"
+                                 TextColor="{StaticResource Primary}" />
+                         </HorizontalStackLayout>-->
+
+                        <!--  STARS  -->
+                        <CollectionView>
+                            <CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>mono</x:String>
+                                    <x:String>monodroid</x:String>
+                                    <x:String>monotouch</x:String>
+                                    <x:String>monorail</x:String>
+                                    <x:String>monodevelop</x:String>
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label
+                                            FontFamily="{StaticResource IconFont}"
+                                            FontSize="18"
+                                            Text="{x:Static font:IconFontMaterial.Star}"
+                                            TextColor="{StaticResource Yellow100Accent}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
                 </StackLayout>
+                <!--  Button  -->
+                <Button
+                    Margin="20,3"
+                    Padding="30,0"
+                    Clicked="Button_Clicked"
+                    CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"
+                    HeightRequest="30"
+                    HorizontalOptions="End"
+                    Text="حجز"
+                    VerticalOptions="Center" />
             </StackLayout>
         </Border>
     </Grid>
