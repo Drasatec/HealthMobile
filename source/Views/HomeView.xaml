@@ -30,14 +30,7 @@
                 <Label
                     HorizontalOptions="StartAndExpand"
                     Style="{StaticResource SubTitle}"
-                    Text="{x:Static lang:AppResources.test}"
-                    TextColor="{StaticResource White}" />
-
-                <Label
-                    x:Name="welcomLabel"
-                    HorizontalOptions="StartAndExpand"
-                    Style="{StaticResource SubTitle}"
-                    Text="مستشفى الرحمة"
+                    Text="{Static lang:AppResources.Home_hosName}"
                     TextColor="{StaticResource White}" />
                 <Label
                     Style="{StaticResource LableIcon}"
@@ -58,12 +51,12 @@
                 <template:ServiceCardTemplate
                     CommandParameter="1"
                     ImageSource="clinic"
-                    Text="العيادات" />
+                    Text="{Static lang:AppResources.TabBar_specialty}" />
                 <template:ServiceCardTemplate
                     Grid.Column="1"
                     CommandParameter="3"
                     ImageSource="medicalteam"
-                    Text="الأطباء" />
+                    Text="{Static lang:AppResources.TabBar_doctors}" />
             </Grid>
 
             <!--  visit clinic  -->
@@ -78,7 +71,7 @@
                     <Label
                         Margin="0,0,0,10"
                         Style="{StaticResource Body}"
-                        Text="احجز كشف عيادة" />
+                        Text="{Static lang:AppResources.Home_BookVisit}" />
                     <!--  search box  -->
                     <Border
                         Margin="5"
@@ -106,7 +99,7 @@
                                 VerticalOptions="Center" />
                             <Label
                                 Style="{StaticResource Caption}"
-                                Text="ابحث باسم الطبيب او التخصص"
+                                Text="{Static lang:AppResources.Home_SearchByNamrOrDoc}"
                                 TextColor="{StaticResource Gray500}" />
                         </HorizontalStackLayout>
                         <Border.GestureRecognizers>
@@ -119,10 +112,46 @@
 
             <!--  Promotion  -->
             <CollectionView
-                x:Name="myCollectionView"
+                x:Name="promotionCollectionView"
+                HeightRequest="220"
                 ItemsSource="{Binding Promotions}"
-                Scrolled="CollectionView_Scrolled"
-                SelectionChanged="CollectionView_SelectionChanged">
+                Scrolled="CollectionView_Scrolled">
+
+                <CollectionView.EmptyView>
+                    <Grid VerticalOptions="FillAndExpand">
+                        <Border
+                            Padding="0"
+                            BackgroundColor="{StaticResource White}"
+                            StrokeShape="RoundRectangle 20"
+                            VerticalOptions="FillAndExpand"
+                            WidthRequest="{Binding Source={Reference this}, Path=Width}">
+                            <StackLayout
+                                Margin="0"
+                                BackgroundColor="{StaticResource White}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="StartAndExpand">
+                                <Image
+                                    Aspect="AspectFill"
+                                    HorizontalOptions="Center"
+                                    Source="clinic.png" />
+                            </StackLayout>
+                        </Border>
+                        <Border
+                            Padding="20"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 20"
+                            VerticalOptions="End">
+                            <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.Home_hosName}" />
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Offset="0.1" Color="#00ffffff" />
+                                    <GradientStop Offset="1.0" Color="#70000000" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                    </Grid>
+                </CollectionView.EmptyView>
+
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout
                         ItemSpacing="5"
@@ -130,14 +159,15 @@
                         SnapPointsAlignment="Center"
                         SnapPointsType="MandatorySingle" />
                 </CollectionView.ItemsLayout>
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="0">
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                             <Grid>
                                 <Border
                                     Padding="0"
                                     BackgroundColor="{StaticResource White}"
-                                    StrokeShape="RoundRectangle 20"
+                                    StrokeShape="RoundRectangle 15"
                                     WidthRequest="{Binding Source={Reference this}, Path=Width}">
                                     <StackLayout
                                         Margin="0"
@@ -148,12 +178,22 @@
                                         <Image
                                             Aspect="AspectFill"
                                             HorizontalOptions="Center"
-                                            Source="{Binding ImageUrl}" />
+                                            Source="{Binding ImageUrl, TargetNullValue='clinic.png'}" />
                                     </StackLayout>
                                 </Border>
-                                <StackLayout Padding="20" VerticalOptions="End">
-                                    <Label Text="{Binding PromotionsTranslations[0].Title, FallbackValue='لا يوجد عنوان'}" />
-                                </StackLayout>
+                                <Border
+                                    Padding="20"
+                                    Stroke="Transparent"
+                                    StrokeShape="RoundRectangle 15"
+                                    VerticalOptions="End">
+                                    <Label Style="{StaticResource SubTitle}" Text="{Binding PromotionsTranslations[0].Title}" />
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0,1">
+                                            <GradientStop Offset="0.1" Color="#00ffffff" />
+                                            <GradientStop Offset="1.0" Color="#60000000" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
                             </Grid>
                         </StackLayout>
                     </DataTemplate>
@@ -178,25 +218,8 @@
                 Stroke="{StaticResource Gray100}"
                 StrokeShape="RoundRectangle 10"
                 StrokeThickness="0">
-                <Label Style="{StaticResource Body}" Text="اطلب المساعدة" />
+                <Label Style="{StaticResource Body}" Text="{Static lang:AppResources.Home_AskHelp}" />
             </Border>
-
-            <StackLayout Padding="10,0" Spacing="10">
-                <Button Clicked="Button_Clicked_10" Text="تسجيل" />
-                <Button Clicked="Button_Clicked_11" Text="اللوجن" />
-                <!--<Button Clicked="Button_Clicked_8" Text="كل الاعضاء" />
-                <Button Clicked="Button_Clicked_7" Text=" اضافة مريض" />
-                <Button Clicked="Button_Clicked_3" Text="بواسطة المريض" />
-                <Button Clicked="Button_Clicked_1" Text="التخصصات" />
-                <Button Clicked="Button_Clicked_5" Text="الحجوزات" />
-                <Button Clicked="Button_Clicked_4" Text="تفاصيل الحجز" />
-                <Button Clicked="Button_Clicked_6" Text="الأطباء" />
-                <Button Clicked="Button_Clicked_2" Text="تفاصيل الطبيب" />
-                <Button Clicked="GoToDoSomethingView" Text="افعل شيئا" />-->
-            </StackLayout>
-
-            <StackLayout HeightRequest="500" />
-
         </StackLayout>
     </ScrollView>
     <!--  end  -->

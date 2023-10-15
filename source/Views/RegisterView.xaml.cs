@@ -1,10 +1,7 @@
 ﻿using DrasatHealthMobile.Helpers;
-using DrasatHealthMobile.Models;
+using DrasatHealthMobile.Languages;
 using DrasatHealthMobile.ViewModels;
 using DrasatHealthMobile.Views.Templates;
-using System.Windows.Input;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace DrasatHealthMobile.Views;
 
 public partial class RegisterView : ContentPage
@@ -15,13 +12,13 @@ public partial class RegisterView : ContentPage
     private bool lastPosition = false;
     private DropdownMenuTemplate Temp = null;
     private bool IsAnyDropdownMenuOpened = false;
-    private UserRegisterModel UserRegister = new UserRegisterModel();
-    private RegisterViewModel vm;
+    private readonly RegisterViewModel vm;
 
     public RegisterView(RegisterViewModel loginViewModel)
     {
         BindingContext = loginViewModel;
         vm = (BindingContext as RegisterViewModel);
+        App.Current.UserAppTheme = AppTheme.Light;
         InitializeComponent();
     }
 
@@ -29,7 +26,7 @@ public partial class RegisterView : ContentPage
     {
         if (IsAnyDropdownMenuOpened)
         {
-            CollapseLast();
+            _ = CollapseLast();
             return true;
         }
         return base.OnBackButtonPressed();
@@ -47,7 +44,7 @@ public partial class RegisterView : ContentPage
             StepBack(Slide2, Slide1);
             backToPreviousButton.IsVisible = false;
             position--;
-            btnSave.Text = "التالي";
+            btnSave.Text = AppResources.Register_btn_Next;
         }
         HandelTextOfButtonSaveOrNext();
     }
@@ -55,217 +52,278 @@ public partial class RegisterView : ContentPage
     private async void DropdownMenuTemplate_Clicked(object sender, EventArgs e)
     {
         await CollapseLast();
-        var template = sender as DropdownMenuTemplate;
-        Temp = template;
+        Temp = sender as DropdownMenuTemplate;
         IsAnyDropdownMenuOpened = true;
     }
 
     private async void NextOrSaveButton_Clicked(object sender, EventArgs e)
     {
-        if (position == 2)
+        try
         {
-            CheckDataIsValidAtSlide2();
-        }
-
-        await CollapseLast();
-        if (position == 1)
-        {
-            if (CheckDataIsValidAtSlide1())
+            if (position == 2)
             {
-                StepForward(Slide1, Slide2);
-                backToPreviousButton.IsVisible = true;
-                position++;
+                CheckDataIsValidAtSlide2();
             }
-        }
-        else if (position == 2 && length > 2)
-        {
-            if (CheckDataIsValidAtSlide2())
-            {
-                StepForward(Slide2, Slide3);
-                position++;
-            }
-        }
-        //
-        var s = vm.ConfirmationOptionChosen;
-        length = (s == "email" || s == "sms") ? 3 : 2;
 
-        if (lastPosition && inputValied)
-        {
-            var result = await vm.SendUserRegister();
-            passwordTemplate.Text = string.Empty;
-            secondPassworddTemplate.Text = string.Empty;
+            await CollapseLast();
+            if (position == 1)
+            {
+                if (CheckDataIsValidAtSlide1())
+                {
+                    StepForward(Slide1, Slide2);
+                    backToPreviousButton.IsVisible = true;
+                    position++;
+                }
+            }
+            else if (position == 2 && length > 2)
+            {
+                if (CheckDataIsValidAtSlide2())
+                {
+                    StepForward(Slide2, Slide3);
+                    position++;
+                }
+            }
+            //
+            var s = vm.ConfirmationOptionChosen;
+            length = (s == "email" || s == "sms") ? 3 : 2;
+
+            if (lastPosition && inputValied)
+            {
+                await vm.SendUserRegister();
+                passwordTemplate.Text = string.Empty;
+                secondPassworddTemplate.Text = string.Empty;
+            }
+            HandelTextOfButtonSaveOrNext();
         }
-        HandelTextOfButtonSaveOrNext();
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RegisterView), nameof(NextOrSaveButton_Clicked), ex.Message);
+        }
     }
 
     // this method return false if one or more inputs in InValid
     private bool CheckDataIsValidAtSlide1()
     {
-        var user = (BindingContext as RegisterViewModel).UserRegister;
-        inputValied = true;
-        if (user != null)
+        try
         {
-            // if full Name is mistake Run Error Style and make inputValid flage == false 
-            if (string.IsNullOrWhiteSpace(user.FullName))
+            var user = (BindingContext as RegisterViewModel).UserRegister;
+            inputValied = true;
+            if (user != null)
             {
-                fullName.InValidStyle();
-                inputValied = false;
+                // if full Name is mistake Run Error Style and make inputValid flage == false 
+                if (string.IsNullOrWhiteSpace(user.FullName))
+                {
+                    fullName.InValidStyle();
+                    inputValied = false;
+                }
+                else { fullName.ValidStyle(); }
+                //
+                if (user.GenderId < 1)
+                {
+                    genderTemplate.InValidStyle();// = true;
+                    inputValied = false;
+                }
+                else { genderTemplate.ValidStyle(); }
+                //
+                if (user.MaritalStatusId < 1)
+                {
+                    maritalStatusTemplate.InValidStyle();
+                    inputValied = false;
+                }
+                else { maritalStatusTemplate.ValidStyle(); }
+                //
+                if (user.NationalityId < 1)
+                {
+                    countryTemplate.InValidStyle();
+                    inputValied = false;
+                }
+                else { countryTemplate.ValidStyle(); }
             }
-            else { fullName.ValidStyle(); }
-            //
-            if (user.GenderId < 1)
-            {
-                genderTemplate.InValidStyle();// = true;
-                inputValied = false;
-            }
-            else { genderTemplate.ValidStyle(); }
-            //
-            if (user.MaritalStatusId < 1)
-            {
-                maritalStatusTemplate.InValidStyle();
-                inputValied = false;
-            }
-            else { maritalStatusTemplate.ValidStyle(); }
-            //
-            if (user.NationalityId < 1)
-            {
-                countryTemplate.InValidStyle();
-                inputValied = false;
-            }
-            else { countryTemplate.ValidStyle(); }
+            return inputValied;
         }
-        return inputValied;
+        catch (Exception)
+        {
+            return inputValied;
+        }
     }
 
     private bool CheckDataIsValidAtSlide2()
     {
-        var user = (BindingContext as RegisterViewModel).UserRegister;
-        inputValied = true;
-        if (user != null)
+        try
         {
-            // email
-            if (!Helper.IsValidEmail(user.Email))
+            var user = (BindingContext as RegisterViewModel).UserRegister;
+            inputValied = true;
+            if (user != null)
             {
-                emailTemplate.InValidStyle();
-                inputValied = false;
+                // email
+                if (!Helper.IsValidEmail(user.Email))
+                {
+                    emailTemplate.InValidStyle();
+                    inputValied = false;
+                }
+                else { emailTemplate.ValidStyle(); }
+                // CallingCode
+                if (string.IsNullOrEmpty(user.CallingCode))
+                {
+                    callingCodeTemplate.InValidStyle();
+                    inputValied = false;
+                }
+                else { callingCodeTemplate.ValidStyle(); }
+                // PhoneNumber
+                if (!Helper.IsValidPhoneNumber(user.PhoneNumber))
+                {
+                    phonNumberTemplate.InValidStyle();
+                    if (!string.IsNullOrEmpty(user.PhoneNumber) && user.PhoneNumber[0] == '0')
+                    {
+                        // Remove the leading '0'
+                        user.PhoneNumber = user.PhoneNumber.Substring(1);
+                    }
+                    inputValied = false;
+                }
+                else { phonNumberTemplate.ValidStyle(); }
+                //ConfirmPassword
+                if (!Helper.IsValidPhoneNumber(user.ConfirmPassword) || user.Password != user.ConfirmPassword)
+                {
+                    secondPassworddTemplate.InValidStyle();
+                    inputValied = false;
+                }
+                else { secondPassworddTemplate.ValidStyle(); }
+                //Password
+                if (!Helper.IsValidPhoneNumber(user.Password))
+                {
+                    passwordTemplate.InValidStyle();
+                    inputValied = false;
+                }
+                else { passwordTemplate.ValidStyle(); }
+                //privacyCheckBox
+                if (!privacyCheckBox.IsChecked)
+                {
+                    MustAgreePrivacy.Text = AppResources.Register_PrivacyMustAgree;
+                    inputValied = false;
+                }
+                else { MustAgreePrivacy.Text = ""; }
             }
-            else { emailTemplate.ValidStyle(); }
-            // CallingCode
-            if (string.IsNullOrEmpty(user.CallingCode))
-            {
-                callingCodeTemplate.InValidStyle();
-                inputValied = false;
-            }
-            else { callingCodeTemplate.ValidStyle(); }
-            // PhoneNumber
-            if (!Helper.IsValidPhoneNumber(user.PhoneNumber))
-            {
-                phonNumberTemplate.InValidStyle();
-                inputValied = false;
-            }
-            else { phonNumberTemplate.ValidStyle(); }
-            //ConfirmPassword
-            if (!Helper.IsValidPhoneNumber(user.ConfirmPassword) || user.Password != user.ConfirmPassword)
-            {
-                secondPassworddTemplate.InValidStyle();
-                inputValied = false;
-            }
-            else { secondPassworddTemplate.ValidStyle(); }
-            //Password
-            if (!Helper.IsValidPhoneNumber(user.Password))
-            {
-                passwordTemplate.InValidStyle();
-                inputValied = false;
-            }
-            else { passwordTemplate.ValidStyle(); }
+            return inputValied;
         }
-        return inputValied;
+        catch (Exception ex)
+        {
+            _ = Alerts.DisplayAlert(nameof(RegisterView), nameof(CheckDataIsValidAtSlide2), ex.Message);
+            return inputValied;
+        }
     }
 
     private void HandelTextOfButtonSaveOrNext()
     {
-        if (position == 2 && length == 2)
+        try
         {
-            btnSave.Text = "حفظ";
-            lastPosition = true;
+            if (position == 2 && length == 2)
+            {
+                btnSave.Text = AppResources.Register_btn_Save;
+                lastPosition = true;
+            }
+            else if (position == 3 && length == 3)
+            {
+                btnSave.Text = AppResources.Register_btn_Save;
+                lastPosition = true;
+            }
+            else
+            {
+                btnSave.Text = AppResources.Register_btn_Next;
+                lastPosition = false;
+            }
         }
-        else if (position == 3 && length == 3)
+        catch (Exception)
         {
-            btnSave.Text = "حفظ";
-            lastPosition = true;
         }
-        else
-        {
-            btnSave.Text = "التالي";
-            lastPosition = false;
-        }
+
     }
 
-    private async void ManContainer_Tapped(object sender, TappedEventArgs e)
+    private async void MainContainer_Tapped(object sender, TappedEventArgs e)
     {
         await CollapseLast();
     }
 
     private async Task<bool> CollapseLast()
     {
-        if (Temp != null)
+        try
         {
-            Temp.Close();
-            IsAnyDropdownMenuOpened = false;
-            return await Task.FromResult(false);
+            if (Temp != null)
+            {
+                Temp.Close();
+                IsAnyDropdownMenuOpened = false;
+                return await Task.FromResult(false);
+            }
+            return true;
+
         }
-        return true;
+        catch (Exception)
+        {
+            return false;
+        }
     }
 
-    private async void StepForward(View first, View last)
+    private static async void StepForward(View first, View last)
     {
-        var ss = TranslationX;
+        try
+        {
+            //preparation
+            first.TranslationX = 0;
+            first.Opacity = 1;
+            first.IsVisible = true;
+            last.Opacity = 0;
+            last.TranslationX = 100;
+            last.IsVisible = true;
 
-        //preparation
-        first.TranslationX = 0;
-        first.Opacity = 1;
-        first.IsVisible = true;
-        last.Opacity = 0;
-        last.TranslationX = 100;
-        last.IsVisible = true;
+            // execution
+            var firstT1 = first.TranslateTo(-100, 0);
+            var firstT2 = first.FadeTo(0);
 
-        // execution
-        var firstT1 = first.TranslateTo(-100, 0);
-        var firstT2 = first.FadeTo(0);
+            var lastT1 = last.TranslateTo(0, 0);
+            var lastT2 = last.FadeTo(1);
 
-        var lastT1 = last.TranslateTo(0, 0);
-        var lastT2 = last.FadeTo(1);
+            await Task.WhenAll(firstT1, firstT2, lastT1, lastT2);
 
-        var res = await Task.WhenAll(firstT1, firstT2, lastT1, lastT2);
-
-        //finale
-        first.IsVisible = false;
-        first.TranslationX = -100;
-        last.IsVisible = true;
-        last.TranslationX = 0;
+            //finale
+            first.IsVisible = false;
+            first.TranslationX = -100;
+            last.IsVisible = true;
+            last.TranslationX = 0;
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RegisterView), nameof(StepForward), ex.Message);
+        }
     }
 
-    private async void StepBack(View current, View previous)
+    private static async void StepBack(View current, View previous)
     {
-        var ss = TranslationX;
+        try
+        {
+            //preparation
+            previous.IsVisible = true;
 
-        //preparation
-        previous.IsVisible = true;
+            // execution
+            var currentT1 = current.TranslateTo(100, 0);
+            var currentT2 = current.FadeTo(0);
 
-        // execution
-        var currentT1 = current.TranslateTo(100, 0);
-        var currentT2 = current.FadeTo(0);
+            var previousT1 = previous.TranslateTo(0, 0);
+            var previousT2 = previous.FadeTo(1);
 
-        var previousT1 = previous.TranslateTo(0, 0);
-        var previousT2 = previous.FadeTo(1);
+            await Task.WhenAll(currentT1, currentT2, previousT1, previousT2);
 
-        var res = await Task.WhenAll(currentT1, currentT2, previousT1, previousT2);
-
-        //finale
-        current.IsVisible = false;
-        current.TranslationX = 100;
-        current.Opacity = 0;
+            //finale
+            current.IsVisible = false;
+            current.TranslationX = 100;
+            current.Opacity = 0;
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RegisterView), nameof(StepBack), ex.Message);
+        }
     }
 
-
+    private void CheckPrivacy_Tapped(object sender, TappedEventArgs e)
+    {
+        Helpers.AppNavigations.GoTo("PrivacyPolicyView");
+    }
 }

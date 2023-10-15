@@ -9,8 +9,7 @@
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    BackgroundColor="Transparent"
-    FlowDirection="RightToLeft">
+    BackgroundColor="Transparent">
 
     <Border
         x:Name="dropdown"

@@ -15,5 +15,5 @@ public class SendBookingModel
     public int Price { get; set; }
     public DateTime VisitingDate { get; set; }
     public int DayNumber { get; set; }
-    public string StatusReason { get; set; }
+    public string BookingReason { get; set; }
 }

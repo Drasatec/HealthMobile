@@ -1,9 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using Microsoft.Maui.ApplicationModel.Communication;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Net.Mail;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace DrasatHealthMobile.Helpers;
@@ -11,91 +6,14 @@ public static class Helper
 {
     public static string Language
     {
-        get => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-    }
-    public static bool SetValue(string key, string value)
-    {
-        Preferences.Default.Set(key, value);
-        return true;
-    }
-    
-    public static bool SetValue<T>(string key, T value)
-    {
-        try
-        {
-            Preferences.Default.Set<T>(key, value);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            ToastAlert(ex.Message);
-            return false;
-        }
-       
-    }
-    
-    public static string GetValue(string key)
-    {
-        try
-        {
-            return Preferences.Default.Get<string>(key, "no");
-        }
-        catch (Exception ex)
-        {
-            ToastAlert(ex.Message);
-            return string.Empty;
-        }
-    }
-    
-    public static T GetValue<T>(string key, T def = default)
-    {
-        try
-        {
-            return Preferences.Default.Get<T>(key,def);
-        }
-        catch (Exception ex)
-        {
-            ToastAlert(ex.Message);
-            return default;
-        }
-    }
-
-    public async static Task DisplayAlert(string classname, string methodName, string message)
-    {
-        try
-        {
-            await Shell.Current.DisplayAlert(classname + ": method: " + methodName, message, "cancel");
-        }
-        catch (Exception)
-        {
-        }
-    }
-    
-    public async static Task ToastAlert(string message)
-    {
-        try
-        {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            ToastDuration duration = ToastDuration.Long;
-            double fontSize = 14;
-
-            var toast = Toast.Make(message, duration, fontSize);
-
-            await toast.Show(cancellationTokenSource.Token);
-        }
-        catch (Exception)
-        {
-        }
-    }
-
-    public async static Task NavigationToAsync(string page, bool animate = false)
-    {
-        await Shell.Current.GoToAsync(page, animate);
-    }
-    
-    public static void NavigationTo(string page, bool animate = false)
-    {
-        Shell.Current.GoToAsync(page, animate);
+        get 
+        { 
+            var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            if (lang == "ar" || lang == "en" || lang == "fr")
+                return lang;
+            else
+                return "en";
+        } 
     }
 
     public static string BuildQueryString(System.Collections.Generic.Dictionary<string, object> queryParams)
@@ -109,9 +27,9 @@ public static class Helper
             foreach (var param in queryParams)
             {
                 query.Append(Uri.EscapeDataString(param.Key));
-                query.Append("=");
+                query.Append('=');
                 query.Append(Uri.EscapeDataString((string)param.Value));
-                query.Append("&");
+                query.Append('&');
             }
             Console.WriteLine(query.ToString().TrimEnd('&'));
             return query.ToString().TrimEnd('&');
@@ -134,16 +52,16 @@ public static class Helper
             foreach (var param in queryParams)
             {
                 query.Append(Uri.EscapeDataString(param.Key));
-                query.Append("=");
+                query.Append('=');
                 query.Append(Uri.EscapeDataString((string)param.Value));
-                query.Append("&");
+                query.Append('&');
             }
             Console.WriteLine(query.ToString().TrimEnd('&'));
             return query.ToString().TrimEnd('&');
         }
         catch (Exception ex)
         {
-            await DisplayAlert(nameof(Helper), nameof(BuildQueryString), ex.Message);
+            await Alerts.DisplayAlert(nameof(Helper), nameof(BuildQueryString), ex.Message);
             return string.Empty;
         }
     }
@@ -160,7 +78,7 @@ public static class Helper
         string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
         // Create a Regex object and use it to match the email address
-        Regex regex = new Regex(pattern);
+        Regex regex = new(pattern);
         return regex.IsMatch(email);
     }
 
@@ -172,7 +90,7 @@ public static class Helper
         string pattern = @"^[0-9]+$";
 
         // Create a Regex object and use it to match the phone number
-        Regex regex = new Regex(pattern);
+        Regex regex = new(pattern);
         return regex.IsMatch(phoneNumber);
     }
 }

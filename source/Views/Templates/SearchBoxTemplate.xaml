@@ -6,15 +6,17 @@
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this">
 
     <StackLayout Padding="0,0,0,0" BackgroundColor="{StaticResource Primary}">
-        <Frame
+        <Border
             Margin="10,5"
             Padding="10,0"
             Background="White"
+            StrokeShape="RoundRectangle 8"
             VerticalOptions="CenterAndExpand">
             <StackLayout
                 HorizontalOptions="FillAndExpand"
@@ -29,11 +31,15 @@
                 <Entry
                     x:Name="entry"
                     BackgroundColor="Transparent"
+                    FontFamily="{StaticResource CairoRegular}"
+                    HeightRequest="50"
                     HorizontalOptions="FillAndExpand"
-                    Placeholder="بحث"
+                    Placeholder="{Static lang:AppResources.Template_Search_search}"
+                    PlaceholderColor="{StaticResource Gray400}"
                     Text="{Binding Text, Source={x:Reference this}}"
                     TextColor="Black"
-                    VerticalOptions="CenterAndExpand">
+                    VerticalOptions="FillAndExpand"
+                    VerticalTextAlignment="Center">
                     <Entry.Behaviors>
                         <kit:UserStoppedTypingBehavior
                             x:Name="userStoppedTypingBehavior"
@@ -43,6 +49,6 @@
                     </Entry.Behaviors>
                 </Entry>
             </StackLayout>
-        </Frame>
+        </Border>
     </StackLayout>
 </ContentView>

@@ -6,12 +6,11 @@
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="AddBookingView"
     BackgroundColor="{StaticResource White}"
-    FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated">
 
@@ -125,7 +124,7 @@
 
     <ScrollView VerticalScrollBarVisibility="Never">
         <Grid RowDefinitions="Auto,*">
-            <template:BackButtonTemplate Title="الحجز بواسطة المريض" />
+            <template:BackButtonTemplate Title="{Static lang:AppResources.AddBooking_TitlePage}" />
             <StackLayout
                 Grid.Row="1"
                 Margin="15,0"
@@ -140,7 +139,7 @@
                             Grid.Row="1"
                             BorderColor="{StaticResource Gray100}"
                             HeightRequest="70"
-                            ImageSource="doctor1"
+                            ImageSource="{Binding WorkPeriodMoel.Photo}"
                             Style="{StaticResource Avatar}"
                             VerticalOptions="Start"
                             WidthRequest="70" />
@@ -170,7 +169,7 @@
                             <Label
                                 FontFamily="{StaticResource CairoBold}"
                                 Style="{StaticResource Body}"
-                                Text="رسوم الكشف:" />
+                                Text="{Static lang:AppResources.AddBooking_VisitingFees}" />
                             <Label
                                 Style="{StaticResource Body}"
                                 Text="{Binding VisitPriceModel.Price}"
@@ -240,13 +239,13 @@
                 <!--  Date Visit  -->
                 <StackLayout Spacing="10">
 
-                    <Label Style="{StaticResource SubTitle}" Text="تاريخ الحجز" />
+                    <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.AddBooking_BookingDate}" />
 
                     <HorizontalStackLayout Spacing="5">
                         <Label
                             FontFamily="{StaticResource CairoBold}"
                             Style="{StaticResource Body}"
-                            Text="اليوم:" />
+                            Text="{Static lang:AppResources.AddBooking_BookingDate}" />
                         <Label Style="{StaticResource Body}" Text="{Binding WorkPeriodMoel.DateName}" />
 
                     </HorizontalStackLayout>
@@ -255,14 +254,14 @@
                         <Label
                             FontFamily="{StaticResource CairoBold}"
                             Style="{StaticResource Body}"
-                            Text="الفترة:" />
+                            Text="{Static lang:AppResources.AddBooking_Period}" />
                         <Label Style="{StaticResource Body}" Text="{Binding WorkPeriodMoel.WorkingPeriod}" />
                     </HorizontalStackLayout>
 
                 </StackLayout>
 
                 <StackLayout Spacing="5">
-                    <Label Style="{StaticResource SubTitle}" Text="سبب الحجز" />
+                    <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.AddBooking_BookingReason}" />
                     <Frame Padding="0">
                         <Editor
                             FontAutoScalingEnabled="True"
@@ -275,7 +274,7 @@
                 <Button
                     Margin="20"
                     Command="{Binding SubmitBookingCommand}"
-                    Text="تأكيد" />
+                    Text="{Static lang:AppResources.AddBooking_btn_Submit}" />
 
                 <StackLayout Margin="15,0,15,40" Spacing="20" />
 

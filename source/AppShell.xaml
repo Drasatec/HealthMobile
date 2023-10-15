@@ -13,7 +13,7 @@
 
     <TabBar>
         <!--  Home  -->
-        <Tab Title="{x:Static lang:AppResources.ShellTabMain}">
+        <Tab Title="{x:Static lang:AppResources.TabBar_main}">
             <Tab.Icon>
                 <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.Home}" />
             </Tab.Icon>
@@ -21,7 +21,7 @@
         </Tab>
 
         <!--  Specialties  -->
-        <Tab Title="التخصصات">
+        <Tab Title="{Static lang:AppResources.TabBar_specialty}">
             <Tab.Icon>
                 <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.Heart}" />
             </Tab.Icon>
@@ -29,7 +29,7 @@
         </Tab>
 
         <!--  Bookings  -->
-        <Tab Title="الحجوزات">
+        <Tab Title="{Static lang:AppResources.TabBar_booking}">
             <Tab.Icon>
                 <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.CalendarMonthOutline}" />
             </Tab.Icon>
@@ -37,7 +37,7 @@
         </Tab>
 
         <!--  More  -->
-        <Tab Title="المزيد">
+        <Tab Title="{Static lang:AppResources.TabBar_more}">
             <Tab.Icon>
                 <FontImageSource FontFamily="IconFontMaterial" Glyph="{x:Static font:IconFontMaterial.DotsGrid}" />
             </Tab.Icon>

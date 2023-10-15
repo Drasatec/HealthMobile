@@ -9,7 +9,6 @@
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="NotificationsView"
     BackgroundColor="{StaticResource White}"
     NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated">

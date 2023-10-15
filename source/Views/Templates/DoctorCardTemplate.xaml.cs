@@ -19,10 +19,4 @@ public partial class DoctorCardTemplate : ContentView
         set => SetValue(CommandParameterProperty, value);
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
-    {
-        var button = sender as Button;
-        var param = button.CommandParameter;
-        await Shell.Current.GoToAsync("BookingByPatient");
-    }
 }

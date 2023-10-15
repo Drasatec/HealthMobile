@@ -22,43 +22,54 @@ public class SpecialtiesViewModel : ObservableObject
     private List<SpecialtyModel> SpecialtiesTemp;
     private readonly IPublicService publicService;
 
-    private void SearchBoxTyping(string text)
+    private async void SearchBoxTyping(string text)
     {
-        GetFromSearch(text);
+        await GetFromSearch(text);
     }
 
     private async void GetAll()
     {
-        // Create query parameters
-        var queryParams = new Dictionary<string, object>
+        try
+        {
+            var queryParams = new Dictionary<string, object>
             {
-                { "lang", "ar" },
-                { "page", "1" },
-                { "pageSize", "10" },
+                { "lang", Helper.Language},
+                { "appearance","true"},
+                { "status","active"},
             };
-        var result = await publicService.GetAllSpecialtiesAsync("MedicalSpecialty/all", queryParams);
-        Specialties = SpecialtiesTemp = result.Data;
-        OnPropertyChanged(nameof(Specialties));
+            var result = await publicService.GetAllSpecialtiesAsync("MedicalSpecialty/all", queryParams);
+            Specialties = SpecialtiesTemp = result.Data;
+            OnPropertyChanged(nameof(Specialties));
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(SpecialtiesViewModel), nameof(GetAll), ex.Message);
+        }
     }
 
-    private async void GetFromSearch(string text)
+    private async Task GetFromSearch(string text)
     {
-        if (string.IsNullOrEmpty(text))
+        try
         {
-            Specialties = SpecialtiesTemp;
-            OnPropertyChanged(nameof(Specialties));
-            return;
-        }
-        var queryParams = new Dictionary<string, object>
+            if (string.IsNullOrEmpty(text))
             {
-                { "lang", Helper.Language },
-                { "searchTerm", text },
-                { "page", "" },
-                { "pageSize", "" },
-            };
-        var result = await publicService.GetAllSpecialtiesAsync("MedicalSpecialty/search", queryParams);
-        Specialties = result.Data;
-        OnPropertyChanged(nameof(Specialties));
+                Specialties = SpecialtiesTemp;
+                OnPropertyChanged(nameof(Specialties));
+                return;
+            }
+            var queryParams = new Dictionary<string, object>
+                {
+                    { "lang", Helper.Language },
+                    { "searchTerm", text },
+                };
+            var result = await publicService.GetAllSpecialtiesAsync("MedicalSpecialty/search", queryParams);
+            Specialties = result.Data;
+            OnPropertyChanged(nameof(Specialties));
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(SpecialtiesViewModel), nameof(GetFromSearch), ex.Message);
+        }
     }
 }
 

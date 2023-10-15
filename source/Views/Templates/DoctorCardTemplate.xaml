@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     x:Name="this"
     BackgroundColor="{StaticResource Background}">
     <Grid BackgroundColor="{StaticResource Background}">
@@ -21,7 +22,7 @@
 
             <StackLayout
                 Orientation="Vertical"
-                Spacing="10"
+                Spacing="0"
                 VerticalOptions="CenterAndExpand">
 
                 <!--  CONTENT  -->
@@ -30,6 +31,7 @@
                     Orientation="Horizontal"
                     Spacing="8"
                     VerticalOptions="CenterAndExpand">
+
                     <!--  AVATAR  -->
                     <kit:AvatarView
                         BorderColor="{StaticResource Gray50}"
@@ -88,16 +90,23 @@
                         </CollectionView>
                     </StackLayout>
                 </StackLayout>
+
                 <!--  Button  -->
-                <Button
+                <Border
                     Margin="20,3"
-                    Padding="30,0"
-                    Clicked="Button_Clicked"
-                    CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"
-                    HeightRequest="30"
+                    Padding="30,3"
+                    BackgroundColor="{StaticResource Primary}"
                     HorizontalOptions="End"
-                    Text="حجز"
-                    VerticalOptions="Center" />
+                    InputTransparent="True"
+                    VerticalOptions="Center">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+                    <Label
+                        Style="{StaticResource Body}"
+                        Text="{Static lang:AppResources.DoctorDetails_Book}"
+                        TextColor="{StaticResource White}" />
+                </Border>
             </StackLayout>
         </Border>
     </Grid>

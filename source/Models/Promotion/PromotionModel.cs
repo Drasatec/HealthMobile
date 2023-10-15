@@ -7,5 +7,13 @@ public class PromotionModel
     public int Position { get; set; }
     public string Link { get; set; }
     public List<PromotionTranslationModel> PromotionsTranslations { get; set; }
-    public string ImageUrl { get=> "https://api.alrahmavip.com/images/medium/" + this.Photo;}
+    public string ImageUrl
+    {
+        get
+        {
+            if (this.Photo != null)
+                return "https://api.alrahmavip.com/images/medium/" + this.Photo;
+            return null;
+        }
+    }
 }

@@ -22,5 +22,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("RegisterView", typeof(RegisterView));
         Routing.RegisterRoute("SearchView", typeof(SearchView));
         Routing.RegisterRoute("SpecialtiesView", typeof(SpecialtiesView));
+        Routing.RegisterRoute("PrivacyPolicyView", typeof(PrivacyPolicyView));
     }
 }

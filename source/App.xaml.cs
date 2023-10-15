@@ -10,8 +10,8 @@ public partial class App : Application
     {
         InitializeComponent();
         MainPage = new AppShell();//  NavigationPage(new HomeView());
-        Application.Current.UserAppTheme = AppTheme.Light;
-        MainPage.FlowDirection = FlowDirection.RightToLeft;
+        Current.UserAppTheme = AppTheme.Light;
+        //MainPage.FlowDirection = FlowDirection.RightToLeft;
 
         //ModifyEntry();
     }

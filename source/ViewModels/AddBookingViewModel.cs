@@ -2,6 +2,7 @@
 using DrasatHealthMobile.Helpers;
 using DrasatHealthMobile.Models;
 using DrasatHealthMobile.Services.PublicServices;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 using System.Windows.Input;
 
@@ -16,12 +17,16 @@ public class AddBookingViewModel : ObservableObject, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        query.TryGetValue("docWPFromDocDetailsView", out doctorWorkPeriod);
-        WorkPeriodMoel = doctorWorkPeriod as DoctorWorkPeriodModel;
-        WorkPeriodMoel.DateName = WorkPeriodMoel.Date.ToShortDateString();
-        OnPropertyChanged(nameof(WorkPeriodMoel));
-        GetAllDoctorVisitPrice();
-        GetAllTypesVisits();
+        try
+        {
+            query.TryGetValue("docWPFromDocDetailsView", out doctorWorkPeriod);
+            WorkPeriodMoel = doctorWorkPeriod as DoctorWorkPeriodModel;
+            WorkPeriodMoel.DateName = WorkPeriodMoel.Date.ToShortDateString();
+            OnPropertyChanged(nameof(WorkPeriodMoel));
+            GetAllDoctorVisitPrice();
+            GetAllTypesVisits();
+        }
+        catch (Exception){}
     }
     public ICommand TypesVisitSelectionChangedCommand => new Command<TypesVisitTranslation>(TypesVisitSelectionChangedEX);
     public ICommand SubmitBookingCommand => new Command(SubmitBookingEX);
@@ -54,7 +59,7 @@ public class AddBookingViewModel : ObservableObject, IQueryAttributable
         {
             var booking = new SendBookingModel()
             {
-                PatientId = Helper.GetValue<int>("userId", 0),
+                PatientId = AppPreferences.GetUserId(),
                 HospitalId = WorkPeriodMoel.HospitalId,
                 SpecialtyId = WorkPeriodMoel.SpecialtyId,
                 DoctorId = WorkPeriodMoel.DoctorId,
@@ -63,10 +68,13 @@ public class AddBookingViewModel : ObservableObject, IQueryAttributable
                 DayNumber = WorkPeriodMoel.DayId,
                 WorkingPeriodId = WorkPeriodMoel.WorkingPeriodId,
                 VisitingDate = WorkPeriodMoel.Date.ToUniversalTime(),
-                Price = VisitPriceModel.Price,
-                PriceCategoryId = VisitPriceModel.PriceCategoryId,
-                StatusReason = StatusReason,
+                BookingReason = StatusReason,
             };
+            if(VisitPriceModel != null)
+            {
+                booking.Price = VisitPriceModel.Price;
+                booking.PriceCategoryId = VisitPriceModel.PriceCategoryId;
+            }
             var result = await publicService.PostBookingAsync("booking/add-body", booking);
             if (result != null & result.Success)
             {
@@ -77,14 +85,14 @@ public class AddBookingViewModel : ObservableObject, IQueryAttributable
                 };
 
                 await Shell.Current.GoToAsync("BookingDetailsView", navigationParameter);
-                await Helper.ToastAlert(result?.Message.ToString());
+                await Alerts.ToastAlert(result?.Message.ToString());
             }
             else
-                await Helper.ToastAlert("Something went wrong");
+                await Alerts.ToastAlert("Appointment reservation failed");
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(AddBookingViewModel), nameof(SubmitBookingEX), ex.Message);
+            await Alerts.DisplayAlert(nameof(AddBookingViewModel), nameof(SubmitBookingEX), ex.Message);
         }
     }
 
@@ -114,7 +122,7 @@ public class AddBookingViewModel : ObservableObject, IQueryAttributable
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(AddBookingViewModel), nameof(GetAllTypesVisits), ex.Message);
+            await Alerts.DisplayAlert(nameof(AddBookingViewModel), nameof(GetAllTypesVisits), ex.Message);
         }
     }
 
@@ -132,7 +140,7 @@ public class AddBookingViewModel : ObservableObject, IQueryAttributable
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(AddBookingViewModel), nameof(GetAllDoctorVisitPrice), ex.Message);
+            await Alerts.DisplayAlert(nameof(AddBookingViewModel), nameof(GetAllDoctorVisitPrice), ex.Message);
 
         }
     }
@@ -147,14 +155,12 @@ public class AddBookingViewModel : ObservableObject, IQueryAttributable
             VisitPriceModel = VisitPrices.Where(x => x.TypeVisitId == TypesVisitId).FirstOrDefault();
             if (VisitPriceModel != null)
             {
-
                 OnPropertyChanged(nameof(VisitPriceModel));
             }
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(AddBookingViewModel), nameof(SelectPrice), ex.Message);
-
+            await Alerts.DisplayAlert(nameof(AddBookingViewModel), nameof(SelectPrice), ex.Message);
         }
 
     }

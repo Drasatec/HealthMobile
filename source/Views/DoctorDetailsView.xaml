@@ -6,18 +6,17 @@
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="thisPage"
-    Title="DoctorDetailsView"
-    FlowDirection="RightToLeft"
     Shell.NavBarIsVisible="False"
     Shell.PresentationMode="ModalAnimated">
 
 
     <ScrollView>
         <Grid BackgroundColor="{StaticResource Primary}" RowDefinitions="100,*">
-            <template:BackButtonTemplate Title="تفاصيل الطبيب" />
+            <template:BackButtonTemplate Title="{Static lang:AppResources.DoctorDetails_TitlePage}" />
 
             <StackLayout Grid.Row="1">
                 <Border
@@ -70,41 +69,13 @@
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
                         </StackLayout>
-
                         <!--  Section 2  -->
-                        <StackLayout>
-                            <!--  Hos Name  -->
-                            <!--<StackLayout Orientation="Horizontal" Spacing="5">
-                                <Label
-                                    FontFamily="{StaticResource IconFont}"
-                                    Style="{StaticResource Body}"
-                                    Text="{x:Static font:IconFontMaterial.MapMarker}"
-                                    TextColor="{StaticResource Primary}" />
-                                <Label Style="{StaticResource Body}" Text="طنطا شارع الجيش" />
-                            </StackLayout>-->
 
-                            <!--  Visit Price  -->
-                            <!--<HorizontalStackLayout Spacing="5">
-                                <Label
-                                    FontFamily="{StaticResource IconFont}"
-                                    Style="{StaticResource Body}"
-                                    Text="{x:Static font:IconFontMaterial.CurrencyUsd}"
-                                    TextColor="{StaticResource Primary}" />
-                                <Label Style="{StaticResource Body}" Text="رسوم الكشف:" />
-                                <Label
-                                    Style="{StaticResource Body}"
-                                    Text="300"
-                                    TextColor="{StaticResource Primary}" />
-                                <Label
-                                    Style="{StaticResource Body}"
-                                    Text="فرنك"
-                                    TextColor="{StaticResource Primary}" />
-                            </HorizontalStackLayout>-->
-                        </StackLayout>
+                        <StackLayout />
 
                         <!--  Section 3  about doctor  -->
-                        <StackLayout>
-                            <Label Style="{StaticResource SubTitle}" Text="السيرة الذاتية" />
+                        <StackLayout IsVisible="false">
+                            <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.DoctorDetails_Biography}" />
                             <Label
                                 x:Name="aboutLabel"
                                 LineBreakMode="TailTruncation"
@@ -116,7 +87,7 @@
                                 LineBreakMode="WordWrap"
                                 MaxLines="3"
                                 Style="{StaticResource Body}"
-                                Text="قراءة المزيد"
+                                Text="{Static lang:AppResources.DoctorDetails_ReadMore}"
                                 TextColor="{StaticResource Primary}">
 
                                 <Label.GestureRecognizers>
@@ -144,7 +115,7 @@
                                         HorizontalOptions="Center"
                                         HorizontalTextAlignment="Center"
                                         Style="{StaticResource SubTitle}"
-                                        Text="الفرع" />
+                                        Text="{Static lang:AppResources.DoctorDetails_Branch}" />
                                     <Label
                                         Padding="1"
                                         HorizontalOptions="Center"
@@ -157,14 +128,15 @@
                                 </Frame.GestureRecognizers>
                             </Frame>
 
-                            <Label Style="{StaticResource SubTitle}" Text="جدول المواعيد" />
+                            <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.DoctorDetails_Timetable}" />
 
-                            <Grid BackgroundColor="Transparent" ColumnDefinitions="*">
 
+                            <Grid>
                                 <!--  Colection of Timetable #99F5F5F5  -->
                                 <CollectionView
                                     x:Name="scheduleCollection"
                                     Grid.Column="0"
+                                    BackgroundColor="Transparent"
                                     HorizontalOptions="Start"
                                     ItemsSource="{Binding DocWorksList}">
 
@@ -204,20 +176,8 @@
                                                         CommandParameter="{Binding .}"
                                                         CornerRadius="0"
                                                         HeightRequest="35"
-                                                        Text="احجز" />
+                                                        Text="{Static lang:AppResources.DoctorDetails_Book}" />
 
-                                                    <!--<Frame
-                                                        Padding="0"
-                                                        BackgroundColor="{StaticResource Primary}"
-                                                        BorderColor="Transparent"
-                                                        CornerRadius="0"
-                                                        HeightRequest="35">
-                                                        <Label
-                                                            HorizontalTextAlignment="Center"
-                                                            Style="{StaticResource SubTitle}"
-                                                            Text="احجز"
-                                                            TextColor="{StaticResource White}" />
-                                                    </Frame>-->
                                                 </StackLayout>
                                             </Frame>
                                         </DataTemplate>
@@ -233,14 +193,46 @@
                                             FontFamily="{StaticResource IconFont}"
                                             FontSize="30"
                                             HeightRequest="140"
-                                            Text="{x:Static font:IconFontMaterial.ChevronLeft}"
+                                            HorizontalOptions="End"
+                                            Text="{x:Static font:IconFontMaterial.Autorenew}"
                                             TextColor="{StaticResource Primary}"
                                             VerticalOptions="FillAndExpand" />
                                     </CollectionView.Footer>
                                 </CollectionView>
 
+                                <StackLayout
+                                    BackgroundColor="{StaticResource Background}"
+                                    HorizontalOptions="FillAndExpand"
+                                    IsVisible="{Binding TimetableIsEmpty}"
+                                    VerticalOptions="FillAndExpand">
 
+                                    <!--  Icon  -->
+                                    <Label
+                                        FontSize="50"
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource LableIcon}"
+                                        Text="{x:Static font:IconFontMaterial.CalendarMonthOutline}"
+                                        TextColor="{StaticResource Primary}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Margin="10,25,10,10"
+                                        HorizontalOptions="Fill"
+                                        HorizontalTextAlignment="Center"
+                                        Style="{StaticResource SubTitle}"
+                                        Text="{Static lang:AppResources.DoctorDetails_TherNoData}"
+                                        TextColor="{StaticResource Primary}" />
+                                    <!--<StackLayout.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding TimetableIsEmpty}"
+                                            TargetType="StackLayout"
+                                            Value="true">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </StackLayout.Triggers>-->
+                                </StackLayout>
                             </Grid>
+
+
                         </StackLayout>
 
                         <!--  Section 5 Specialties  -->
@@ -270,14 +262,14 @@
                 Grid.Row="1"
                 Margin="0,-35,10,10"
                 HeightRequest="70"
-                ImageSource="doctor1"
+                ImageSource="{Binding DoctorDetails.ImageUrl}"
                 Style="{StaticResource Avatar}"
                 VerticalOptions="Start"
                 WidthRequest="70" />
 
         </Grid>
     </ScrollView>
-    <ContentPage.Behaviors>
+    <!--<ContentPage.Behaviors>
         <kit:StatusBarBehavior StatusBarColor="Black" StatusBarStyle="LightContent" />
-    </ContentPage.Behaviors>
+    </ContentPage.Behaviors>-->
 </ContentPage>

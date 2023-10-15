@@ -23,6 +23,7 @@ public interface IPublicService
     Task<List<Weekday>> GetAllWeekdaysAsync(string endpoint, string param);
     Task<BookingModel> GetBookingByIdAsync(string endpoint, string param);
     Task<string> GetConfirmationOptionAsync();
+    Task<PatientModel> GetPatiendByIdAsync(string endpoint, string param);
     Task<ResponseWithId> PostBookingAsync(string endpoint, SendBookingModel user);
     Task<UserRegisterResponse> PostUserLonginAsync(string endpoint, UserLogin user);
     Task<UserRegisterResponse> PostUserRegisterAsync(string endpoint, UserRegisterModel user);

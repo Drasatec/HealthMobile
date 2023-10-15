@@ -3,6 +3,7 @@
     x:Class="DrasatHealthMobile.Views.Templates.SelectHospitalBottomSheet"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
     x:Name="thisPage"
     BackgroundColor="Transparent"
@@ -53,7 +54,7 @@
                     Color="{StaticResource Primary}" />
                 <CollectionView
                     x:Name="hossCollections"
-                    SelectionChanged="hossCollections_SelectionChanged"
+                    SelectionChanged="HossCollections_SelectionChanged"
                     SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -85,7 +86,7 @@
                     Grid.Row="1"
                     Margin="5,10"
                     Clicked="BtnSubmit_Clicked"
-                    Text="تطبيق"
+                    Text="{Static lang:AppResources.Template_BottomSheetApply}"
                     ToolTipProperties.Text="Click to Submit"
                     VerticalOptions="EndAndExpand" />
             </StackLayout>

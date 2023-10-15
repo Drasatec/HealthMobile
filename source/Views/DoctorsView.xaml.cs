@@ -27,12 +27,15 @@ public partial class DoctorsView : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        daysCollection.SelectedItem = null;
-        degressCollection.SelectedItem = null;
-        bothMaleFemaleCheckBox.IsChecked = false;
-        maleCheckBox.IsChecked = false;
-        femaleCheckBox.IsChecked = false;
-        searchEntryTemplate.Text = string.Empty;
+        Task.Run(() =>
+        {
+            daysCollection.SelectedItem = null;
+            degressCollection.SelectedItem = null;
+            bothMaleFemaleCheckBox.IsChecked = false;
+            maleCheckBox.IsChecked = false;
+            femaleCheckBox.IsChecked = false;
+            searchEntryTemplate.Text = string.Empty;
+        });
     }
     private async void ClViewDoctors_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -112,8 +115,14 @@ public partial class DoctorsView : ContentPage
 
     private async Task CloseFilterFrameAninmation()
     {
-        filterIsOpen = false;
-        await borderFilter.TranslateTo(0, 800, length: 500, easing: Easing.CubicInOut);
-        borderFilter.IsVisible = false;
+        try
+        {
+            filterIsOpen = false;
+            await borderFilter.TranslateTo(0, 800, length: 500, easing: Easing.CubicInOut);
+            borderFilter.IsVisible = false;
+        }
+        catch (Exception)
+        {
+        }
     }
 }

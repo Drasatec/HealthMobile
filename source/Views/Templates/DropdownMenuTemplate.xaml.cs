@@ -70,7 +70,7 @@ public partial class DropdownMenuTemplate : ContentView
             }
             else
             {
-                maneBorder.Stroke = default;
+                maneBorder.Stroke = Color.FromArgb("#ffffff");
             }
             OnPropertyChanged(nameof(ErrorStyle));
         }
@@ -79,7 +79,7 @@ public partial class DropdownMenuTemplate : ContentView
     {
         ErrorStyle = true;
     }
-    
+
     public void ValidStyle()
     {
         ErrorStyle = false;
@@ -99,7 +99,7 @@ public partial class DropdownMenuTemplate : ContentView
         }
         catch (Exception ex)
         {
-            await Helpers.Helper.DisplayAlert(nameof(DropdownMenuTemplate), nameof(CollectionOfItems), ex.Message);
+            await Helpers.Alerts.DisplayAlert(nameof(DropdownMenuTemplate), nameof(CollectionOfItems), ex.Message);
         }
     }
 
@@ -110,9 +110,15 @@ public partial class DropdownMenuTemplate : ContentView
 
     void ssss()
     {
-        EventHandler handler = Clicked;
-        handler?.Invoke(this, new EventArgs());
-        OpenCloseAnimation();
+        try
+        {
+            EventHandler handler = Clicked;
+            handler?.Invoke(this, new EventArgs());
+            OpenCloseAnimation();
+        }
+        catch (Exception)
+        {
+        }
     }
     public async void Close()
     {
@@ -130,21 +136,23 @@ public partial class DropdownMenuTemplate : ContentView
     #region Animation
     async Task OpenAnimation(View container, View icon, View line)
     {
-        if (dropdownContent.IsVisible) return;
-
-        var height = MenuItemsSource.Count * maximumHeightToRow;
-        if (height > maximumHeightToCollectionView)
+        try
         {
-            height = maximumHeightToCollectionView;
-        }
-        container.HeightRequest = 0;
-        container.IsVisible = true;
-        line.IsVisible = true;
-        line.Opacity = 0;
+            if (dropdownContent.IsVisible) return;
 
-        await Task.Run(() =>
-        {
-            new Animation
+            var height = MenuItemsSource.Count * maximumHeightToRow;
+            if (height > maximumHeightToCollectionView)
+            {
+                height = maximumHeightToCollectionView;
+            }
+            container.HeightRequest = 0;
+            container.IsVisible = true;
+            line.IsVisible = true;
+            line.Opacity = 0;
+
+            await Task.Run(() =>
+            {
+                new Animation
             {
                 { 0  , 1, new Animation (v => container.HeightRequest = v, 0, height) },
                 { 0  , 0.5, new Animation (v => container.Opacity = v, 0, 1) },
@@ -153,28 +161,40 @@ public partial class DropdownMenuTemplate : ContentView
                 { 0  , 1  , new Animation (v => line.Opacity            = v, 0, 1) }
 
             }.Commit(this, "OpenAnimations", 16, 300, easing: Easing.SinIn, null);//  (v, c) =>{}
-        });
-        //maneBorder.Stroke = Color.FromArgb("#0070CD");
+            });
+            //maneBorder.Stroke = Color.FromArgb("#0070CD");
+        }
+        catch (Exception ex)
+        {
+            await Helpers.Alerts.DisplayAlert(nameof(OpenAnimation),nameof(OpenAnimation),ex.Message);
+        }
     }
 
     async Task CloseAnimation(View container, View icon, View line)
     {
-        if (!dropdownContent.IsVisible) return;
-        await Task.Run(() =>
+        try
         {
-            new Animation
+            if (!dropdownContent.IsVisible) return;
+            await Task.Run(() =>
+            {
+                new Animation
             {
                 { 0  ,1, new Animation ( v => container.HeightRequest = v, container.HeightRequest,0) },
                 { 0.6,1, new Animation (v => container.Opacity       = v, 1 , 0 ) },
                 { 0  ,1, new Animation (v => icon.Rotation           = v, 180, 0) },
                 { 0  ,1, new Animation (v => line.WidthRequest       = v, this.Width,0) }
 
-            }.Commit(this, "CloseAnimations", 16, 300, easing: Easing.SinOut, (v, c) => 
-                { 
+            }.Commit(this, "CloseAnimations", 16, 300, easing: Easing.SinOut, (v, c) =>
+                {
                     container.IsVisible = false; line.IsVisible = false;
                     //maneBorder.Stroke = Color.FromArgb("#C8C8C8");
                 });
-        });
+            });
+        }
+        catch (Exception ex)
+        {
+            await Helpers.Alerts.DisplayAlert(nameof(OpenAnimation), nameof(CloseAnimation), ex.Message);
+        }
     }
     #endregion
 }

@@ -6,17 +6,13 @@
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="RegisterView"
     BackgroundColor="{StaticResource Background}"
-    FlowDirection="RightToLeft"
     Shell.PresentationMode="ModalAnimated">
 
-    <!--<ContentPage.BindingContext>
-        <vm:RegisterViewModel />
-    </ContentPage.BindingContext>-->
     <ScrollView>
         <StackLayout VerticalOptions="FillAndExpand">
 
@@ -44,7 +40,7 @@
                 <Label
                     HorizontalOptions="Center"
                     Style="{StaticResource Title}"
-                    Text="إنشاء حساب" />
+                    Text="{Static lang:AppResources.Register_CreateAcount}" />
 
                 <Label
                     HorizontalOptions="Center"
@@ -72,7 +68,7 @@
                     <template:EntryFrameTemplate
                         x:Name="fullName"
                         Text="{Binding UserRegister.FullName, Mode=TwoWay}"
-                        TextPlaceholder="الاسم" />
+                        TextPlaceholder="{Static lang:AppResources.Register_FullName}" />
 
                     <template:DropdownMenuTemplate
                         x:Name="countryTemplate"
@@ -82,7 +78,7 @@
                         Clicked="DropdownMenuTemplate_Clicked"
                         MenuItemsSource="{Binding CountriesMenu}"
                         SelectionChangedCommand="{Binding SelectionChangedCountryCommand}"
-                        TextPlaceholder="الدولة" />
+                        TextPlaceholder="{Static lang:AppResources.Register_Country}" />
 
                     <template:DropdownMenuTemplate
                         x:Name="maritalStatusTemplate"
@@ -92,7 +88,7 @@
                         Clicked="DropdownMenuTemplate_Clicked"
                         MenuItemsSource="{Binding MaritalStatusesNamesMenu}"
                         SelectionChangedCommand="{Binding SelectionChangedMaritalStatusCommand}"
-                        TextPlaceholder="الحالة الاجتماعية" />
+                        TextPlaceholder="{Static lang:AppResources.Register_MaritalStatuses}" />
 
                     <template:DropdownMenuTemplate
                         x:Name="genderTemplate"
@@ -102,7 +98,7 @@
                         Clicked="DropdownMenuTemplate_Clicked"
                         MenuItemsSource="{Binding HumanGenderNamesMenu}"
                         SelectionChangedCommand="{Binding SelectionChangedGenderCommand}"
-                        TextPlaceholder="النوع" />
+                        TextPlaceholder="{Static lang:AppResources.Register_HumanGender}" />
 
                 </Grid>
                 <!--  Slide 2  -->
@@ -118,7 +114,7 @@
                         x:Name="emailTemplate"
                         Grid.RowSpan="5"
                         Text="{Binding UserRegister.Email}"
-                        TextPlaceholder="البريد الالكتروني" />
+                        TextPlaceholder="{Static lang:AppResources.Register_Email}" />
 
                     <template:EntryFrameTemplate
                         x:Name="passwordTemplate"
@@ -127,14 +123,14 @@
                         HasEyeIcon="True"
                         IsPassword="True"
                         Text="{Binding UserRegister.Password}"
-                        TextPlaceholder="كلمة المرور" />
+                        TextPlaceholder="{Static lang:AppResources.Register_Password}" />
 
                     <template:EntryFrameTemplate
                         x:Name="secondPassworddTemplate"
                         Grid.Row="3"
                         Grid.RowSpan="5"
                         Text="{Binding UserRegister.ConfirmPassword}"
-                        TextPlaceholder=" تأكيد كلمة المرور ">
+                        TextPlaceholder="{Static lang:AppResources.Register_ConfirmPassword}">
                         <template:EntryFrameTemplate.Triggers>
                             <DataTrigger
                                 Binding="{Binding Source={x:Reference passwordTemplate}, Path=IsPassword}"
@@ -165,13 +161,13 @@
                             HorizontalOptions="Start"
                             MenuItemsSource="{Binding CallingCodesMenu}"
                             SelectionChangedCommand="{Binding SelectionChangedCallingCodeCommand}"
-                            TextPlaceholder="كود الدولة" />
+                            TextPlaceholder="{Static lang:AppResources.Register_CallingCodes}" />
 
                         <template:EntryFrameTemplate
                             x:Name="phonNumberTemplate"
                             BackgroundColor="Transparent"
                             Text="{Binding UserRegister.PhoneNumber}"
-                            TextPlaceholder=" الهاتف" />
+                            TextPlaceholder="{Static lang:AppResources.Register_PhoneNumber}" />
                     </StackLayout>
                 </Grid>
                 <!--  Slide 3  -->
@@ -181,19 +177,41 @@
                     HeightRequest="100"
                     IsVisible="false" />
             </Grid>
+            <StackLayout Orientation="Horizontal">
+                <CheckBox x:Name="privacyCheckBox" VerticalOptions="Center" />
+                <Label
+                    Style="{StaticResource Small}"
+                    Text="{Static lang:AppResources.Register_PrivacyAgree}"
+                    VerticalOptions="Center" />
+
+                <Label
+                    Margin="5,0,0,0"
+                    Style="{StaticResource Body}"
+                    Text="{Static lang:AppResources.Register_Privacy}"
+                    TextColor="DarkBlue"
+                    VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CheckPrivacy_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+            <Label
+                x:Name="MustAgreePrivacy"
+                Style="{StaticResource Small}"
+                TextColor="Red" />
 
             <Button
                 x:Name="btnSave"
                 Grid.Row="1"
-                Margin="50,50"
+                Margin="50,10,50,50"
                 Padding="30,0"
                 Clicked="NextOrSaveButton_Clicked"
                 HorizontalOptions="End"
-                Text="التالي"
+                Text="{Static lang:AppResources.Register_btn_Next}"
                 ToolTipProperties.Text="Click to Save your data"
                 VerticalOptions="End" />
             <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="ManContainer_Tapped" />
+                <TapGestureRecognizer Tapped="MainContainer_Tapped" />
             </StackLayout.GestureRecognizers>
         </StackLayout>
     </ScrollView>

@@ -1,4 +1,6 @@
-﻿namespace DrasatHealthMobile.Models;
+﻿using DrasatHealthMobile.Helpers;
+
+namespace DrasatHealthMobile.Models;
 
 public class DoctorWorkPeriodModel
 {
@@ -21,6 +23,7 @@ public class DoctorWorkPeriodModel
     public string DateName { get; set; }
     public string DocFullName { get; set; }
     public string Headline { get; set; }
-
+    public string Photo { get; set; }
+    //public string ImageUrl { get => Constants.ImageUri + "small/" + this.Photo; }
 
 }

@@ -1,14 +1,11 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using DrasatHealthMobile.Helpers;
 using DrasatHealthMobile.Models;
 using DrasatHealthMobile.Models.Countries;
 using DrasatHealthMobile.Services.PublicServices;
-using System.Diagnostics;
 using System.Windows.Input;
-using System.Xml.Linq;
-
 namespace DrasatHealthMobile.ViewModels;
+
 public class RegisterViewModel : ObservableObject
 {
     public UserRegisterModel UserRegister { get; set; }
@@ -23,10 +20,10 @@ public class RegisterViewModel : ObservableObject
     {
         this.publicService = publicService;
         UserRegister = new UserRegisterModel();
-        GetHumanGenderNames();
-        GetMaritalStatusNames();
-        GetConfirmationOption();
-        GetAllCountries();
+        _= GetHumanGenderNames();
+        _= GetMaritalStatusNames();
+        _=GetConfirmationOption();
+        _=GetAllCountries();
     }
 
     // Commands ________________________________________________________
@@ -34,51 +31,39 @@ public class RegisterViewModel : ObservableObject
     public ICommand SelectionChangedMaritalStatusCommand => new Command<DropdownMenuModel>(SelectionChangedMaritalStatusExecute);
     public ICommand SelectionChangedCountryCommand => new Command<DropdownMenuModel>(SelectionChangedCountryExecute);
     public ICommand SelectionChangedCallingCodeCommand => new Command<DropdownMenuModel>(SelectionChangedCallingCodeExecute);
-    public ICommand ButtonNext => new Command(async () => await Helper.DisplayAlert("sd", "sd", ""));
 
     // public Methods
     public async Task<bool> SendUserRegister()
     {
-        UserRegister.LangCode = Helper.Language;
-        var responseUser = await publicService.PostUserRegisterAsync("PatientAuth/reqister", UserRegister);
-        if (responseUser != null)
+        try
         {
-            if (responseUser.Success)
+            UserRegister.LangCode = Helper.Language;
+            var responseUser = await publicService.PostUserRegisterAsync("PatientAuth/reqister", UserRegister);
+            if (responseUser != null)
             {
-                Helper.SetValue("token", responseUser.Token);
-                Helper.SetValue("userName", responseUser.UserAccount?.userName);
-                Helper.SetValue<int>("userId", responseUser.UserAccount.userId);
-                await Helper.NavigationToAsync("///main");
-                Debug.WriteLine(responseUser.Token);
-                return true;
+                if (responseUser.Success)
+                {
+                    AppPreferences.SetValue("token", responseUser.Token);
+                    AppPreferences.SetValue("userName", responseUser.UserAccount?.userName);
+                    AppPreferences.SetValue<int>("userId", responseUser.UserAccount.userId);
+                    AppPreferences.SetValue("userEmail", responseUser.UserAccount.email);
+
+                    AppNavigations.GoToMainPage();
+                    return true;
+                }
+                else
+                {
+                    ErrorMessage = responseUser.Message;
+                    await Alerts.ToastAlert(ErrorMessage);
+                }
             }
-            else
-            {
-                ErrorMessage = responseUser.Message;
-                await Helper.ToastAlert(ErrorMessage);
-            }
+            return false;
         }
-        return false;
-    }
-
-
-    void SelectionChangedGenderExecute(DropdownMenuModel parameter)
-    {
-        UserRegister.GenderId = parameter.Id;
-        var rrr = new UserRegisterModel()
+        catch (Exception ex)
         {
-            FullName = "moooooooo",
-            Email = "m1@yahoo.com",
-            Password = "1234",
-            PhoneNumber = "1254125478",
-            CallingCode = "20",
-            LangCode = "en",
-            PhoneNumberConfirmed = true,
-            EmailConfirmed = true,
-            MaritalStatusId = 1,
-            GenderId = 1,
-            NationalityId = 1,
-        };
+            await Alerts.DisplayAlert(nameof(RegisterViewModel), nameof(SendUserRegister), ex.Message);
+            return false;
+        }
     }
 
     void SelectionChangedMaritalStatusExecute(DropdownMenuModel parameter)
@@ -91,54 +76,76 @@ public class RegisterViewModel : ObservableObject
         UserRegister.NationalityId = parameter.Id;
     }
 
-    void SelectionChangedCallingCodeExecute(DropdownMenuModel parameter)
+    async void SelectionChangedCallingCodeExecute(DropdownMenuModel parameter)
     {
-        if (listOfCountries != null)
+        try
         {
-            var callingCode = listOfCountries.FirstOrDefault(x => x.Id == parameter.Id).CallingCode;
-            UserRegister.CallingCode = callingCode;
+            if (listOfCountries != null)
+            {
+                var callingCode = listOfCountries.FirstOrDefault(x => x.Id == parameter.Id).CallingCode;
+                UserRegister.CallingCode = callingCode;
+            }
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RegisterViewModel), nameof(SelectionChangedCallingCodeExecute), ex.Message);
         }
     }
 
     // get data from a service
-    private async void GetHumanGenderNames()
+    private async Task GetHumanGenderNames()
     {
-        //await Task.Delay(9000);
-        var queryParams = $"?lang={Helper.Language}";
-        var result = await publicService.GetAllHumanGenderAsync("HumanGender/names", queryParams);
-        if (result != null)
+        try
         {
-            HumanGenderNamesMenu = new List<DropdownMenuModel>(result.Count);
+            var queryParams = $"?lang={Helper.Language}";
+            var result = await publicService.GetAllHumanGenderAsync("HumanGender/names", queryParams);
+            if (result != null)
+            {
+                HumanGenderNamesMenu = new List<DropdownMenuModel>(result.Count);
+                foreach (var resultItem in result)
+                {
+                    var gender = new DropdownMenuModel()
+                    {
+                        Id = resultItem.GenderId,
+                        Name = resultItem.Name,
+                    };
+                    HumanGenderNamesMenu.Add(gender);
+                }
+                OnPropertyChanged(nameof(HumanGenderNamesMenu));
+            }
+
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RegisterViewModel), nameof(GetHumanGenderNames), ex.Message);
+        }
+    }
+
+    private async Task GetMaritalStatusNames()
+    {
+        try
+        {
+            var queryParams = $"?lang={Helper.Language}";
+
+            var result = await publicService.GetAllMaritalStatusAsync("MaritalStatus/names", queryParams);
+            MaritalStatusesNamesMenu = new List<DropdownMenuModel>(result.Count);
             foreach (var resultItem in result)
             {
                 var gender = new DropdownMenuModel()
                 {
-                    Id = resultItem.GenderId,
+                    Id = resultItem.MaritalId,
                     Name = resultItem.Name,
                 };
-                HumanGenderNamesMenu.Add(gender);
+                MaritalStatusesNamesMenu.Add(gender);
             }
-            OnPropertyChanged(nameof(HumanGenderNamesMenu));
+            OnPropertyChanged(nameof(MaritalStatusesNamesMenu));
         }
-    }
-    private async void GetMaritalStatusNames()
-    {
-        var queryParams = $"?lang={Helper.Language}";
-
-        var result = await publicService.GetAllMaritalStatusAsync("MaritalStatus/names", queryParams);
-        MaritalStatusesNamesMenu = new List<DropdownMenuModel>(result.Count);
-        foreach (var resultItem in result)
+        catch (Exception ex)
         {
-            var gender = new DropdownMenuModel()
-            {
-                Id = resultItem.MaritalId,
-                Name = resultItem.Name,
-            };
-            MaritalStatusesNamesMenu.Add(gender);
+            await Alerts.DisplayAlert(nameof(RegisterViewModel), nameof(GetMaritalStatusNames), ex.Message);
         }
-        OnPropertyChanged(nameof(MaritalStatusesNamesMenu));
     }
-    private async void GetAllCountries()
+    private async Task GetAllCountries()
     {
         var queryParams = $"lang={Helper.Language}";
 
@@ -147,42 +154,54 @@ public class RegisterViewModel : ObservableObject
             var result = await publicService.GetAllCountriesAsync("Country/all", queryParams);
             if (result != null && result.Data != null)
             {
-                listOfCountries = result.Data;
-                CountriesMenu = new List<DropdownMenuModel>(listOfCountries.Count);
-                CallingCodesMenu = new List<DropdownMenuModel>(listOfCountries.Count);
-                foreach (var resultItem in result.Data)
+                if (result.Data.Count > 0)
                 {
-                    var country = new DropdownMenuModel()
+                    listOfCountries = result.Data;
+                    CountriesMenu = new List<DropdownMenuModel>(listOfCountries.Count);
+                    CallingCodesMenu = new List<DropdownMenuModel>(listOfCountries.Count);
+                    foreach (var resultItem in result.Data)
                     {
-                        Id = resultItem.Id,
-                        Name = resultItem.CountriesTranslations[0]?.CountryName,
-                    };
+                        var country = new DropdownMenuModel()
+                        {
+                            Id = resultItem.Id,
+                            Name = resultItem.CountriesTranslations.FirstOrDefault()?.CountryName,
+                        };
 
-                    var callingCode = new DropdownMenuModel()
-                    {
-                        Id = resultItem.Id,
-                        Name = $"{resultItem.CountryCode} +{resultItem.CallingCode}"
-                    };
-                    CountriesMenu.Add(country);
-                    CallingCodesMenu.Add(callingCode);
+                        var callingCode = new DropdownMenuModel()
+                        {
+                            Id = resultItem.Id,
+                            Name = $"{resultItem.CountryCode} +{resultItem.CallingCode}"
+                        };
+                        CountriesMenu.Add(country);
+                        CallingCodesMenu.Add(callingCode);
+                        OnPropertyChanged(nameof(CountriesMenu));
+                        OnPropertyChanged(nameof(CallingCodesMenu));
+                    }
                 }
-                OnPropertyChanged(nameof(CountriesMenu));
-                OnPropertyChanged(nameof(CallingCodesMenu));
             }
         }
         catch (Exception ex)
         {
-            await Helper.ToastAlert(ex.Message);
+            await Alerts.DisplayAlert(nameof(RegisterViewModel), nameof(GetAllCountries), ex.Message);
         }
     }
-    private async void GetConfirmationOption()
+
+    private async Task GetConfirmationOption()
     {
-        ConfirmationOptionChosen = await publicService.GetConfirmationOptionAsync();
+        try
+        {
+            ConfirmationOptionChosen = await publicService.GetConfirmationOptionAsync();
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RegisterViewModel), nameof(GetConfirmationOption), ex.Message);
+        }
     }
 
     // 
     private readonly IPublicService publicService;
     private List<CountryModel> listOfCountries;
+
     // Properties  with Notification  ________________________________________________________
     string errorMessage = string.Empty;
     public string ErrorMessage

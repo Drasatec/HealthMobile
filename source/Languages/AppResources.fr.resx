@@ -118,222 +118,222 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddBooking_BookingDate" xml:space="preserve">
-    <value>تاريخ الحجز</value>
+    <value>Date de réservation</value>
   </data>
   <data name="AddBooking_BookingReason" xml:space="preserve">
-    <value>سبب الحجز</value>
+    <value>Motif de la réservation</value>
   </data>
   <data name="AddBooking_btn_Submit" xml:space="preserve">
-    <value>تأكيد</value>
+    <value>Soumettre</value>
   </data>
   <data name="AddBooking_Period" xml:space="preserve">
-    <value>فترة:</value>
+    <value>Période:</value>
   </data>
   <data name="AddBooking_TheDate" xml:space="preserve">
-    <value>تاريخ:</value>
+    <value>Date:</value>
   </data>
   <data name="AddBooking_TitlePage" xml:space="preserve">
-    <value>حجز موعد</value>
+    <value>Prise de rendez-vous</value>
   </data>
   <data name="AddBooking_VisitingFees" xml:space="preserve">
-    <value>رسوم الزيارة:</value>
+    <value>Frais de visite :</value>
   </data>
   <data name="BookingDetails_btn_cancel" xml:space="preserve">
-    <value>الغاء</value>
+    <value>Annuler</value>
   </data>
   <data name="BookingDetails_Clinic" xml:space="preserve">
-    <value>العيادة</value>
+    <value>Clinique</value>
   </data>
   <data name="BookingDetails_PatientName" xml:space="preserve">
-    <value>اسم المريض</value>
+    <value>Nom du patient</value>
   </data>
   <data name="BookingDetails_TitlePage" xml:space="preserve">
-    <value>تفاصيل الحجز</value>
+    <value>Les détails de réservation</value>
   </data>
   <data name="BookingDetails_TypeVitst" xml:space="preserve">
-    <value>نوع الزيارة</value>
+    <value>Type visite</value>
   </data>
   <data name="BookingDetails_VisitDate" xml:space="preserve">
-    <value>تاريخ الزيارة</value>
+    <value>Date de visite</value>
   </data>
   <data name="BookingDetails_WorkingPeriod" xml:space="preserve">
-    <value>فترة العمل</value>
+    <value>Période de travail</value>
   </data>
   <data name="Bookings_Future" xml:space="preserve">
-    <value>القادمة</value>
+    <value>Avenir</value>
   </data>
   <data name="Bookings_Goto_docOr_spei" xml:space="preserve">
-    <value>يمكنك عرض التخصصات أو الأطباء وحجز موعد</value>
+    <value>Vous pouvez consulter des spécialités ou des médecins et prendre rendez-vous</value>
   </data>
   <data name="Bookings_Past" xml:space="preserve">
-    <value>الماضية</value>
+    <value>Passé</value>
   </data>
   <data name="Bookings_Status" xml:space="preserve">
-    <value>الحالة:</value>
+    <value>Statut:</value>
   </data>
   <data name="Bookings_ThereAreNoBooking" xml:space="preserve">
-    <value>لا يوجد حجوزات لعرضها</value>
+    <value>Il n'y a pas de réservation pour les voir</value>
   </data>
   <data name="DoctorDetails_Biography" xml:space="preserve">
-    <value>السيرة الذاتية</value>
+    <value>Biographie</value>
   </data>
   <data name="DoctorDetails_Book" xml:space="preserve">
-    <value>احجز</value>
+    <value>Livre</value>
   </data>
   <data name="DoctorDetails_Branch" xml:space="preserve">
-    <value>الفروع</value>
+    <value>Branches</value>
   </data>
   <data name="DoctorDetails_ReadLess" xml:space="preserve">
-    <value>أقرأ أقل</value>
+    <value>Lire moins</value>
   </data>
   <data name="DoctorDetails_ReadMore" xml:space="preserve">
-    <value>اقرأ أكثر</value>
+    <value>En savoir plus</value>
   </data>
   <data name="DoctorDetails_TherNoData" xml:space="preserve">
-    <value>لا يوجد مواعيد</value>
+    <value>Il n'y a aucun rendez-vous à afficher</value>
   </data>
   <data name="DoctorDetails_Timetable" xml:space="preserve">
-    <value>جدول المواعيد</value>
+    <value>Horaire</value>
   </data>
   <data name="DoctorDetails_TitlePage" xml:space="preserve">
-    <value>تفاصيل الطبيب</value>
+    <value>Détails du médecin</value>
   </data>
   <data name="Doctors_BothSexes" xml:space="preserve">
-    <value>كلاهما</value>
+    <value>Les deux</value>
   </data>
   <data name="Doctors_btn_apply" xml:space="preserve">
-    <value>طبق</value>
+    <value>Appliquer</value>
   </data>
   <data name="Doctors_Days" xml:space="preserve">
-    <value>اليوم</value>
+    <value>Le jour</value>
   </data>
   <data name="Doctors_Doctor" xml:space="preserve">
-    <value>طبيب</value>
+    <value>Médecin</value>
   </data>
   <data name="Doctors_FemaleDoctor" xml:space="preserve">
-    <value>طبيبة</value>
+    <value>Doctoresse</value>
   </data>
   <data name="Doctors_Filter" xml:space="preserve">
-    <value>المرشح</value>
+    <value>Filtre</value>
   </data>
   <data name="Doctors_Gender" xml:space="preserve">
-    <value>جنس</value>
+    <value>Genre</value>
   </data>
   <data name="Doctors_ThereNoDoctors" xml:space="preserve">
-    <value>لا يوجد أطباء لعرضهم</value>
+    <value>Il n'y a aucun médecin à afficher</value>
   </data>
   <data name="Doctors_Title" xml:space="preserve">
-    <value>اللقب</value>
+    <value>Titre</value>
   </data>
   <data name="Doctors_TryBroaderFilter" xml:space="preserve">
-    <value>هل تريد تجربة مرشح أوسع؟</value>
+    <value>Essayez un filtre plus large</value>
   </data>
   <data name="Home_AskHelp" xml:space="preserve">
-    <value>طلب المساعدة</value>
+    <value>Demander de l'aide</value>
   </data>
   <data name="Home_BookVisit" xml:space="preserve">
-    <value>احجز زيارة للعيادة</value>
+    <value>Réserver une visite à la clinique</value>
   </data>
   <data name="Home_hosName" xml:space="preserve">
-    <value>مستشفى الرحمة</value>
+    <value>Hôpital Alrahma</value>
   </data>
   <data name="Home_SearchByNamrOrDoc" xml:space="preserve">
-    <value>البحث باسم الطبيب أو التخصص</value>
+    <value>Recherche par nom de médecin ou de spécialité</value>
   </data>
   <data name="Icon_BackButtonArrow" xml:space="preserve">
-    <value>arrow_right</value>
+    <value>arrow_left</value>
   </data>
   <data name="Login_CreateNewAcount" xml:space="preserve">
-    <value>انشاء حساب جديد</value>
+    <value>Créer un nouveau compte</value>
   </data>
   <data name="Login_Email" xml:space="preserve">
-    <value>عنوان البريد الإلكتروني</value>
+    <value>Adresse e-mail</value>
   </data>
   <data name="Login_ForgetPass" xml:space="preserve">
-    <value>هل نسيت كلمة المرور الخاصة بك؟</value>
+    <value>Avez-vous oublié votre mot de passe?</value>
   </data>
   <data name="Login_Login" xml:space="preserve">
-    <value>تسجيل الدخول</value>
+    <value>Se connecter</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
-    <value>أدخل كلمة المرور</value>
+    <value>Entrer un mot de passe</value>
   </data>
   <data name="public_SelectAll" xml:space="preserve">
-    <value>الكل</value>
+    <value>Tous</value>
   </data>
   <data name="Register_btn_Next" xml:space="preserve">
-    <value>التالي</value>
+    <value>Suivant</value>
   </data>
   <data name="Register_btn_Save" xml:space="preserve">
-    <value>حفظ</value>
+    <value>Sauvegarder</value>
   </data>
   <data name="Register_CallingCodes" xml:space="preserve">
-    <value>كود الدولة</value>
+    <value>Code d'appel</value>
   </data>
   <data name="Register_ConfirmPassword" xml:space="preserve">
-    <value>تأكيد كلمة المرور</value>
+    <value>Confirmez le mot de passe</value>
   </data>
   <data name="Register_Country" xml:space="preserve">
-    <value>الدولة</value>
+    <value>Votre pays</value>
   </data>
   <data name="Register_CreateAcount" xml:space="preserve">
-    <value>إنشاء حساب</value>
+    <value>Créer un compte</value>
   </data>
   <data name="Register_Email" xml:space="preserve">
-    <value>أدخل البريد الإلكتروني</value>
+    <value>Entrez un e-mail</value>
   </data>
   <data name="Register_FullName" xml:space="preserve">
-    <value>الاسم الكامل</value>
+    <value>Nom et prénom</value>
   </data>
   <data name="Register_HumanGender" xml:space="preserve">
-    <value>جنس</value>
+    <value>genre</value>
   </data>
   <data name="Register_MaritalStatuses" xml:space="preserve">
-    <value>الحالات الاجتماعية</value>
+    <value>État civil</value>
   </data>
   <data name="Register_Password" xml:space="preserve">
-    <value>أدخل كلمة المرور</value>
+    <value>Entrer un mot de passe</value>
   </data>
   <data name="Register_PhoneNumber" xml:space="preserve">
-    <value>أدخل رقم الهاتف</value>
+    <value>Entrer un numéro de téléphone</value>
   </data>
   <data name="Register_Privacy" xml:space="preserve">
-    <value>سياسية الخصوصة</value>
+    <value>politique de confidentialité</value>
   </data>
   <data name="Register_PrivacyAgree" xml:space="preserve">
-    <value>أنا أوافق علي</value>
+    <value>Je suis d'accord pour</value>
   </data>
   <data name="Register_PrivacyMustAgree" xml:space="preserve">
-    <value>يجب الموافقة على سياسة الخصوصة قبل انشاء حساب</value>
+    <value>Vous devez accepter la politique de confidentialité avant de créer un compte</value>
   </data>
   <data name="TabBar_booking" xml:space="preserve">
-    <value>الحجوزات</value>
+    <value>Réservations</value>
   </data>
   <data name="TabBar_clinics" xml:space="preserve">
-    <value>العيادات</value>
+    <value>Cliniques</value>
   </data>
   <data name="TabBar_doctors" xml:space="preserve">
-    <value>الأطباء</value>
+    <value>Médecins</value>
   </data>
   <data name="TabBar_login" xml:space="preserve">
-    <value>تسجيل الدخول</value>
+    <value>Se connecter</value>
   </data>
   <data name="TabBar_logout" xml:space="preserve">
-    <value>تسجيل خروج</value>
+    <value>Se déconnecter</value>
   </data>
   <data name="TabBar_main" xml:space="preserve">
-    <value>الرئيسية</value>
+    <value>Maison</value>
   </data>
   <data name="TabBar_more" xml:space="preserve">
-    <value>المزيد</value>
+    <value>Plus</value>
   </data>
   <data name="TabBar_specialty" xml:space="preserve">
-    <value>التخصصات</value>
+    <value>Spécialités</value>
   </data>
   <data name="Template_BottomSheetApply" xml:space="preserve">
-    <value>تطبيق</value>
+    <value>Appliquer</value>
   </data>
   <data name="Template_Search_search" xml:space="preserve">
-    <value>بحث</value>
+    <value>Recherche</value>
   </data>
 </root>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrasatHealthMobile.Views.PrivacyPolicyView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
+    Title="PrivacyPolicyView">
+    <Grid>
+        <WebView Source="https://alrahmavip.com/Privacy-2.html" />
+
+        <Button
+            Margin="20"
+            BackgroundColor="{StaticResource White}"
+            BorderColor="Gray"
+            BorderWidth="1"
+            Clicked="Button_Clicked"
+            CornerRadius="50"
+            HorizontalOptions="EndAndExpand"
+            Style="{StaticResource LableIcon}"
+            Text="{x:Static font:IconFontMaterial.Close}"
+            VerticalOptions="Start" />
+    </Grid>
+</ContentPage>

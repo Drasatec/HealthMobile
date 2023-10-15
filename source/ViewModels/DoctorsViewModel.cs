@@ -13,154 +13,195 @@ public class DoctorsViewModel : ObservableObject, IQueryAttributable
     public DoctorsViewModel(IPublicService publicService)
     {
         this.publicService = publicService;
-        GetAllWeekdays();
-        GetAllDoctorsDegrees();
+        _=GetAllWeekdays();
+        _=GetAllDoctorsDegrees();
 
     }
 
-    // this is the first method runing after constructor
+    // this is the second method, it runing after constructor
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         query.TryGetValue("Id", out specialtyId);
         Filter = new FilterQueryParam();
-        GetAll();
+        _ = GetAll();
     }
-    public ICommand SearchBoxTypingCommand => new Command<string>(SearchBoxTyping);
+    public ICommand SearchBoxTypingCommand => new Command<string>(SearchBoxTypingEX);
+    public ICommand DoctorSelectionChangedCommand => new Command<DoctorModel>(DoctorSelectionChangedEX);
     public ICommand DaysSelectionChangedCommand => new Command<Weekday>(DaysSelectionChangedEX);
     public ICommand DegreesSelectionChangedCommand => new Command<DoctorsDegree>(DegreeSelectionChangedEX);
-    public ICommand DoctorSelectionChangedCommand => new Command<DoctorModel>(DoctorSelectionChangedEX);
-    public FilterQueryParam Filter { get; set; }
+    public ICommand NextPageCommand => new Command(NextPageEX);
 
+    public FilterQueryParam Filter { get; set; }
     public List<DoctorModel> Doctors { get; set; } = new();
     public DoctorModel DoctorSelected { get; set; }
     public List<Weekday> Weekdays { get; set; } = new();
     public List<DoctorsDegree> DoctorsDegrees { get; set; } = new();
+    public bool IsRefreshing { get => isRefreshing; set => SetProperty(ref isRefreshing, value); }
+
+    public async void Refresh()
+    {
+        await GetAll();
+    }
+
     private readonly IPublicService publicService;
     private List<DoctorModel> DoctorsTemp = new();
     private object specialtyId = null;
+    private bool isRefreshing = false;
 
-    void DaysSelectionChangedEX(Weekday parameter)
+    async void SearchBoxTypingEX(string text)
     {
-        if (parameter != null)
+        try
         {
-            if (parameter.WeekdayId != null)
-                Filter.DayId = parameter.WeekdayId;
-            else
-                Filter.DayId = null;
+            if (string.IsNullOrEmpty(text))
+            {
+                Doctors = DoctorsTemp;
+                OnPropertyChanged(nameof(Doctors));
+                return;
+            }
+            var queryParams = new Dictionary<string, string>
+                {
+                    { "lang", Helper.Language },
+                    { "searchTerm", text },
+                    { "page", "" },
+                    { "pageSize", "" },
+                };
+            var result = await publicService.GetAllDoctorsAsync("Doctor/search", queryParams);
+            Doctors = result.Data;
+            OnPropertyChanged(nameof(Doctors));
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(DoctorsViewModel), nameof(SearchBoxTypingEX), ex.Message);
         }
     }
 
-    void DegreeSelectionChangedEX(DoctorsDegree parameter)
-    {
-        if (parameter != null)
-        {
-            if (parameter.DoctorDegreeId > 0)
-                Filter.DegreeId = parameter.DoctorDegreeId;
-            else
-                Filter.DegreeId = null;
-        }
-    }
-    
     async void DoctorSelectionChangedEX(DoctorModel parameter)
     {
-        if (DoctorSelected == null)
-            return;
-        var navigationParameter = new Dictionary<string, object>
+        try
         {
-            { "doctorModel", parameter }
-        };
-
-        await Shell.Current.GoToAsync("DoctorDetailsView", navigationParameter);
-        DoctorSelected = null;
-    }
-
-
-
-
-    private void CollectFiltering()
-    {
-        var queryParams = new Dictionary<string, string>
+            if (DoctorSelected == null)
+                return;
+            var navigationParameter = new Dictionary<string, object>
             {
-                { "lang", Helper.Language },
-                { "page", "1" },
-                { "pageSize", "10" },
-                { "status", "active" },
+                { "doctorModel", parameter }
             };
-        queryParams.Add("specialtyId", specialtyId as string ?? "");
-        queryParams.Add("hosId", Filter.HosId.HasValue ? Filter.HosId.Value.ToString() : "");
-        queryParams.Add("dayId", Filter.DayId.HasValue ? Filter.DayId.Value.ToString() : "");
-        queryParams.Add("genderId", Filter.GenderId.HasValue ? Filter.GenderId.Value.ToString() : "");
-        queryParams.Add("degreeId", Filter.DegreeId.HasValue ? Filter.DegreeId.Value.ToString() : "");
+
+            await Shell.Current.GoToAsync("DoctorDetailsView", navigationParameter);
+            DoctorSelected = null;
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(DoctorsViewModel), nameof(DoctorSelectionChangedEX), ex.Message);
+        }
     }
 
-    private async void SearchBoxTyping(string text)
+    async void DaysSelectionChangedEX(Weekday parameter)
     {
-        if (string.IsNullOrEmpty(text))
+        try
         {
-            Doctors = DoctorsTemp;
+            if (parameter != null)
+            {
+                if (parameter.WeekdayId != null)
+                    Filter.DayId = parameter.WeekdayId;
+                else
+                    Filter.DayId = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(DoctorsViewModel), nameof(DaysSelectionChangedEX), ex.Message);
+        }
+    }
+
+    async void DegreeSelectionChangedEX(DoctorsDegree parameter)
+    {
+        try
+        {
+            if (parameter != null)
+            {
+                if (parameter.DoctorDegreeId > 0)
+                    Filter.DegreeId = parameter.DoctorDegreeId;
+                else
+                    Filter.DegreeId = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(DoctorsViewModel), nameof(DegreeSelectionChangedEX), ex.Message);
+        }
+    }
+
+    void NextPageEX()
+    {
+
+    }
+
+    private async Task GetAll()
+    {
+        try
+        {
+            IsRefreshing = true;
+            var queryParams = new Dictionary<string, string>
+                {
+                    { "lang", Helper.Language },
+                    //{ "page", "1" },
+                    //{ "pageSize", "10" },
+                    { "status", "active" },
+                };
+            queryParams.Add("specialtyId", specialtyId as string ?? "");
+            queryParams.Add("hosId", Filter.HosId.HasValue ? Filter.HosId.Value.ToString() : "");
+            queryParams.Add("dayId", Filter.DayId.HasValue ? Filter.DayId.Value.ToString() : "");
+            queryParams.Add("genderId", Filter.GenderId.HasValue ? Filter.GenderId.Value.ToString() : "");
+            queryParams.Add("degreeId", Filter.DegreeId.HasValue ? Filter.DegreeId.Value.ToString() : "");
+
+            var result = await publicService.GetAllDoctorsAsync("Doctor/all", queryParams);
+            Doctors = DoctorsTemp = result.Data;
             OnPropertyChanged(nameof(Doctors));
-            return;
+            IsRefreshing = false;
         }
-        var queryParams = new Dictionary<string, string>
-            {
-                { "lang", Helper.Language },
-                { "searchTerm", text },
-                { "page", "" },
-                { "pageSize", "" },
-            };
-        var result = await publicService.GetAllDoctorsAsync("Doctor/search", queryParams);
-        Doctors = result.Data;
-        OnPropertyChanged(nameof(Doctors));
-    }
-
-    private async void GetAll()
-    {
-        var queryParams = new Dictionary<string, string>
-            {
-                { "lang", Helper.Language },
-                //{ "page", "1" },
-                //{ "pageSize", "10" },
-                { "status", "active" },
-            };
-        queryParams.Add("specialtyId", specialtyId as string ?? "");
-        queryParams.Add("hosId", Filter.HosId.HasValue ? Filter.HosId.Value.ToString() : "");
-        queryParams.Add("dayId", Filter.DayId.HasValue ? Filter.DayId.Value.ToString() : "");
-        queryParams.Add("genderId", Filter.GenderId.HasValue ? Filter.GenderId.Value.ToString() : "");
-        queryParams.Add("degreeId", Filter.DegreeId.HasValue ? Filter.DegreeId.Value.ToString() : "");
-
-        //if (specialtyId != null)
-        //    queryParams.Add("specialtyId", (string)specialtyId);
-
-        var result = await publicService.GetAllDoctorsAsync("Doctor/all", queryParams);
-        Doctors = DoctorsTemp = result.Data;
-        OnPropertyChanged(nameof(Doctors));
-    }
-    public void Refresh()
-    {
-        GetAll();
-    }
-    private async void GetAllWeekdays()
-    {
-        var queryParam = "lang=" + Helper.Language;
-        var result = await publicService.GetAllWeekdaysAsync("Weekday/names", queryParam);
-        if (result != null)
+        catch (Exception ex)
         {
-            Weekdays = result;
-            Weekdays.Insert(0, new Weekday() { WeekdayId = null, Name = AppResources.public_SelectAll });
+            await Alerts.DisplayAlert(nameof(DoctorsViewModel), nameof(GetAll), ex.Message);
         }
-        OnPropertyChanged(nameof(Weekdays));
     }
 
-    private async void GetAllDoctorsDegrees()
+
+    private async Task GetAllWeekdays()
     {
-        var queryParam = "lang=" + Helper.Language;
-        var result = await publicService.GetAllDoctorsDegreesAsync("DoctorsDegree/names", queryParam);
-        if (result != null)
+        try
         {
-            DoctorsDegrees = result;
-            DoctorsDegrees.Insert(0, new DoctorsDegree() { DoctorDegreeId = 0, DegreeName = AppResources.public_SelectAll });
+            var queryParam = "lang=" + Helper.Language;
+            var result = await publicService.GetAllWeekdaysAsync("Weekday/names", queryParam);
+            if (result != null)
+            {
+                Weekdays = result;
+                Weekdays.Insert(0, new Weekday() { WeekdayId = null, Name = AppResources.public_SelectAll });
+            }
+            OnPropertyChanged(nameof(Weekdays));
         }
-        OnPropertyChanged(nameof(DoctorsDegrees));
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(DoctorsViewModel), nameof(GetAllWeekdays), ex.Message);
+        }
+    }
+
+    private async Task GetAllDoctorsDegrees()
+    {
+        try
+        {
+            var queryParam = "lang=" + Helper.Language;
+            var result = await publicService.GetAllDoctorsDegreesAsync("DoctorsDegree/names", queryParam);
+            if (result != null)
+            {
+                DoctorsDegrees = result;
+                DoctorsDegrees.Insert(0, new DoctorsDegree() { DoctorDegreeId = 0, DegreeName = AppResources.public_SelectAll });
+            }
+            OnPropertyChanged(nameof(DoctorsDegrees));
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(DoctorsViewModel), nameof(GetAllDoctorsDegrees), ex.Message);
+        }
     }
 }
 
@@ -172,7 +213,7 @@ public class FilterQueryParam
 
     public int PageSize { get; set; }
 
-    public string Status { get; set; }
+    public string Status { get; set; } = "active";
 
     public bool AppearanceOnSite { get; set; }
 
@@ -186,5 +227,3 @@ public class FilterQueryParam
 
     public short? DegreeId { get; set; }
 }
-
-//public record FilterQueryParam(string Lang, int Page, int PageSize, string Status, bool AppearanceOnSite, int? HosId, int SpecialtyId, byte? GenderId, byte? DayId, short? DegreeId);

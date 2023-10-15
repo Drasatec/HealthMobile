@@ -38,8 +38,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<IHomeServices, HomeServices>();
         builder.Services.AddSingleton<IPublicService, PublicService>();
 
-        builder.Services.AddSingleton<HomeViewModel>();
-        builder.Services.AddSingleton<HomeView>();
+        builder.Services.AddTransient<HomeViewModel>();
+        builder.Services.AddTransient<HomeView>();
 
         builder.Services.AddSingleton<SpecialtiesViewModel>();
         builder.Services.AddSingleton<SpecialtiesView>();
@@ -47,7 +47,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<DoctorsViewModel>();
         builder.Services.AddSingleton<DoctorsView>();
         
-        builder.Services.AddSingleton<RegisterViewModel>();
+        builder.Services.AddTransient<RegisterViewModel>();
         builder.Services.AddTransient<RegisterView>();
         
         
@@ -63,6 +63,7 @@ public static class MauiProgram
 
         builder.Services.AddTransient<LoginView>();
         builder.Services.AddSingleton<BookingsView>();
+        builder.Services.AddSingleton<ProfileView>();
 
 
 #if DEBUG

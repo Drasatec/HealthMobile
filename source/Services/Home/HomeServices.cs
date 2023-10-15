@@ -37,10 +37,9 @@ public class HomeServices : IHomeServices
     public async Task<PagedResponse<PromotionModel>> GetPromotionModelAsync(string guidUser)
     {
         PagedResponse<PromotionModel> hosTranc;
-        var lang = "ar";
         try
         {
-            hosTranc = await requestProvider.GetPagedResponseAsync<PromotionModel>($"{Constants.BaseUrl}Promotion/all?lang={lang}", "").ConfigureAwait(false);
+            hosTranc = await requestProvider.GetPagedResponseAsync<PromotionModel>($"{Constants.BaseUrl}Promotion/all?lang={Helper.Language}", "").ConfigureAwait(false);
         }
         catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
         {

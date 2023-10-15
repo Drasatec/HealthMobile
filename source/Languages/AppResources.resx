@@ -117,19 +117,223 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="direction" xml:space="preserve">
-    <value>90</value>
+  <data name="AddBooking_BookingDate" xml:space="preserve">
+    <value>Booking date</value>
+  </data>
+  <data name="AddBooking_BookingReason" xml:space="preserve">
+    <value>BookingReason</value>
+  </data>
+  <data name="AddBooking_btn_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="AddBooking_Period" xml:space="preserve">
+    <value>Period:</value>
+  </data>
+  <data name="AddBooking_TheDate" xml:space="preserve">
+    <value>Date:</value>
+  </data>
+  <data name="AddBooking_TitlePage" xml:space="preserve">
+    <value>Appointment Booking</value>
+  </data>
+  <data name="AddBooking_VisitingFees" xml:space="preserve">
+    <value>Visiting fees:</value>
+  </data>
+  <data name="BookingDetails_btn_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BookingDetails_Clinic" xml:space="preserve">
+    <value>Clinic</value>
+  </data>
+  <data name="BookingDetails_PatientName" xml:space="preserve">
+    <value>Patient name</value>
+  </data>
+  <data name="BookingDetails_TitlePage" xml:space="preserve">
+    <value>Booking Details</value>
+  </data>
+  <data name="BookingDetails_TypeVitst" xml:space="preserve">
+    <value>Type visit</value>
+  </data>
+  <data name="BookingDetails_VisitDate" xml:space="preserve">
+    <value>Visit Date</value>
+  </data>
+  <data name="BookingDetails_WorkingPeriod" xml:space="preserve">
+    <value>Working Period</value>
+  </data>
+  <data name="Bookings_Future" xml:space="preserve">
+    <value>Future</value>
+  </data>
+  <data name="Bookings_Goto_docOr_spei" xml:space="preserve">
+    <value>You can view specialties or doctors and book an appointment</value>
+  </data>
+  <data name="Bookings_Past" xml:space="preserve">
+    <value>Past</value>
+  </data>
+  <data name="Bookings_Status" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="Bookings_ThereAreNoBooking" xml:space="preserve">
+    <value>There are no Booking to view them</value>
+  </data>
+  <data name="DoctorDetails_Biography" xml:space="preserve">
+    <value>Biography</value>
+  </data>
+  <data name="DoctorDetails_Book" xml:space="preserve">
+    <value>Book</value>
+  </data>
+  <data name="DoctorDetails_Branch" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="DoctorDetails_ReadLess" xml:space="preserve">
+    <value>Read less</value>
+  </data>
+  <data name="DoctorDetails_ReadMore" xml:space="preserve">
+    <value>Read more</value>
+  </data>
+  <data name="DoctorDetails_TherNoData" xml:space="preserve">
+    <value>There are no appointments to display</value>
+  </data>
+  <data name="DoctorDetails_Timetable" xml:space="preserve">
+    <value>Time table</value>
+  </data>
+  <data name="DoctorDetails_TitlePage" xml:space="preserve">
+    <value>Doctor details</value>
+  </data>
+  <data name="Doctors_BothSexes" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="Doctors_btn_apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Doctors_Days" xml:space="preserve">
+    <value>The day</value>
+  </data>
+  <data name="Doctors_Doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="Doctors_FemaleDoctor" xml:space="preserve">
+    <value>Female doctor</value>
+  </data>
+  <data name="Doctors_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Doctors_Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Doctors_ThereNoDoctors" xml:space="preserve">
+    <value>There are no doctors to display</value>
+  </data>
+  <data name="Doctors_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Doctors_TryBroaderFilter" xml:space="preserve">
+    <value>Try a broader filter</value>
+  </data>
+  <data name="Home_AskHelp" xml:space="preserve">
+    <value>Ask for help</value>
+  </data>
+  <data name="Home_BookVisit" xml:space="preserve">
+    <value>Book a clinic visit</value>
+  </data>
+  <data name="Home_hosName" xml:space="preserve">
+    <value>Alrahma Hospital</value>
+  </data>
+  <data name="Home_SearchByNamrOrDoc" xml:space="preserve">
+    <value>Search by name of doctor or specialty</value>
   </data>
   <data name="Icon_BackButtonArrow" xml:space="preserve">
     <value>arrow_left</value>
   </data>
+  <data name="Login_CreateNewAcount" xml:space="preserve">
+    <value>Create a new account</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="Login_ForgetPass" xml:space="preserve">
+    <value>did you forget your password?</value>
+  </data>
+  <data name="Login_Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Enter a password</value>
+  </data>
   <data name="public_SelectAll" xml:space="preserve">
     <value>All</value>
   </data>
-  <data name="ShellTabMain" xml:space="preserve">
-    <value>Main</value>
+  <data name="Register_btn_Next" xml:space="preserve">
+    <value>Next</value>
   </data>
-  <data name="test" xml:space="preserve">
-    <value>welcom</value>
+  <data name="Register_btn_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Register_CallingCodes" xml:space="preserve">
+    <value>Calling code</value>
+  </data>
+  <data name="Register_ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Register_Country" xml:space="preserve">
+    <value>Your country</value>
+  </data>
+  <data name="Register_CreateAcount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="Register_Email" xml:space="preserve">
+    <value>Enter an Email</value>
+  </data>
+  <data name="Register_FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Register_HumanGender" xml:space="preserve">
+    <value>gender</value>
+  </data>
+  <data name="Register_MaritalStatuses" xml:space="preserve">
+    <value>Marital statuses</value>
+  </data>
+  <data name="Register_Password" xml:space="preserve">
+    <value>Enter a password</value>
+  </data>
+  <data name="Register_PhoneNumber" xml:space="preserve">
+    <value>Enter a Phone number</value>
+  </data>
+  <data name="Register_Privacy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Register_PrivacyAgree" xml:space="preserve">
+    <value>I agree to</value>
+  </data>
+  <data name="Register_PrivacyMustAgree" xml:space="preserve">
+    <value>You must agree to the privacy policy before creating an account</value>
+  </data>
+  <data name="TabBar_booking" xml:space="preserve">
+    <value>Bookings</value>
+  </data>
+  <data name="TabBar_clinics" xml:space="preserve">
+    <value>Clinics</value>
+  </data>
+  <data name="TabBar_doctors" xml:space="preserve">
+    <value>Doctors</value>
+  </data>
+  <data name="TabBar_login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="TabBar_logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="TabBar_main" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="TabBar_more" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="TabBar_specialty" xml:space="preserve">
+    <value>Specialties</value>
+  </data>
+  <data name="Template_BottomSheetApply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Template_Search_search" xml:space="preserve">
+    <value>Search</value>
   </data>
 </root>

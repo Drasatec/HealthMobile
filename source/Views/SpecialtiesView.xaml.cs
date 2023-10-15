@@ -12,7 +12,7 @@ public partial class SpecialtiesView : ContentPage
     }
     protected override bool OnBackButtonPressed()
     {
-        Helper.NavigationTo("///main");
+        AppNavigations.GoToMainPage();
         return true;
     }
     private void collectionOfSpecialists_SelectionChanged(object sender, SelectionChangedEventArgs e)

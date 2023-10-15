@@ -6,10 +6,10 @@
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="DoctorsView"
     BackgroundColor="{StaticResource White}"
     NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated">
@@ -62,16 +62,14 @@
         </Style>
     </ContentPage.Resources>
 
-    <!--<ContentPage.BindingContext>
-        <vm:DoctorsViewModel >
-    </ContentPage.BindingContext>-->
-
     <Grid RowDefinitions="Auto,Auto,*">
 
         <!--  Header  -->
         <Grid BackgroundColor="{StaticResource Primary}" ColumnDefinitions="*,60">
-            <!--  ROW ##1## backbutton  -->
-            <template:BackButtonTemplate Title="الأطباء" HorizontalOptions="FillAndExpand" />
+
+            <!--  Backbutton  -->
+            <template:BackButtonTemplate Title="{Static lang:AppResources.TabBar_doctors}" HorizontalOptions="FillAndExpand" />
+
             <!--  Filter Icon  -->
             <Frame
                 Grid.Column="1"
@@ -95,7 +93,7 @@
 
         </Grid>
 
-        <!--  ROW ##2## seacch box  -->
+        <!--  Seacch Box  -->
         <Grid
             Grid.Row="1"
             BackgroundColor="{StaticResource Gray300}"
@@ -109,7 +107,7 @@
 
         </Grid>
 
-        <!--  ROW ##3## Collection  of doctor card View  -->
+        <!--  Collection Of Doctor card View  -->
         <CollectionView
             x:Name="ClViewDoctors"
             Grid.Row="2"
@@ -119,26 +117,55 @@
             SelectionChangedCommand="{Binding DoctorSelectionChangedCommand}"
             SelectionChangedCommandParameter="{Binding Source={x:Reference ClViewDoctors}, Path=SelectedItem}"
             SelectionMode="Single">
+
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+                <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <!--  AVATAR  -->
+                    <Image HeightRequest="80" Source="medicalteam.png" />
+                    <Label
+                        Margin="10,25,10,10"
+                        HorizontalOptions="Fill"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SubTitle}"
+                        Text="{Static lang:AppResources.Doctors_ThereNoDoctors}"
+                        TextColor="{StaticResource Primary}" />
+                    <Label
+                        FontAttributes="Italic"
+                        HorizontalOptions="Fill"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource Caption}"
+                        Text="{Static lang:AppResources.Doctors_TryBroaderFilter}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OpenFiltrFrame" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </CollectionView.EmptyView>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <template:DoctorCardTemplate CommandParameter="1" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
             <!--<CollectionView.Footer>
-                <StackLayout BackgroundColor="LightGray">
-                    <Label
-                        Margin="10,0,0,0"
-                        FontAttributes="Bold"
-                        FontSize="12"
-                        Text="end collection" />
+                <StackLayout HorizontalOptions="Center">
+                    <Button
+                        BackgroundColor="Transparent"
+                        Command="{Binding Source={x:Reference this}, Path=BindingContext.NextPageCommand}"
+                        FontSize="20"
+                        Style="{StaticResource LableIcon}"
+                        Text="{x:Static font:IconFontMaterial.ProgressDownload}" />
                 </StackLayout>
             </CollectionView.Footer>-->
+
         </CollectionView>
 
-        <!--  ROW ##4## Filter  -->
+        <!--  Filter Popup  -->
         <Border
             x:Name="borderFilter"
             Grid.RowSpan="3"
@@ -161,8 +188,9 @@
             <VerticalStackLayout Padding="10,20" Spacing="20">
                 <!--  Hedar  -->
                 <StackLayout Orientation="Horizontal">
-                    <Label Style="{StaticResource SubTitle}" Text="الترتيب" />
-                    <!--  close icon  -->
+                    <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.Doctors_Filter}" />
+
+                    <!--  Close icon  -->
                     <Button
                         BackgroundColor="{StaticResource White}"
                         Clicked="CloseFiltrFrame"
@@ -172,16 +200,8 @@
 
                 </StackLayout>
 
-                <!--  Title  -->
-                <!--<HorizontalStackLayout HorizontalOptions="Center">
-                    <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronRight}" />
-                    <Label Style="{StaticResource SubTitle}" Text="5/2023" />
-                    <Label Style="{StaticResource LableIcon}" Text="{x:Static font:IconFontMaterial.ChevronLeft}" />
-                </HorizontalStackLayout>-->
-
                 <!--  Dayes  -->
-
-                <Label Style="{StaticResource SubTitle}" Text="اليوم" />
+                <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.Doctors_Days}" />
 
                 <CollectionView
                     x:Name="daysCollection"
@@ -216,18 +236,18 @@
                 </CollectionView>
 
 
-                <Label Style="{StaticResource SubTitle}" Text="الجنس" />
+                <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.Doctors_Gender}" />
                 <HorizontalStackLayout Spacing="10">
                     <CheckBox x:Name="bothMaleFemaleCheckBox" CheckedChanged="BothMaleFemaleCheckBox_CheckedChanged" />
-                    <Label Style="{StaticResource Body}" Text="كلاهما" />
+                    <Label Style="{StaticResource Body}" Text="{Static lang:AppResources.Doctors_BothSexes}" />
                     <CheckBox x:Name="maleCheckBox" CheckedChanged="MaleCheckBox_CheckedChanged" />
-                    <Label Style="{StaticResource Body}" Text="دكتور" />
+                    <Label Style="{StaticResource Body}" Text="{Static lang:AppResources.Doctors_Doctor}" />
                     <CheckBox x:Name="femaleCheckBox" CheckedChanged="FemaleCheckBox_CheckedChanged" />
-                    <Label Style="{StaticResource Body}" Text="دكتورة" />
+                    <Label Style="{StaticResource Body}" Text="{Static lang:AppResources.Doctors_FemaleDoctor}" />
                 </HorizontalStackLayout>
 
                 <!--    -->
-                <Label Style="{StaticResource SubTitle}" Text="اللقب" />
+                <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.Doctors_Title}" />
 
                 <CollectionView
                     x:Name="degressCollection"
@@ -280,47 +300,22 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
                 <Button
                     Margin="10,30"
                     Clicked="Button_Clicked"
-                    Text="تطبيق" />
+                    Text="{Static lang:AppResources.Doctors_btn_apply}" />
 
-                <!--<Grid
-                    ColumnDefinitions="40,100,40,100"
-                    RowDefinitions="*,*"
-                    RowSpacing="5">
-
-                    <CheckBox
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        IsChecked="True" />
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Style="{StaticResource Body}"
-                        Text="استاذ" />
-                    <CheckBox Grid.Row="0" Grid.Column="2" />
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="3"
-                        Style="{StaticResource Body}"
-                        Text="امتياز" />
-                    <CheckBox Grid.Row="1" Grid.Column="0" />
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Style="{StaticResource Body}"
-                        Text="استشاري" />
-                    <CheckBox Grid.Row="1" Grid.Column="2" />
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="3"
-                        Style="{StaticResource Body}"
-                        Text="اخصائي" />
-                </Grid>-->
             </VerticalStackLayout>
         </Border>
 
-        <!--  ROW ##5##  -->
+
+        <ActivityIndicator
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            HeightRequest="50"
+            IsRunning="{Binding IsRefreshing}"
+            VerticalOptions="Center"
+            Color="{StaticResource Primary}" />
     </Grid>
 </ContentPage>

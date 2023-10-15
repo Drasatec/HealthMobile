@@ -11,7 +11,6 @@
     Margin="0"
     Padding="0"
     BackgroundColor="Transparent"
-    FlowDirection="RightToLeft"
     HorizontalOptions="FillAndExpand">
 
     <Border

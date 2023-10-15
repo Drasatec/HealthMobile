@@ -20,12 +20,6 @@ public partial class ServiceCardTemplate : Border
         typeof(string),
         typeof(ServiceCardTemplate));
 
-    //public static readonly BindableProperty CommandProperty =
-    //    BindableProperty.Create(
-    //    nameof(Command),
-    //    typeof(ICommand),
-    //    typeof(SearchBoxTemplate));
-
     public static readonly BindableProperty CommandParameterProperty =
        BindableProperty.Create(
        nameof(CommandParameter),
@@ -43,11 +37,6 @@ public partial class ServiceCardTemplate : Border
         get => (string)GetValue(ImageSourceProperty);
         set => SetValue(ImageSourceProperty, value);
     }
-    //public ICommand Command
-    //{
-    //    get => (ICommand)GetValue(CommandProperty);
-    //    set => SetValue(CommandProperty, value);
-    //}
 
     public string CommandParameter
     {

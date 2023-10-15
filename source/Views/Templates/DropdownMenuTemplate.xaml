@@ -10,8 +10,7 @@
     x:Name="this"
     Margin="0"
     Padding="0"
-    BackgroundColor="Transparent"
-    FlowDirection="RightToLeft">
+    BackgroundColor="Transparent">
     <ContentView.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -47,12 +46,14 @@
 
         <Grid
             Margin="0,0"
+            BackgroundColor="{StaticResource White}"
             HorizontalOptions="Fill"
             RowDefinitions="45,1,*"
             RowSpacing="0">
             <!--  Header  -->
             <StackLayout
                 x:Name="dropdownHeader"
+                BackgroundColor="{StaticResource White}"
                 HeightRequest="45"
                 Orientation="Horizontal"
                 Spacing="0"
@@ -60,6 +61,7 @@
                 <Entry
                     x:Name="entry"
                     Margin="15,0"
+                    BackgroundColor="{StaticResource White}"
                     FontFamily="{StaticResource CairoRegular}"
                     HorizontalOptions="FillAndExpand"
                     InputTransparent="True"
@@ -128,8 +130,7 @@
                                         HeightRequest="35"
                                         InputTransparent="True"
                                         Text="{Binding Name}"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray900},
-                                                                    Dark={StaticResource Gray900}}"
+                                        TextColor="{StaticResource Gray900}"
                                         VerticalOptions="CenterAndExpand"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>

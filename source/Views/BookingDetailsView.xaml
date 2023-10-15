@@ -6,19 +6,18 @@
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="BookingDetailsView"
     BackgroundColor="{StaticResource White}"
-    FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False"
     Shell.PresentationMode="ModalAnimated">
-    <RefreshView Command="{Binding  RefreshingCommand}" IsRefreshing="{Binding IsRefreshing}">
+    <RefreshView Command="{Binding RefreshingCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView>
             <Grid RowDefinitions="Auto,Auto,*">
                 <!--  Hedar  -->
-                <template:BackButtonTemplate Title="صفحة تأكيد الحجز" />
+                <template:BackButtonTemplate Title="{Static lang:AppResources.BookingDetails_TitlePage}" />
 
                 <!--  Status ##1##  -->
                 <StackLayout
@@ -48,65 +47,50 @@
                     Padding="20,0"
                     Spacing="10">
 
-                    <!--  Doctor ##2##  -->
+                    <!--  Doctor  -->
                     <StackLayout Orientation="Horizontal" Spacing="8">
-                        <kit:AvatarView ImageSource="doctor1" Style="{StaticResource Avatar}" />
+                        <!--<kit:AvatarView ImageSource="doctor1" Style="{StaticResource Avatar}" />-->
                         <Label Style="{StaticResource SubTitle}" Text="{Binding Booking.Doctor}" />
                     </StackLayout>
 
-                    <!--  Hospital ##3##  -->
+                    <!--  Hospital  -->
                     <StackLayout>
-                        <!--  Hos Name  -->
                         <Label Style="{StaticResource SubTitle}" Text="{Binding Booking.Hospital}" />
-                        <!--<StackLayout Orientation="Horizontal" Spacing="5">
-                        <Label
-                            FontFamily="{StaticResource IconFont}"
-                            Style="{StaticResource Body}"
-                            Text="{x:Static font:IconFontMaterial.MapMarker}"
-                            TextColor="{StaticResource Primary}" />
-                        <Label Style="{StaticResource Body}" Text="طنطا شارع الجيش" />
-                    </StackLayout>-->
                     </StackLayout>
 
-                    <!--  ##3## Name  -->
+                    <!--  Patient Name  -->
                     <StackLayout Spacing="5">
-                        <Label Style="{StaticResource SubTitle}" Text="اسم المريض" />
+                        <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.BookingDetails_PatientName}" />
                         <Label Style="{StaticResource Body}" Text="{Binding Booking.Patient}" />
                     </StackLayout>
 
-                    <!--  ##4## Phone  -->
-                    <!--<StackLayout Spacing="5">
-                    <Label Style="{StaticResource SubTitle}" Text="الهاتف" />
-                    <Label Style="{StaticResource Body}" Text="012542165218" />
-                </StackLayout>-->
-
-                    <!--  ##5## Visit Type  -->
+                    <!--  Visit Type  -->
                     <StackLayout Spacing="5">
-                        <Label Style="{StaticResource SubTitle}" Text="نوع الكشف" />
+                        <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.BookingDetails_TypeVitst}" />
                         <Label Style="{StaticResource Body}" Text="{Binding Booking.TypeVisit}" />
                     </StackLayout>
 
-                    <!--  ##6## Clinic  -->
+                    <!--  Clinic  -->
                     <StackLayout Spacing="5">
-                        <Label Style="{StaticResource SubTitle}" Text="العيادة" />
+                        <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.BookingDetails_Clinic}" />
                         <Label Style="{StaticResource Body}" Text="{Binding Booking.Clinic}" />
                     </StackLayout>
 
-                    <!--  ##7## Date Visit  -->
+                    <!--  Date Visit  -->
                     <StackLayout Spacing="10">
-                        <Label Style="{StaticResource SubTitle}" Text="تاريخ الحجز" />
+                        <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.BookingDetails_VisitDate}" />
                         <Label Style="{StaticResource Body}" Text="{Binding Booking.VisitDate}" />
 
-                        <Label Style="{StaticResource SubTitle}" Text="الفترة" />
+                        <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.BookingDetails_WorkingPeriod}" />
                         <Label Style="{StaticResource Body}" Text="{Binding Booking.WorkingPeriod}" />
 
                     </StackLayout>
 
-                    <!--  ##8##  -->
+                    <!--  Cancel Booning  -->
                     <Button
                         BackgroundColor="{StaticResource Danger}"
                         Command="{Binding CancelBooningCommand}"
-                        Text="إلغاء الحجز" />
+                        Text="{Static lang:AppResources.BookingDetails_btn_cancel}" />
 
                 </VerticalStackLayout>
             </Grid>

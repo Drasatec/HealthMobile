@@ -12,21 +12,25 @@ public class BookingDetailsViewModel : ObservableObject, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        query.TryGetValue("bookingId", out bookingId);
-        query.TryGetValue("bookingDetailsModel", out bookingDetailsModel);
-        if (bookingDetailsModel != null)
+        try
         {
-            Booking = bookingDetailsModel as BookingModel;
-            OnPropertyChanged(nameof(Booking));
+            query.TryGetValue("bookingId", out bookingId);
+            query.TryGetValue("bookingDetailsModel", out bookingDetailsModel);
+            if (bookingDetailsModel != null)
+            {
+                Booking = bookingDetailsModel as BookingModel;
+                OnPropertyChanged(nameof(Booking));
+            }
+            else
+            {
+                GetBooingById((int)bookingId);
+            }
         }
-        else
-        {
-            GetBooingById((int)bookingId);
-        }
+        catch (Exception) { }
     }
-    
+
     public ICommand CancelBooningCommand => new Command(CancelBooningEX);
-    public ICommand RefreshingCommand => new Command(()=> IsRefreshing=false );
+    public ICommand RefreshingCommand => new Command(() => IsRefreshing = false);
 
     public BookingModel Booking { get; set; }
     public bool IsRefreshing { get => isRefreshing; set => SetProperty(ref isRefreshing, value); }
@@ -41,7 +45,7 @@ public class BookingDetailsViewModel : ObservableObject, IQueryAttributable
         {
             if (Booking.BookingStatusId == 3)
             {
-                await Helper.ToastAlert("it was Canceled");
+                await Alerts.ToastAlert("it was Canceled");
                 return;
             }
 
@@ -56,7 +60,7 @@ public class BookingDetailsViewModel : ObservableObject, IQueryAttributable
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(BookingDetailsViewModel), nameof(GetBooingById), ex.Message);
+            await Alerts.DisplayAlert(nameof(BookingDetailsViewModel), nameof(GetBooingById), ex.Message);
         }
     }
 
@@ -75,7 +79,7 @@ public class BookingDetailsViewModel : ObservableObject, IQueryAttributable
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(BookingDetailsViewModel), nameof(GetBooingById), ex.Message);
+            await Alerts.DisplayAlert(nameof(BookingDetailsViewModel), nameof(GetBooingById), ex.Message);
         }
         IsRefreshing = false;
     }

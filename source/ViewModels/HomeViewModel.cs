@@ -1,16 +1,7 @@
-﻿using DrasatHealthMobile.Models.Hospital;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DrasatHealthMobile.Helpers;
 using DrasatHealthMobile.Models.Promotion;
 using DrasatHealthMobile.Services.Home;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
 namespace DrasatHealthMobile.ViewModels;
 
 public class HomeViewModel : ObservableObject
@@ -19,29 +10,27 @@ public class HomeViewModel : ObservableObject
 
     public List<PromotionModel> Promotions { get; set; }
 
-    public List<string> ListOfServices { get; set; } = new List<string>()
-    {
-        "العيادات",
-        "الخدمات",
-        "الأطباء",
-    };
-
     public HomeViewModel(IHomeServices homeServices)
     {
         this.homeServices = homeServices;
-        Promotions = new List<PromotionModel>();
-
-        GetNames();
+        _ = GetNames();
     }
 
-    public async void GetNames()
+    public async Task GetNames()
     {
-        var result = await homeServices.GetPromotionModelAsync("");
-        if (result == null)
+        try
         {
-            return;
+            var result = await homeServices.GetPromotionModelAsync("");
+            if (result != null)
+            {
+                Promotions = result.Data;
+                OnPropertyChanged(nameof(Promotions));
+            }
         }
-        Promotions = result.Data;
-        OnPropertyChanged(nameof(Promotions));
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(HomeViewModel), nameof(GetNames), ex.Message);
+        }
+
     }
 }

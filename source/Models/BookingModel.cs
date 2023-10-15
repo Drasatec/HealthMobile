@@ -35,6 +35,7 @@ public class BookingModel
 
     public string Success { get; set; }
     public string Message { get; set; }
+    public string Photo { get; set; }
 
 
 }

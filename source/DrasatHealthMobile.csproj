@@ -35,7 +35,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
-	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <AndroidPackageFormat>aab</AndroidPackageFormat>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
@@ -44,57 +44,80 @@
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	  <RunAOTCompilation>False</RunAOTCompilation>
 	  <PublishTrimmed>False</PublishTrimmed>
-	  <ApplicationTitle>alrahmacare02</ApplicationTitle>
+	  <ApplicationTitle>alrahmavip</ApplicationTitle>
 	  <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
 	  <TrimMode>link</TrimMode>
+	  <ApplicationVersion>2</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationId>com.drasat.alrahmavip</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
 	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <AndroidPackageFormat>aab</AndroidPackageFormat>
 	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	  <DebugSymbols>True</DebugSymbols>
 	  <Debugger>Xamarin</Debugger>
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	  <RunAOTCompilation>False</RunAOTCompilation>
 	  <PublishTrimmed>False</PublishTrimmed>
-	  <ApplicationTitle>alrahmacare02</ApplicationTitle>
+	  <ApplicationTitle>alrahmavip</ApplicationTitle>
 	  <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
 	  <TrimMode>link</TrimMode>
+	  <ApplicationVersion>2</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationId>com.drasat.alrahmavip</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
-	  <ApplicationTitle>alrahmacare02</ApplicationTitle>
+	  <ApplicationTitle>alrahmavip</ApplicationTitle>
+	  <ApplicationVersion>2</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationId>com.drasat.alrahmavip</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
-	  <ApplicationTitle>alrahmacare02</ApplicationTitle>
+	  <ApplicationTitle>alrahmavip</ApplicationTitle>
 	  <MtouchLink>None</MtouchLink>
+	  <ApplicationVersion>2</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationId>com.drasat.alrahmavip</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
-	  <ApplicationTitle>alrahmacare02</ApplicationTitle>
+	  <ApplicationTitle>alrahmavip</ApplicationTitle>
+	  <ApplicationVersion>2</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationId>com.drasat.alrahmavip</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
-	  <ApplicationTitle>alrahmacare02</ApplicationTitle>
+	  <ApplicationTitle>alrahmavip</ApplicationTitle>
+	  <ApplicationVersion>2</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationId>com.drasat.alrahmavip</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationTitle>alrahmacare02</ApplicationTitle>
+	  <ApplicationTitle>alrahmavip</ApplicationTitle>
+	  <ApplicationVersion>2</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationId>com.drasat.alrahmavip</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationTitle>alrahmacare02</ApplicationTitle>
+	  <ApplicationTitle>alrahmavip</ApplicationTitle>
+	  <ApplicationVersion>2</ApplicationVersion>
+	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationId>com.drasat.alrahmavip</ApplicationId>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-
+		<MauiIcon Include="Resources\AppIcon\appicon.png" />
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\rahmalogo.svg" Color="#0070CD" BaseSize="456,456" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#ffffff" />
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
@@ -137,6 +160,7 @@
 	<ItemGroup>
 	  <Folder Include="Controls\" />
 	  <Folder Include="Models\Sitines\" />
+	  <Folder Include="Resources\AppIcon\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -171,6 +195,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AddBookingView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PrivacyPolicyView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\v2\AddMemberView.xaml">
@@ -219,9 +246,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\BackButtonTemplate.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Templates\BookingCardTemplate.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\DoctorCardTemplate.xaml">

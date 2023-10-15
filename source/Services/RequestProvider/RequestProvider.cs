@@ -19,14 +19,20 @@ public class RequestProvider : IRequestProvider
 
     public async Task<List<TResult>> GetAsync<TResult>(string uri, string token = "")
     {
-        var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Get, uri);
-        request.Headers.Add("Authorization", $"Bearer {token}");
-        var response = await client.SendAsync(request);
-        response.EnsureSuccessStatusCode();
-        Console.WriteLine(await response.Content.ReadAsStringAsync());
-        List<TResult> result = await response.Content.ReadFromJsonAsync<List<TResult>>();
-        return result;
+        try
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            request.Headers.Add("Authorization", $"Bearer {token}");
+            var response = await client.SendAsync(request);
+            List<TResult> result = await response.Content.ReadFromJsonAsync<List<TResult>>();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RequestProvider), nameof(GetAsync), ex.Message);
+            return null;
+        }
     }
 
     public async Task<PagedResponse<TResult>> GetPagedResponseAsync<TResult>(string uri, string token = "")
@@ -37,14 +43,12 @@ public class RequestProvider : IRequestProvider
             var request = new HttpRequestMessage(HttpMethod.Get, uri);
             request.Headers.Add("Authorization", $"Bearer {token}");
             var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
             PagedResponse<TResult> result = await response.Content.ReadFromJsonAsync<PagedResponse<TResult>>();
             return result;
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
-            //await Shell.Current.DisplayAlert("GetPagedResponseAsync", ex.Message, "cancel");
+            await Alerts.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
             return null;
         }
     }
@@ -56,7 +60,6 @@ public class RequestProvider : IRequestProvider
             var client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, uri);
             var response = await client.SendAsync(request);
-            //response.EnsureSuccessStatusCode();
             if (response != null)
             {
                 List<TResult> result = await response.Content.ReadFromJsonAsync<List<TResult>>();
@@ -67,7 +70,7 @@ public class RequestProvider : IRequestProvider
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
+            await Alerts.DisplayAlert(nameof(RequestProvider), nameof(GetListAsync), ex.Message);
             return null;
         }
     }
@@ -85,7 +88,7 @@ public class RequestProvider : IRequestProvider
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
+            await Alerts.DisplayAlert(nameof(RequestProvider), nameof(GetSingleAsync), ex.Message);
             return default;
         }
     }
@@ -98,48 +101,51 @@ public class RequestProvider : IRequestProvider
             var request = new HttpRequestMessage(HttpMethod.Get, uri);
             request.Headers.Add("Authorization", $"Bearer {token}");
             var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
             string result = await response.Content.ReadAsStringAsync();
             return result;
         }
         catch (Exception ex)
         {
-            await Helper.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
+            await Alerts.DisplayAlert(nameof(RequestProvider), nameof(GetPagedResponseAsync), ex.Message);
             return null;
         }
     }
 
-
     public async Task<TResult> PostSingleAsync<TResult, TTake>(string uri, TTake data, string token = "", string header = "")
     {
-        //HttpClient httpClient = GetOrCreateHttpClient(token);
+        try
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, uri);
+            var content = new StringContent(JsonSerializer.Serialize(data), null, "application/json");
+            request.Content = content;
+            var response = await client.SendAsync(request);
 
-        //if (!string.IsNullOrEmpty(header))
-        //{
-        //    RequestProvider.AddHeaderParameter(httpClient, header);
-        //}
-        var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, uri);
-        var content = new StringContent(JsonSerializer.Serialize(data), null, "application/json");
-        request.Content = content;
-        var response = await client.SendAsync(request);
-        //response.EnsureSuccessStatusCode();
-
-        //if (!response.IsSuccessStatusCode)
-        //{
-        //    return default(TResult);
-        //}
-        TResult result = await response.Content.ReadFromJsonAsync<TResult>();
-        return result;
+            TResult result = await response.Content.ReadFromJsonAsync<TResult>();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RequestProvider), nameof(PostSingleAsync), ex.Message);
+            return default;
+        }
     }
-    
+
     public async Task<TResult> PutByQueryParamsAsync<TResult>(string uri, string token = "", string header = "")
     {
-        var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Put, uri);
-        var response = await client.SendAsync(request);
-        TResult result = await response.Content.ReadFromJsonAsync<TResult>();
-        return result;
+        try
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Put, uri);
+            var response = await client.SendAsync(request);
+            TResult result = await response.Content.ReadFromJsonAsync<TResult>();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(RequestProvider), nameof(PutByQueryParamsAsync), ex.Message);
+            return default;
+        }
     }
 
 
@@ -171,6 +177,7 @@ public class RequestProvider : IRequestProvider
         TResult result = await response.Content.ReadFromJsonAsync<TResult>();
 
         return result;
+
     }
 
     public async Task<TResult> PostAsync<TResult>(string uri, string data, string clientId, string clientSecret)

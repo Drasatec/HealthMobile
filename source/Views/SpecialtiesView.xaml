@@ -6,29 +6,24 @@
     xmlns:f="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="SpecialtiesView"
     BackgroundColor="{StaticResource Background}"
-    FlowDirection="RightToLeft"
     NavigationPage.HasNavigationBar="False">
-    <!--<ContentPage.BindingContext>
-        <vm:SpecialtiesViewModel />
-    </ContentPage.BindingContext>-->
+
     <Grid RowDefinitions="Auto,*">
 
         <StackLayout>
-
             <!--  Navigation  -->
             <template:BackButtonTemplate
                 x:Name="backButton"
-                Title="التخصصات"
+                Title="{Static lang:AppResources.TabBar_specialty}"
                 ButtonIsVisible="False" />
 
             <!--  SEARCH BOX  -->
-            <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" />
-
+            <template:SearchBoxTemplate Command="{Binding SearchBoxTypingCommand}" HeightRequest="50" />
         </StackLayout>
 
 
@@ -45,7 +40,7 @@
                 <GridItemsLayout
                     HorizontalItemSpacing="0"
                     Orientation="Vertical"
-                    Span="3" />
+                    Span="1" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
@@ -58,7 +53,10 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="8" />
                             </Border.StrokeShape>
-                            <StackLayout VerticalOptions="CenterAndExpand">
+                            <StackLayout
+                                Padding="10,0"
+                                Orientation="Horizontal"
+                                VerticalOptions="CenterAndExpand">
                                 <kit:AvatarView
                                     BackgroundColor="{StaticResource White}"
                                     CornerRadius="10"
@@ -69,6 +67,7 @@
                                 <StackLayout>
                                     <Label
                                         Padding="10,0"
+                                        FontSize="16"
                                         HeightRequest="55"
                                         HorizontalTextAlignment="Center"
                                         MaxLines="2"

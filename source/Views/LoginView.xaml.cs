@@ -1,7 +1,8 @@
 using DrasatHealthMobile.Helpers;
+using DrasatHealthMobile.Languages;
 using DrasatHealthMobile.Models;
 using DrasatHealthMobile.Services.PublicServices;
-using System.Diagnostics;
+using System.Globalization;
 
 namespace DrasatHealthMobile.Views;
 
@@ -12,6 +13,7 @@ public partial class LoginView : ContentPage
     public LoginView(IPublicService publicService)
     {
         InitializeComponent();
+        BindingContext = this;
         this.publicService = publicService;
     }
     bool IsEmail = false;
@@ -44,7 +46,7 @@ public partial class LoginView : ContentPage
     {
         var text = emailTemplate.Text;
         var pass = passwordTemplate.Text;
-        var valid = false;
+        bool valid;
 
         if (Helper.IsValidEmail(text))
         {
@@ -81,27 +83,46 @@ public partial class LoginView : ContentPage
     public async Task<bool> SendUserLogin(string endpoint, UserLogin user)
     {
         //var user = new UserLogin();
-
-        var responseUser = await publicService.PostUserLonginAsync(endpoint, user);
-        if (responseUser != null)
+        try
         {
-            if (responseUser.Success)
+            var responseUser = await publicService.PostUserLonginAsync(endpoint, user);
+            if (responseUser != null)
             {
-                Helper.SetValue("token", responseUser.Token);
-                Helper.SetValue("userName", responseUser.UserAccount?.userName);
-                Helper.SetValue<int>("userId", responseUser.UserAccount.userId);
-                await Helper.NavigationToAsync("///main");
-                Debug.WriteLine(responseUser.Token);
-                await Helper.ToastAlert(responseUser.UserAccount.userId.ToString());
-
-                return true;
+                if (responseUser.Success)
+                {
+                    AppPreferences.SetValue("token", responseUser.Token);
+                    AppPreferences.SetValue("userName", responseUser.UserAccount?.userName);
+                    AppPreferences.SetValue<int>("userId", responseUser.UserAccount.userId);
+                    AppPreferences.SetValue("userEmail", responseUser.UserAccount.email);
+                    AppNavigations.GoToMainPage();
+                    return true;
+                }
+                else
+                {
+                    errorMessageLabel.Text = responseUser.Message;
+                    await Alerts.ToastAlert(responseUser.Message);
+                }
             }
-            else
-            {
-                errorMessageLabel.Text = responseUser.Message;
-                await Helper.ToastAlert(responseUser.Message);
-            }
+            return false;
         }
-        return false;
+        catch (Exception ex)
+        {
+            await Alerts.DisplayAlert(nameof(LoginView), nameof(SendUserLogin), ex.Message);
+            return false;
+        }
+    }
+
+    public LocalizationResourceManager LocalizationResourceManager => LocalizationResourceManager.Instance;
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        //var switchToCulture = AppResources.Culture.TwoLetterISOLanguageName
+        //    .Equals("ar", StringComparison.InvariantCultureIgnoreCase) ? new CultureInfo("en") : new CultureInfo("ar");
+
+        var switchToCulture = new CultureInfo("en");
+
+        LocalizationResourceManager.Instance.SetCulture(switchToCulture);
+       // Application.Current.MainPage = new AppShell();//  NavigationPage(new HomeView());
+       // Application.Current.UserAppTheme = AppTheme.Light;
     }
 }

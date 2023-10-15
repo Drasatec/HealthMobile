@@ -276,4 +276,18 @@ public class PublicService : IPublicService
         }
         return list;
     }
+
+    public async Task<PatientModel> GetPatiendByIdAsync(string endpoint, string param)
+    {
+        PatientModel model;
+        try
+        {
+            model = await RequestProvider.GetSingleAsync<PatientModel>($"{Constants.BaseUrl}{endpoint}?{param}", "").ConfigureAwait(false);
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            model = null;
+        }
+        return model;
+    }
 }

@@ -6,31 +6,15 @@
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="ProfileView"
-    BackgroundColor="{StaticResource Secondary}"
-    FlowDirection="RightToLeft"
+    BackgroundColor="{StaticResource Background}"
     NavigationPage.HasNavigationBar="False">
 
     <Grid RowDefinitions="Auto,*">
-        <!--  BackButton  -->
-        <Button
-            Margin="20"
-            Padding="0"
-            BackgroundColor="{StaticResource White}"
-            BorderColor="Transparent"
-            CornerRadius="20"
-            FontFamily="{StaticResource IconFont}"
-            FontSize="Title"
-            HeightRequest="40"
-            HorizontalOptions="End"
-            IsVisible="false"
-            Text="{x:Static font:IconFontMaterial.Close}"
-            TextColor="{StaticResource Black}"
-            VerticalOptions="Start"
-            WidthRequest="40" />
+
         <StackLayout Padding="40">
             <kit:AvatarView
                 BorderWidth="3"
@@ -40,10 +24,9 @@
                 Style="{StaticResource Avatar}"
                 WidthRequest="80" />
 
-            <Label Style="{StaticResource Body}" Text="محمد سامح" />
-            <Label Style="{StaticResource Body}" Text="0125134214" />
+            <Label Style="{StaticResource Body}" Text="{Binding Patient.PatientTranslations[0].FullName, Source={x:Reference this}}" />
+            <Label Style="{StaticResource Body}" Text="{Binding PatientEmail, Source={x:Reference this}}" />
         </StackLayout>
-
 
         <!--  ####  -->
         <StackLayout
@@ -51,43 +34,55 @@
             Margin="10,0"
             IsVisible="true"
             Spacing="1">
-            <StackLayout HeightRequest="45" Orientation="Horizontal">
-                <Label
-                    Style="{StaticResource LableIcon}"
-                    Text="{x:Static font:IconFontMaterial.Heart}"
-                    TextColor="Black" />
-                <Label Style="{StaticResource Body}" Text="العنصر الأول" />
-            </StackLayout>
+            <Grid>
+                <StackLayout HeightRequest="45" Orientation="Horizontal">
+                    <Label Style="{StaticResource LableMoreIcon}" Text="{x:Static font:IconFontMaterial.Heart}" />
+                    <Label Style="{StaticResource Body}" Text="{Static lang:AppResources.TabBar_specialty}" />
+                </StackLayout>
+                <Button BackgroundColor="Transparent" Clicked="GoToSpecialties" />
+            </Grid>
 
-            <StackLayout HeightRequest="45" Orientation="Horizontal">
-                <Label
-                    Style="{StaticResource LableIcon}"
-                    Text="{x:Static font:IconFontMaterial.Heart}"
-                    TextColor="Black" />
-                <Label Style="{StaticResource Body}" Text="العنصر الثاني" />
-            </StackLayout>
+            <Grid>
+                <StackLayout HeightRequest="45" Orientation="Horizontal">
+                    <Label Style="{StaticResource LableMoreIcon}" Text="{x:Static font:IconFontMaterial.CalendarMonthOutline}" />
+                    <Label Style="{StaticResource Body}" Text="{Static lang:AppResources.TabBar_booking}" />
+                </StackLayout>
+                <Button BackgroundColor="Transparent" Clicked="GoToBookings" />
+            </Grid>
 
-            <StackLayout HeightRequest="45" Orientation="Horizontal">
-                <Label
-                    Style="{StaticResource LableIcon}"
-                    Text="{x:Static font:IconFontMaterial.Heart}"
-                    TextColor="Black" />
-                <Label Style="{StaticResource Body}" Text="العنصر الثالث" />
-            </StackLayout>
+            <Grid>
+                <StackLayout HeightRequest="45" Orientation="Horizontal">
+                    <Label Style="{StaticResource LableMoreIcon}" Text="{x:Static font:IconFontMaterial.Doctor}" />
+                    <Label Style="{StaticResource Body}" Text="{Static lang:AppResources.TabBar_doctors}" />
+                </StackLayout>
+                <Button BackgroundColor="Transparent" Clicked="GoToDoctors" />
+            </Grid>
+
+            <Grid>
+                <StackLayout HeightRequest="45" Orientation="Horizontal">
+                    <Label Style="{StaticResource LableMoreIcon}" Text="{x:Static font:IconFontMaterial.ShieldLockOutline}" />
+                    <Label Style="{StaticResource Body}" Text="{Static lang:AppResources.Register_Privacy}" />
+                </StackLayout>
+                <Button BackgroundColor="Transparent" Clicked="GoToPrivacy" />
+            </Grid>
+
+            <Grid>
+                <StackLayout HeightRequest="45" Orientation="Horizontal">
+                    <Label Style="{StaticResource LableMoreIcon}" Text="{x:Static font:IconFontMaterial.Login}" />
+                    <Label
+                        x:Name="loginText"
+                        Style="{StaticResource Body}"
+                        Text="{Static lang:AppResources.TabBar_login}" />
+                </StackLayout>
+                <Button BackgroundColor="Transparent" Clicked="Button_Clicked_1" />
+            </Grid>
+
+
         </StackLayout>
-
-        <Button
-            Grid.Row="1"
-            BackgroundColor="Transparent"
-            Clicked="Button_Clicked"
-            HeightRequest="45"
-            Text="dddddddddddddddddddddd"
-            VerticalOptions="Start" />
     </Grid>
 
-
     <!--  end  -->
-    <ContentPage.Behaviors>
+    <!--<ContentPage.Behaviors>
         <kit:StatusBarBehavior StatusBarColor="{StaticResource Secondary}" StatusBarStyle="LightContent" />
-    </ContentPage.Behaviors>
+    </ContentPage.Behaviors>-->
 </ContentPage>

@@ -4,8 +4,6 @@ namespace DrasatHealthMobile.Views.Templates;
 
 public partial class SelectHospitalBottomSheet : BottomSheet
 {
-    public event EventHandler Clicked;
-
     public SelectHospitalBottomSheet(List<HospitalTranslation> hospitalTranslations)
 	{
 		InitializeComponent();
@@ -19,14 +17,21 @@ public partial class SelectHospitalBottomSheet : BottomSheet
 		return Hospital;
 	}
 
-    private void hossCollections_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void HossCollections_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         _hospital = hossCollections.SelectedItem as HospitalTranslation;
     }
 
     private void BtnSubmit_Clicked(object sender, EventArgs e)
     {
-        Hospital = _hospital;
-        this.DismissAsync();
+        try
+        {
+            Hospital = _hospital;
+            this.DismissAsync();
+        }
+        catch (Exception)
+        {
+        }
+       
     }
 }

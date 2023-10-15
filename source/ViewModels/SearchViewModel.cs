@@ -8,9 +8,9 @@ namespace DrasatHealthMobile.ViewModels;
 
 public class SearchViewModel : ObservableObject
 {
-    private MockService mock = new();
+    private readonly MockService mock = new();
     public ObservableCollection<Specialist> SpecialistsList { get; set; } = new();
-    int selectedSearshType = (int)SearchBy.specialist;
+    //int selectedSearshType = (int)SearchBy.specialist;
 
     public SearchViewModel()
     {
@@ -44,11 +44,11 @@ public class SearchViewModel : ObservableObject
     {
         if (type == (int)SearchBy.specialist)
         {
-            selectedSearshType = (int)SearchBy.specialist;
+            //selectedSearshType = (int)SearchBy.specialist;
         }
         else
         {
-            selectedSearshType = (int)SearchBy.doctor;
+            //selectedSearshType = (int)SearchBy.doctor;
         }
     }
 }

@@ -6,10 +6,10 @@
     xmlns:font="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:help="clr-namespace:DrasatHealthMobile.Helpers"
     xmlns:kit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:lang="clr-namespace:DrasatHealthMobile.Languages"
     xmlns:template="clr-namespace:DrasatHealthMobile.Views.Templates"
     xmlns:vm="clr-namespace:DrasatHealthMobile.ViewModels"
     x:Name="this"
-    Title="BookingsView"
     BackgroundColor="{StaticResource Background}"
     NavigationPage.HasNavigationBar="False">
 
@@ -17,7 +17,7 @@
         <StackLayout>
 
             <!--  Navigation  -->
-            <template:BackButtonTemplate Title="الحجوزات" ButtonIsVisible="False" />
+            <template:BackButtonTemplate Title="{Static lang:AppResources.TabBar_booking}" ButtonIsVisible="False" />
 
             <!--  Three TABS  -->
             <StackLayout
@@ -34,7 +34,7 @@
                     Command="{Binding SelectSearchTypeCommand}"
                     CommandParameter="0"
                     Style="{StaticResource Checked}"
-                    Text="القادمة" />
+                    Text="{Static lang:AppResources.Bookings_Future}" />
 
                 <!--  BUTTON Past  -->
                 <Button
@@ -43,7 +43,7 @@
                     Command="{Binding SelectSearchTypeCommand}"
                     CommandParameter="1"
                     Style="{StaticResource Unchecked}"
-                    Text="الماضية" />
+                    Text="{Static lang:AppResources.Bookings_Past}" />
 
                 <!--  BUTTON Rejected  -->
             </StackLayout>
@@ -61,12 +61,14 @@
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid BackgroundColor="{StaticResource Background}">
+                    <Grid BackgroundColor="{StaticResource White}">
                         <Border
                             Margin="5,0"
                             Padding="0"
+                            BackgroundColor="{StaticResource White}"
                             StrokeShape="RoundRectangle 6"
                             StrokeThickness="1"
                             VerticalOptions="FillAndExpand">
@@ -75,9 +77,9 @@
                                 HorizontalOptions="FillAndExpand"
                                 Spacing="5">
 
-                                <kit:AvatarView ImageSource="doctor1" Style="{StaticResource Avatar}" />
+                                <!--<kit:AvatarView ImageSource="doctor1" Style="{StaticResource Avatar}" />-->
 
-                                <StackLayout HorizontalOptions="FillAndExpand">
+                                <StackLayout Padding="20,0" HorizontalOptions="FillAndExpand">
                                     <Label
                                         HorizontalOptions="Start"
                                         Style="{StaticResource Title}"
@@ -117,7 +119,7 @@
                                             Spacing="5">
                                             <Label
                                                 Style="{StaticResource Body}"
-                                                Text="الحالة:"
+                                                Text="{Static lang:AppResources.Bookings_Status}"
                                                 TextColor="{StaticResource Primary}" />
                                             <Label
                                                 Style="{StaticResource Body}"
@@ -133,6 +135,29 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+
+        <StackLayout
+            Grid.RowSpan="3"
+            HorizontalOptions="CenterAndExpand"
+            IsVisible="{Binding TimetableIsEmpty, Source={x:Reference this}}"
+            VerticalOptions="Center">
+            <!--  AVATAR  -->
+            <Image HeightRequest="80" Source="medicalteam.png" />
+            <Label
+                Margin="10,25,10,10"
+                HorizontalOptions="Fill"
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource SubTitle}"
+                Text="{Static lang:AppResources.Bookings_ThereAreNoBooking}"
+                TextColor="{StaticResource Primary}" />
+            <Label
+                FontAttributes="Italic"
+                HorizontalOptions="Fill"
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource Caption}"
+                Text="{Static lang:AppResources.Bookings_Goto_docOr_spei}" />
+        </StackLayout>
 
         <ActivityIndicator
             x:Name="activityIndicator"
