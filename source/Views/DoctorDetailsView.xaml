@@ -13,13 +13,15 @@
     Shell.NavBarIsVisible="False"
     Shell.PresentationMode="ModalAnimated">
 
+    <Grid BackgroundColor="{StaticResource Primary}" RowDefinitions="55,*">
+        <template:BackButtonTemplate Title="{Static lang:AppResources.DoctorDetails_TitlePage}" />
 
-    <ScrollView>
-        <Grid BackgroundColor="{StaticResource Primary}" RowDefinitions="100,*">
-            <template:BackButtonTemplate Title="{Static lang:AppResources.DoctorDetails_TitlePage}" />
+        <ScrollView Grid.Row="1">
 
-            <StackLayout Grid.Row="1">
+            <Grid RowDefinitions="35,*">
+
                 <Border
+                    Grid.Row="1"
                     Padding="16,45,10,30"
                     Background="{StaticResource Background}"
                     HorizontalOptions="Fill"
@@ -28,8 +30,10 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="20,20,0,0" />
                     </Border.StrokeShape>
+
                     <StackLayout Spacing="20">
-                        <!--  Section 1  -->
+
+                        <!--  Section 1 doctor  -->
                         <StackLayout>
                             <!--  Title  -->
                             <Label
@@ -69,11 +73,8 @@
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
                         </StackLayout>
-                        <!--  Section 2  -->
 
-                        <StackLayout />
-
-                        <!--  Section 3  about doctor  -->
+                        <!--  Section 2  about doctor  -->
                         <StackLayout IsVisible="false">
                             <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.DoctorDetails_Biography}" />
                             <Label
@@ -97,14 +98,16 @@
                             </Label>
                         </StackLayout>
 
-                        <!--  Section 4  Schedule  -->
+                        <!--  Section 3  Schedule  -->
                         <StackLayout Spacing="10">
 
+                            <!--  الفروع  -->
                             <Frame
                                 Margin="10,0"
                                 Padding="5"
                                 BackgroundColor="{StaticResource Secondary}"
-                                BorderColor="Transparent">
+                                BorderColor="Transparent"
+                                IsVisible="false">
                                 <StackLayout
                                     HorizontalOptions="CenterAndExpand"
                                     InputTransparent="True"
@@ -128,54 +131,57 @@
                                 </Frame.GestureRecognizers>
                             </Frame>
 
+                            <!--  lable Timetable  -->
                             <Label Style="{StaticResource SubTitle}" Text="{Static lang:AppResources.DoctorDetails_Timetable}" />
 
 
+                            <!--  Colection of Timetable  -->
                             <Grid>
-                                <!--  Colection of Timetable #99F5F5F5  -->
                                 <CollectionView
                                     x:Name="scheduleCollection"
                                     Grid.Column="0"
                                     BackgroundColor="Transparent"
                                     HorizontalOptions="Start"
-                                    ItemsSource="{Binding DocWorksList}">
+                                    ItemsSource="{Binding DocWorksList}"
+                                    VerticalOptions="Start">
 
                                     <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout Orientation="Horizontal" />
+                                        <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
                                     </CollectionView.ItemsLayout>
 
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
                                             <Frame
-                                                Margin="5,0"
+                                                Margin="40,0"
                                                 Padding="0"
                                                 BackgroundColor="{StaticResource White}"
-                                                BorderColor="Transparent"
-                                                WidthRequest="100">
-                                                <StackLayout HeightRequest="140" VerticalOptions="FillAndExpand">
+                                                BorderColor="Transparent">
+                                                <StackLayout HeightRequest="130" VerticalOptions="FillAndExpand">
                                                     <!--  section 1  -->
                                                     <StackLayout BackgroundColor="{StaticResource Secondary}" HorizontalOptions="Fill">
                                                         <Label
                                                             FontSize="15"
                                                             HorizontalOptions="Center"
-                                                            Style="{StaticResource Caption}"
+                                                            Style="{StaticResource SubTitle}"
                                                             Text="{Binding DateName}" />
                                                     </StackLayout>
                                                     <!--  section 2  -->
                                                     <StackLayout VerticalOptions="CenterAndExpand">
                                                         <Label
                                                             HorizontalOptions="Center"
-                                                            Style="{StaticResource Small}"
+                                                            Style="{StaticResource Body}"
                                                             Text="{Binding WorkingPeriod}" />
 
                                                     </StackLayout>
                                                     <!--  section 3  -->
                                                     <Button
-                                                        Padding="0"
+                                                        Margin="0,10"
+                                                        Padding="20,0"
                                                         Command="{Binding Source={x:Reference thisPage}, Path=BindingContext.ScheduleSelectionChangedCommand}"
                                                         CommandParameter="{Binding .}"
-                                                        CornerRadius="0"
+                                                        CornerRadius="6"
                                                         HeightRequest="35"
+                                                        HorizontalOptions="Center"
                                                         Text="{Static lang:AppResources.DoctorDetails_Book}" />
 
                                                 </StackLayout>
@@ -192,8 +198,7 @@
                                             Command="{Binding Source={x:Reference thisPage}, Path=BindingContext.InsertBookingAppointmentsCommand}"
                                             FontFamily="{StaticResource IconFont}"
                                             FontSize="30"
-                                            HeightRequest="140"
-                                            HorizontalOptions="End"
+                                            HorizontalOptions="Center"
                                             Text="{x:Static font:IconFontMaterial.Autorenew}"
                                             TextColor="{StaticResource Primary}"
                                             VerticalOptions="FillAndExpand" />
@@ -221,55 +226,25 @@
                                         Style="{StaticResource SubTitle}"
                                         Text="{Static lang:AppResources.DoctorDetails_TherNoData}"
                                         TextColor="{StaticResource Primary}" />
-                                    <!--<StackLayout.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding TimetableIsEmpty}"
-                                            TargetType="StackLayout"
-                                            Value="true">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </StackLayout.Triggers>-->
                                 </StackLayout>
                             </Grid>
 
-
                         </StackLayout>
-
-                        <!--  Section 5 Specialties  -->
-                        <!--<kit:Expander Direction="Down">
-                            <kit:Expander.Header>
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="Medium"
-                                    Text="التخصصات الفرعية" />
-                            </kit:Expander.Header>
-                            <VerticalStackLayout Padding="10">
-                                <Label
-                                    LineBreakMode="WordWrap"
-                                    MaxLines="3"
-                                    Style="{StaticResource Body}"
-                                    Text="أخصائي في الأمراض الصدريةية جامعة القاهرة عام 323 في التخصص العام" />
-                            </VerticalStackLayout>
-                        </kit:Expander>-->
 
                     </StackLayout>
                 </Border>
 
-            </StackLayout>
+                <!--  doctor Avatar View .. Floating  -->
+                <kit:AvatarView
+                    Grid.Row="1"
+                    Margin="0,-35,10,10"
+                    HeightRequest="70"
+                    ImageSource="{Binding DoctorDetails.ImageUrl}"
+                    Style="{StaticResource Avatar}"
+                    VerticalOptions="Start"
+                    WidthRequest="70" />
+            </Grid>
+        </ScrollView>
+    </Grid>
 
-            <!--  Avatar View  Section of Floating  -->
-            <kit:AvatarView
-                Grid.Row="1"
-                Margin="0,-35,10,10"
-                HeightRequest="70"
-                ImageSource="{Binding DoctorDetails.ImageUrl}"
-                Style="{StaticResource Avatar}"
-                VerticalOptions="Start"
-                WidthRequest="70" />
-
-        </Grid>
-    </ScrollView>
-    <!--<ContentPage.Behaviors>
-        <kit:StatusBarBehavior StatusBarColor="Black" StatusBarStyle="LightContent" />
-    </ContentPage.Behaviors>-->
 </ContentPage>

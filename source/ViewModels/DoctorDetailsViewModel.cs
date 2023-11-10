@@ -27,7 +27,7 @@ public class DoctorDetailsViewModel : ObservableObject, IQueryAttributable
             GetAllDoctorWorkPeriod();
             GetAllHospitals();
         }
-        catch (Exception){}
+        catch (Exception) { }
     }
 
     public ObservableCollection<DoctorWorkPeriodModel> DocWorksList { get; set; }
@@ -208,12 +208,13 @@ public class DoctorDetailsViewModel : ObservableObject, IQueryAttributable
         //Saturday    6
         try
         {
-            var today = DateTime.Now.Date.ToUniversalTime();
+            var today = DateTime.Now;
             var todyNume = ((int)today.DayOfWeek);
+            var itemWillRemove = new List<DoctorWorkPeriodModel>(3);
             DocWorksList.Clear();
 
-            var start = allWorkPeriod.Where(x => x.DayId >= todyNume).OrderBy(d => d.DayId).ToList();
-            var end = allWorkPeriod.Where(x => x.DayId < todyNume).OrderBy(d => d.DayId).ToList();
+            var start = allWorkPeriod.Where(x => x.DayId >= todyNume).OrderBy(d => d.DayId).ThenBy(w=>w.WorkingPeriodId).ToList();
+            var end = allWorkPeriod.Where(x => x.DayId < todyNume).OrderBy(d => d.DayId).ThenBy(w => w.WorkingPeriodId).ToList();
 
             foreach (var item in start)
             {
@@ -231,6 +232,15 @@ public class DoctorDetailsViewModel : ObservableObject, IQueryAttributable
             {
                 if (item.DayId == todyNume) //4
                 {
+                    if (today.Hour >= 12 && item.WorkingPeriodId == 1)
+                    {
+                        itemWillRemove.Add(item);
+                    }
+                    
+                    if (today.Hour >= 19 && item.WorkingPeriodId == 2)
+                    {
+                        itemWillRemove.Add(item);
+                    }
                     item.Date = today;
                     item.DateName = "اليوم";
                 }
@@ -269,6 +279,11 @@ public class DoctorDetailsViewModel : ObservableObject, IQueryAttributable
                     item.DateName = item.Date.ToShortDateString();
                 }
                 lastList.Add(item);
+            }
+
+            foreach (var item in itemWillRemove)
+            {
+                DocWorksList.Remove(item);
             }
             OnPropertyChanged(nameof(DocWorksList));
             OnPropertyChanged(nameof(TimetableIsEmpty));
